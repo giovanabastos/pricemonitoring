@@ -1,0 +1,1752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Price Monitoring · Online & Offline</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════
+   SHARED / CHANNEL SWITCHER
+══════════════════════════════════════ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:16px; }
+body { background:#f1f2f7; font-family:'DM Sans',sans-serif; min-height:100vh; }
+
+.channel-bar {
+  background:#111827;
+  display:flex; align-items:stretch;
+  padding:0 36px;
+  position:sticky; top:0; z-index:500;
+}
+.channel-logo {
+  display:flex; align-items:center; gap:10px;
+  padding:14px 0; margin-right:32px; border-right:1px solid rgba(255,255,255,.1); padding-right:32px;
+}
+.channel-logo-label { font-size:10px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.4); font-family:'DM Mono',monospace; }
+.channel-logo-title { font-size:15px; font-weight:800; color:#fff; letter-spacing:-.2px; }
+.channel-logo-title em { color:#f97316; font-style:normal; }
+
+.channel-tabs { display:flex; align-items:stretch; gap:0; }
+.channel-tab {
+  display:flex; align-items:center; gap:8px;
+  padding:0 24px; font-size:13px; font-weight:700;
+  color:rgba(255,255,255,.4); cursor:pointer;
+  border:none; background:none; border-bottom:3px solid transparent; margin-bottom:-0px;
+  font-family:'DM Sans',sans-serif; transition:all .15s; white-space:nowrap;
+  letter-spacing:.01em;
+}
+.channel-tab:hover { color:rgba(255,255,255,.7); }
+.channel-tab.on { color:#fff; border-bottom-color:#4f8ef7; }
+.channel-tab .ct-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+
+.channel { display:none; }
+.channel.on { display:block; }
+
+/* ══════════════════════════════════════
+   ONLINE — inherits DM Sans / dark accent
+══════════════════════════════════════ */
+#online {
+  --bg:#f1f2f7; --surface:#fff; --surface2:#f7f8fc; --surface3:#eef0f8;
+  --border:#e2e5f0; --border2:#d0d4e8;
+  --accent:#1a56db; --accent2:#e8530a;
+  --text:#111827; --sub:#374151; --muted:#6b7280; --muted2:#9ca3af;
+  --sam:#7c3aed; --apl:#d97706; --opp:#059669;
+  --red:#dc2626; --green:#059669;
+}
+#online { background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; }
+
+/* header */
+.on-header { padding:20px 36px; background:var(--surface); border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+.on-logo-label { font-size:10px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); font-family:'DM Mono',monospace; margin-bottom:3px; }
+.on-logo-title { font-size:20px; font-weight:800; letter-spacing:-.3px; }
+.on-logo-title em { color:var(--accent2); font-style:normal; }
+.week-chip { background:#1e293b; color:#94a3b8; font-family:'DM Mono',monospace; font-size:11px; font-weight:500; padding:5px 13px; border-radius:6px; letter-spacing:.04em; }
+
+/* stats */
+.on-stats { display:grid; grid-template-columns:repeat(6,1fr); background:var(--surface); border-bottom:1px solid var(--border); }
+.on-stat { padding:14px 20px; border-right:1px solid var(--border); }
+.on-stat:last-child { border-right:none; }
+.on-stat-lbl { font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted2); font-family:'DM Mono',monospace; margin-bottom:4px; }
+.on-stat-val { font-size:20px; font-weight:800; letter-spacing:-.5px; font-family:'DM Mono',monospace; }
+.on-stat-sub { font-size:11px; color:var(--muted); font-family:'DM Mono',monospace; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.on-stat-insight .on-stat-val { font-size:16px; }
+.insight-rising .on-stat-val { color:#ef4444; }
+.insight-falling .on-stat-val { color:#22c55e; }
+.insight-leader .on-stat-val { color:#4f8ef7; }
+.c-accent { color:var(--accent); }
+
+/* filterbar */
+.on-filterbar { background:var(--surface); border-bottom:1px solid var(--border); display:flex; align-items:stretch; position:sticky; top:52px; z-index:200; }
+.on-nav-tabs { display:flex; align-items:stretch; border-right:1px solid var(--border); }
+.on-nav-tab { padding:0 20px; font-size:13px; font-weight:600; color:var(--muted); border:none; background:none; cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; transition:color .15s,border-color .15s; font-family:'DM Sans',sans-serif; white-space:nowrap; }
+.on-nav-tab:hover { color:var(--sub); }
+.on-nav-tab.on { color:var(--accent); border-bottom-color:var(--accent); }
+.on-filter-row { display:flex; align-items:center; gap:8px; padding:9px 20px; flex-wrap:wrap; }
+
+/* dropdown */
+.dd { position:relative; }
+.ddt { display:flex; align-items:center; gap:5px; padding:5px 11px; border:1px solid var(--border2); border-radius:7px; background:var(--surface2); color:var(--sub); font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600; cursor:pointer; user-select:none; transition:all .15s; white-space:nowrap; }
+.ddt:hover,.ddt.on { border-color:var(--accent); background:rgba(26,86,219,.07); color:var(--accent); }
+.ddt .cv { width:10px; height:10px; transition:transform .15s; flex-shrink:0; }
+.ddt.open .cv { transform:rotate(180deg); }
+.dd-badge { background:var(--accent); color:#fff; border-radius:9px; padding:0 6px; font-size:10px; font-family:'DM Mono',monospace; font-weight:600; }
+.ddm { position:absolute; top:calc(100% + 6px); left:0; background:var(--surface); border:1px solid var(--border2); border-radius:10px; box-shadow:0 12px 48px rgba(0,0,0,.13); min-width:210px; z-index:999; animation:popIn .12s ease; }
+@keyframes popIn { from{opacity:0;transform:translateY(-4px)} to{opacity:1;transform:translateY(0)} }
+.dds { display:flex; align-items:center; gap:7px; padding:9px 12px; border-bottom:1px solid var(--border); }
+.dds input { border:none; outline:none; background:none; font-family:'DM Sans',sans-serif; font-size:12px; color:var(--text); width:100%; }
+.dds input::placeholder { color:var(--muted2); }
+.ddl { max-height:220px; overflow-y:auto; padding:4px 0; }
+.ddi { display:flex; align-items:center; gap:8px; padding:7px 12px; cursor:pointer; transition:background .1s; }
+.ddi:hover { background:var(--surface2); }
+.ddi input[type=checkbox] { accent-color:var(--accent); width:13px; height:13px; flex-shrink:0; cursor:pointer; }
+.ddi-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+.ddi-name { flex:1; font-size:12px; font-weight:500; color:var(--text); }
+.ddi-sub { font-size:10px; color:var(--muted2); font-family:'DM Mono',monospace; }
+.ddf { display:flex; border-top:1px solid var(--border); }
+.ddf-btn { flex:1; padding:7px; border:none; background:none; cursor:pointer; font-family:'DM Mono',monospace; font-size:10px; font-weight:600; color:var(--accent); transition:background .1s; }
+.ddf-btn:hover { background:var(--surface2); }
+.ddf-btn+.ddf-btn { border-left:1px solid var(--border); }
+.reset-btn { padding:5px 10px; border:none; background:none; font-family:'DM Mono',monospace; font-size:10px; color:var(--muted2); cursor:pointer; border-radius:5px; transition:all .15s; }
+.reset-btn:hover { color:var(--sub); background:var(--surface2); }
+
+/* content */
+.on-main { padding:24px 36px; }
+.on-section { display:none; }
+.on-section.on { display:block; animation:fadeUp .2s ease; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
+
+/* card */
+.on-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:22px 26px; margin-bottom:18px; }
+.on-card-hd { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:18px; }
+.on-card-title { font-size:14px; font-weight:700; }
+.on-card-hint { font-size:11px; color:var(--muted); font-family:'DM Mono',monospace; margin-top:3px; }
+.on-mem-badge { display:inline-flex; align-items:center; gap:5px; background:#ede9fe; color:#6d28d9; border:1px solid #c4b5fd; border-radius:20px; padding:4px 11px; font-size:12px; font-weight:700; font-family:'DM Mono',monospace; white-space:nowrap; }
+.on-mem-badge .mb-icon { font-size:11px; opacity:.7; }
+
+/* insight strip */
+.on-insight-strip { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:18px; }
+.on-insight-card { background:var(--surface2); border:1px solid var(--border2); border-radius:10px; padding:16px 18px; position:relative; overflow:hidden; }
+.on-insight-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; }
+.insight-rising::before { background:linear-gradient(90deg,var(--red),transparent); }
+.insight-falling::before { background:linear-gradient(90deg,var(--green),transparent); }
+.insight-leader::before { background:linear-gradient(90deg,var(--accent),transparent); }
+.on-insight-lbl { font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); font-family:'DM Mono',monospace; margin-bottom:8px; }
+.on-insight-model { font-size:13px; font-weight:700; margin-bottom:2px; }
+.on-insight-meta { font-size:11px; color:var(--sub); }
+.on-insight-val { font-size:22px; font-weight:800; font-family:'DM Mono',monospace; margin-top:6px; }
+.on-insight-val.red { color:var(--red); }
+.on-insight-val.green { color:var(--green); }
+.on-insight-val.blue { color:var(--accent); }
+
+/* legend */
+.on-legend-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:5px 12px; margin-bottom:16px; }
+.on-leg-item { display:flex; align-items:center; gap:7px; font-size:11px; font-weight:600; color:var(--sub); }
+.on-leg-swatch { width:22px; height:3px; border-radius:2px; flex-shrink:0; }
+
+/* table */
+table.on-t { width:100%; border-collapse:collapse; }
+table.on-t thead th { font-size:12px; letter-spacing:.10em; text-transform:uppercase; color:var(--muted2); font-family:'DM Mono',monospace; font-weight:600; padding:0 8px 12px 0; border-bottom:1px solid var(--border); text-align:left; }
+table.on-t thead th.r { text-align:right; }
+table.on-t tbody tr { border-bottom:1px solid var(--border); transition:background .1s; }
+table.on-t tbody tr:hover { background:var(--surface2); }
+table.on-t tbody tr:last-child { border-bottom:none; }
+table.on-t tbody td { padding:10px 8px 10px 0; vertical-align:middle; font-size:14px; }
+table.on-t tbody td.r { text-align:right; }
+table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); border-bottom:1px solid var(--border); background:transparent; }
+
+.on-stripe { display:inline-block; width:3px; height:18px; border-radius:2px; vertical-align:middle; margin-right:8px; }
+.on-badge { font-size:10px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; padding:3px 8px; border-radius:4px; font-family:'DM Mono',monospace; white-space:nowrap; }
+.on-b-Samsung { background:rgba(124,58,237,.1); color:#7c3aed; }
+.on-b-Apple   { background:rgba(217,119,6,.1);  color:#d97706; }
+.on-b-OPPO    { background:rgba(5,150,105,.1);  color:#059669; }
+.on-sz { font-size:12px; font-family:'DM Mono',monospace; background:var(--surface2); border:1px solid var(--border2); padding:2px 8px; border-radius:4px; color:var(--sub); white-space:nowrap; }
+.on-pv { font-family:'DM Mono',monospace; font-weight:600; font-size:14px; }
+.on-nv { color:var(--muted2); font-family:'DM Mono',monospace; font-size:13px; }
+.on-t-up { color:var(--red); font-family:'DM Mono',monospace; font-size:13px; font-weight:600; }
+.on-t-dn { color:var(--green); font-family:'DM Mono',monospace; font-size:13px; font-weight:600; }
+.on-t-fl { color:var(--muted2); font-family:'DM Mono',monospace; font-size:13px; }
+
+/* heatmap */
+.on-hm { display:flex; flex-direction:column; }
+.on-hm-hd,.on-hm-row { display:grid; grid-template-columns:220px 88px 84px 1fr 120px; gap:10px; align-items:center; padding:9px 0; border-bottom:1px solid var(--border); }
+.on-hm-hd { border-bottom:2px solid var(--border2); padding-bottom:10px; }
+.on-hm-hd>div { font-size:12px; font-family:'DM Mono',monospace; letter-spacing:.10em; text-transform:uppercase; color:var(--muted2); font-weight:600; }
+.on-hm-row:last-child { border-bottom:none; }
+.on-hm-row:hover { background:var(--surface2); border-radius:6px; }
+
+/* sort */
+.on-sort-grp { display:flex; gap:4px; }
+.on-sb { padding:4px 11px; border-radius:5px; border:1px solid var(--border2); background:none; font-family:'DM Sans',sans-serif; font-size:11px; font-weight:600; color:var(--muted); cursor:pointer; transition:all .15s; }
+.on-sb:hover { background:var(--surface2); color:var(--sub); }
+.on-sb.on { background:var(--accent); color:#fff; border-color:var(--accent); }
+
+.on-empty { padding:48px 0; text-align:center; font-family:'DM Mono',monospace; font-size:13px; color:var(--muted2); }
+
+/* ══════════════════════════════════════
+   OFFLINE — inherits Plus Jakarta Sans / original style
+══════════════════════════════════════ */
+#offline {
+  --bg: #f5f6fa; --surface: #ffffff; --surface2: #f0f1f5; --border: #e2e4ed;
+  --accent: #0052cc; --accent2: #e8530a; --accent3: #7c3aed;
+  --text: #1a1a2e; --muted: #8a8fa8;
+  --apple: #e8a020; --samsung: #7c3aed; --motorola: #1a1a1a;
+  --oppo: #1aaa55; --xiaomi: #ff6900; --honor: #e42125;
+  font-size:16px;
+}
+#offline { background:var(--bg); color:var(--text); font-family:'Plus Jakarta Sans',sans-serif; }
+
+#offline header { padding:36px 48px 28px; border-bottom:1px solid var(--border); display:flex; align-items:flex-end; justify-content:space-between; position:relative; overflow:hidden; }
+#offline header::before { content:''; position:absolute; top:-80px; right:-80px; width:400px; height:400px; background:radial-gradient(circle,rgba(0,82,204,0.06) 0%,transparent 70%); pointer-events:none; }
+.off-h1 { font-size:13px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); margin-bottom:10px; font-family:'JetBrains Mono',monospace; }
+.off-h2 { font-size:38px; font-weight:800; line-height:1; letter-spacing:-1px; }
+.off-h2 span { color:#1a1a1a; }
+.off-meta { text-align:right; font-family:'JetBrains Mono',monospace; }
+.off-store-badge { background:#1a1a1a; color:white; padding:8px 18px; border-radius:6px; font-size:15px; font-weight:600; letter-spacing:.05em; display:inline-block; margin-bottom:10px; }
+.off-date { font-size:12px; color:var(--muted); display:block; }
+
+.off-stats-bar { display:grid; grid-template-columns:repeat(5,1fr); border-bottom:1px solid var(--border); }
+.off-stat { padding:20px 28px; border-right:1px solid var(--border); }
+.off-stat:last-child { border-right:none; }
+.off-stat-label { font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); font-family:'JetBrains Mono',monospace; margin-bottom:8px; }
+.off-stat-value { font-size:26px; font-weight:800; letter-spacing:-.5px; }
+.off-stat-value.cyan { color:var(--accent); }
+.off-stat-value.orange { color:var(--accent2); }
+.off-stat-value.purple { color:var(--accent3); }
+
+.off-main { display:grid; grid-template-columns:280px 1fr; min-height:calc(100vh - 200px); }
+.off-sidebar { border-right:1px solid var(--border); padding:28px 20px; }
+.off-sidebar-title { font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); font-family:'JetBrains Mono',monospace; margin-bottom:16px; }
+.off-brand-filter { display:flex; flex-direction:column; gap:6px; margin-bottom:32px; }
+.off-filterbar { background:var(--surface); border-bottom:1px solid var(--border); display:flex; align-items:stretch; position:sticky; top:52px; z-index:200; flex-wrap:wrap; }
+.off-view-btn { padding:5px 11px; border:1px solid var(--border2); border-radius:7px; background:var(--surface2); color:var(--sub); font-family:'Plus Jakarta Sans',sans-serif; font-size:12px; font-weight:600; cursor:pointer; transition:all .15s; }
+.off-view-btn:hover,.off-view-btn.active { border-color:var(--accent); background:rgba(26,86,219,.07); color:var(--accent); }
+.off-brand-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.off-brand-count { margin-left:auto; font-size:13px; color:var(--muted); font-family:'JetBrains Mono',monospace; }
+.off-tier-filter { display:flex; flex-direction:column; gap:6px; }
+.off-tier-pill { display:flex; align-items:center; gap:10px; padding:9px 14px; border-radius:8px; border:1px solid var(--border); cursor:pointer; transition:all .15s; background:transparent; color:var(--text); font-family:'JetBrains Mono',monospace; font-size:13px; text-align:left; width:100%; }
+.off-tier-pill:hover { background:var(--surface2); }
+.off-tier-pill.active { border-color:var(--accent2); background:rgba(232,83,10,.07); }
+.specs-pill { padding:6px 14px; border-radius:20px; border:1.5px solid var(--border); background:transparent; color:var(--text); font-family:'Plus Jakarta Sans',sans-serif; font-size:13px; font-weight:500; cursor:pointer; transition:all .15s; }
+.specs-pill:hover { background:var(--surface2); }
+.specs-pill.active { border-color:#1a3a6b; background:#1a3a6b; color:#fff; }
+.evo-filter-pill { padding:4px 11px; border-radius:16px; border:1.5px solid var(--border); background:transparent; color:var(--muted); font-family:'Plus Jakarta Sans',sans-serif; font-size:12px; font-weight:500; cursor:pointer; transition:all .15s; }
+.evo-filter-pill:hover { background:var(--surface2); }
+.evo-filter-pill.active { border-color:var(--pill-col,var(--accent2)); background:var(--pill-col,var(--accent2)); color:#fff; }
+.evo-filter-pill.tier.active { border-color:var(--accent2); background:rgba(232,83,10,.1); color:var(--accent2); }
+
+.off-content { padding:28px 36px; }
+.off-section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
+.off-section-title { font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); font-family:'JetBrains Mono',monospace; }
+.off-view-controls { display:flex; gap:6px; }
+.off-view-btn { padding:6px 14px; border-radius:6px; border:1px solid var(--border); background:transparent; font-family:'Plus Jakarta Sans',sans-serif; font-size:11px; font-weight:600; color:var(--muted); cursor:pointer; transition:all .15s; }
+.off-view-btn:hover { background:var(--surface2); color:var(--text); }
+.off-view-btn.active { background:var(--accent); color:white; border-color:var(--accent); }
+
+.off-brand-group-header { display:flex; align-items:center; gap:10px; padding:10px 0 6px; margin-top:8px; border-bottom:2px solid currentColor; margin-bottom:4px; font-size:13px; font-weight:800; letter-spacing:.04em; }
+.off-brand-group-header .bgh-count { font-size:10px; font-family:'JetBrains Mono',monospace; opacity:.6; font-weight:400; }
+.off-product-table { width:100%; border-collapse:collapse; margin-bottom:8px; }
+.off-product-table thead tr { border-bottom:1px solid var(--border); }
+.off-product-table thead th { text-align:left; font-size:12px; font-family:'JetBrains Mono',monospace; letter-spacing:.10em; text-transform:uppercase; color:var(--muted); padding:8px 12px 8px 0; font-weight:500; }
+.off-product-table thead th:last-child { text-align:right; }
+.off-product-table tbody tr { border-bottom:1px solid var(--border); transition:background .12s; }
+.off-product-table tbody tr:hover { background:var(--surface2); }
+.off-product-table tbody td { padding:11px 12px 11px 0; font-size:14px; vertical-align:middle; }
+.off-td-brand { width:28px; }
+.off-brand-color-bar { width:4px; height:28px; border-radius:2px; display:inline-block; }
+.off-td-model { font-weight:600; }
+.off-td-memory { font-size:12px; font-family:'JetBrains Mono',monospace; color:var(--muted); }
+.off-td-tier { font-size:12px; font-family:'JetBrains Mono',monospace; color:var(--muted); }
+.off-td-price { text-align:right; font-family:'JetBrains Mono',monospace; font-weight:600; font-size:14px; color:var(--accent); white-space:nowrap; }
+.off-no-results { text-align:center; padding:60px 40px; color:var(--muted); font-family:'JetBrains Mono',monospace; font-size:14px; display:none; }
+
+/* Offline tab nav */
+.off-tab-nav { display:flex; gap:0; border-bottom:2px solid var(--border); padding:0 36px; background:var(--surface); }
+.off-tab-btn { padding:14px 22px; font-size:13px; font-weight:700; color:var(--muted); background:none; border:none; border-bottom:3px solid transparent; margin-bottom:-2px; cursor:pointer; font-family:'Plus Jakarta Sans',sans-serif; transition:all .15s; }
+.off-tab-btn:hover { color:var(--text); }
+.off-tab-btn.active { color:var(--accent); border-bottom-color:var(--accent); }
+
+/* Specs section */
+.off-specs-wrap { padding:28px 36px; }
+.off-specs-selector { display:flex; align-items:center; gap:14px; margin-bottom:32px; padding:18px 22px; background:var(--surface); border:1px solid var(--border); border-radius:12px; }
+.off-specs-selector-label { font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); font-family:'JetBrains Mono',monospace; white-space:nowrap; }
+.off-specs-selector select { padding:8px 14px; border:1px solid var(--border); border-radius:8px; font-family:'Plus Jakarta Sans',sans-serif; font-size:14px; font-weight:700; background:var(--surface2); color:var(--text); cursor:pointer; outline:none; }
+.off-specs-group-title { font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); font-family:'JetBrains Mono',monospace; margin-bottom:18px; padding-bottom:10px; border-bottom:2px solid var(--border); }
+.off-specs-table { width:100%; border-collapse:collapse; margin-bottom:8px; }
+.off-specs-table th { padding:11px 14px; font-size:13px; font-weight:700; text-align:center; border:1px solid var(--border); font-family:'Plus Jakarta Sans',sans-serif; }
+.off-specs-table th.col-jovi { background:#1a3a6b; color:#fff; }
+.off-specs-table th.col-samsung { background:rgba(124,58,237,.13); color:#7c3aed; }
+.off-specs-table th.col-apple { background:rgba(217,119,6,.13); color:#b45309; }
+.off-specs-table th.col-oppo { background:rgba(5,150,105,.13); color:#047857; }
+.off-specs-table th.col-moto { background:rgba(30,30,30,.08); color:#1a1a1a; }
+.off-specs-table td { padding:8px 10px; font-size:12px; border:1px solid var(--border); vertical-align:top; line-height:1.55; text-align:center; }
+.off-specs-table td.spec-label { font-size:11px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); font-family:'JetBrains Mono',monospace; white-space:nowrap; background:var(--surface2); text-align:left; width:110px; }
+.off-specs-table td.col-jovi-cell { background:rgba(26,58,107,.04); font-weight:600; }
+.spec-prices { font-family:'JetBrains Mono',monospace; font-size:11px; line-height:1.8; text-align:center; display:inline-block; }
+.spec-prices .pc { display:block; color:var(--muted); font-size:10px; }
+.spec-prices .pv { font-weight:700; color:var(--accent); font-size:12px; }
+.spec-warranty { font-size:12px; line-height:1.7; }
+/* Price row highlight */
+.off-specs-table tr.price-row td { background:#fff8e1; }
+.off-specs-table tr.price-row td.spec-label { background:#ffeaa0; color:#92670a; font-size:12px; }
+.off-specs-table tr.price-row .spec-prices { font-size:12px; line-height:1.9; }
+.off-specs-table tr.price-row .spec-prices .pv { font-size:13px; color:#b45309; }
+.off-specs-table tr.price-row .spec-prices .pc { font-size:10px; }
+.off-specs-table tr.price-row td.col-jovi-cell { background:#fff0c0; }
+
+/* Range chart */
+.off-chart-section { margin-top:32px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:24px; }
+.off-chart-title { font-size:14px; font-weight:700; margin-bottom:24px; display:flex; align-items:center; gap:10px; }
+.off-chart-title::after { content:''; flex:1; height:1px; background:var(--border); }
+.off-range-chart { display:flex; flex-direction:column; gap:20px; }
+.off-range-row { display:grid; grid-template-columns:88px 1fr 84px; align-items:center; gap:16px; }
+.off-range-brand-label { font-size:13px; font-weight:700; text-align:right; }
+.off-range-track-wrap { position:relative; height:60px; display:flex; align-items:center; }
+.off-range-axis-line { position:absolute; top:50%; left:0; right:0; height:1px; background:var(--border); transform:translateY(-50%); }
+.off-range-line { position:absolute; height:4px; border-radius:2px; top:50%; transform:translateY(-50%); }
+.off-range-dot { position:absolute; width:10px; height:10px; border-radius:50%; top:50%; transform:translate(-50%,-50%); cursor:pointer; transition:transform .15s; border:2px solid white; box-shadow:0 1px 4px rgba(0,0,0,.2); z-index:2; }
+.off-range-dot:hover { transform:translate(-50%,-50%) scale(1.5); z-index:10; }
+.off-range-dot-avg { position:absolute; width:14px; height:14px; border-radius:50%; top:50%; transform:translate(-50%,-50%); box-shadow:0 2px 6px rgba(0,0,0,.25); z-index:3; }
+.off-range-tooltip { position:absolute; bottom:calc(100% + 6px); left:50%; transform:translateX(-50%); background:#1a1a2e; color:white; padding:5px 9px; border-radius:6px; font-size:11px; font-family:'JetBrains Mono',monospace; white-space:nowrap; pointer-events:none; opacity:0; transition:opacity .15s; z-index:20; }
+.off-range-dot-wrap { position:absolute; top:50%; transform:translate(-50%,-50%); z-index:2; }
+.off-range-dot-wrap:hover .off-range-tooltip { opacity:1; }
+.off-range-dot-wrap:hover .off-range-dot { transform:scale(1.5); }
+.off-range-stat { font-size:11px; font-family:'JetBrains Mono',monospace; color:var(--muted); line-height:1.6; }
+.off-range-stat strong { color:var(--text); font-size:12px; }
+.off-chart-x-axis { display:grid; grid-template-columns:88px 1fr 84px; gap:16px; margin-top:8px; }
+.off-axis-ticks { display:flex; justify-content:space-between; font-size:10px; font-family:'JetBrains Mono',monospace; color:var(--muted); padding:0 2px; }
+
+/* Brand distribution chart */
+.off-brand-dist-legend { display:flex; gap:18px; flex-wrap:wrap; margin-bottom:20px; }
+.off-brand-dist-legend-item { display:flex; align-items:center; gap:7px; font-size:11px; font-weight:600; }
+.off-brand-dist-legend-dot { width:10px; height:10px; border-radius:50%; }
+.off-grouped-chart-wrap { position:relative; }
+.off-grouped-y-axis { position:absolute; left:0; top:0; bottom:32px; width:36px; display:flex; flex-direction:column-reverse; justify-content:space-between; pointer-events:none; }
+.off-grouped-y-tick { font-size:12px; font-family:'JetBrains Mono',monospace; color:var(--muted); text-align:right; padding-right:6px; line-height:1; }
+.off-grouped-chart-inner { margin-left:40px; position:relative; }
+.off-grouped-gridlines { position:absolute; left:0; right:0; top:0; bottom:0; pointer-events:none; }
+.off-grouped-gridline { position:absolute; left:0; right:0; height:1px; background:var(--border); }
+.off-grouped-bars-area { display:flex; align-items:flex-end; gap:0; height:200px; position:relative; }
+.off-grouped-brand-group { flex:1; display:flex; align-items:flex-end; justify-content:center; gap:3px; padding:0 6px; position:relative; }
+.off-grouped-bar { flex:1; max-width:28px; border-radius:4px 4px 0 0; transition:height .6s cubic-bezier(.16,1,.3,1),opacity .2s; cursor:pointer; position:relative; }
+.off-grouped-bar:hover { opacity:.8; }
+.off-grouped-bar:hover .off-gbar-tooltip { opacity:1; }
+.off-gbar-tooltip { position:absolute; bottom:calc(100% + 6px); left:50%; transform:translateX(-50%); background:#1a1a2e; color:white; padding:5px 9px; border-radius:6px; font-size:10px; font-family:'JetBrains Mono',monospace; white-space:nowrap; pointer-events:none; opacity:0; transition:opacity .15s; z-index:20; }
+.off-grouped-x-axis { display:flex; border-top:1px solid var(--border); margin-top:0; }
+.off-grouped-x-label { flex:1; text-align:center; font-size:11px; font-weight:700; padding-top:8px; font-family:'Plus Jakarta Sans',sans-serif; }
+
+::-webkit-scrollbar { width:5px; height:5px; }
+::-webkit-scrollbar-thumb { background:#d0d4e8; border-radius:3px; }
+::-webkit-scrollbar-track { background:transparent; }
+</style>
+</head>
+<body>
+
+<!-- CHANNEL SWITCHER -->
+<div class="channel-bar">
+  <div class="channel-logo">
+    <div>
+      <div class="channel-logo-label">Market Intelligence</div>
+      <div class="channel-logo-title">Price <em>Monitoring</em></div>
+    </div>
+  </div>
+  <div class="channel-tabs">
+    <button class="channel-tab on" onclick="switchChannel('offline')" id="ctab-offline">
+      <span class="ct-dot" style="background:#f97316"></span>
+      Offline · Casas Bahia
+    </button>
+    <button class="channel-tab" onclick="switchChannel('online')" id="ctab-online">
+      <span class="ct-dot" style="background:#4f8ef7"></span>
+      Online
+    </button>
+  </div>
+</div>
+
+<!-- ══════════════ ONLINE ══════════════ -->
+<div class="channel" id="online">
+
+  <div class="on-header">
+    <div>
+      <div class="on-logo-label">Online ASP Price Monitoring</div>
+      <div class="on-logo-title">Online Price <em>Monitoring</em></div>
+    </div>
+    <div class="week-chip">W07 – W11 · 2025</div>
+  </div>
+
+  <div class="on-stats">
+    <div class="on-stat"><div class="on-stat-lbl">Competitors</div><div class="on-stat-val c-accent" id="kpi-comp">—</div></div>
+    <div class="on-stat"><div class="on-stat-lbl">SKUs</div><div class="on-stat-val" id="kpi-skus">—</div></div>
+    <div class="on-stat"><div class="on-stat-lbl">Avg ASP · W11</div><div class="on-stat-val c-accent" id="kpi-avg">—</div></div>
+    <div class="on-stat on-stat-insight insight-rising">
+      <div class="on-stat-lbl">🔺 Biggest Increase · W10→W11</div>
+      <div class="on-stat-val" id="kpi-rise-val" style="font-size:15px">—</div>
+      <div class="on-stat-sub" id="kpi-rise-sub"></div>
+    </div>
+    <div class="on-stat on-stat-insight insight-falling">
+      <div class="on-stat-lbl">🔻 Biggest Drop · W10→W11</div>
+      <div class="on-stat-val" id="kpi-drop-val" style="font-size:15px">—</div>
+      <div class="on-stat-sub" id="kpi-drop-sub"></div>
+    </div>
+    <div class="on-stat on-stat-insight insight-leader">
+      <div class="on-stat-lbl">👑 Most Expensive · W11</div>
+      <div class="on-stat-val" id="kpi-top-val" style="font-size:15px">—</div>
+      <div class="on-stat-sub" id="kpi-top-sub"></div>
+    </div>
+  </div>
+
+  <div class="on-filterbar">
+    <div class="on-nav-tabs">
+      <button class="on-nav-tab on" onclick="onGoTo('evolution')" id="on-tab-evolution">📈 Weekly Evolution</button>
+      <button class="on-nav-tab"    onclick="onGoTo('heatmap')"   id="on-tab-heatmap">🌡 Heatmap W11</button>
+      <button class="on-nav-tab"    onclick="onGoTo('channel')"   id="on-tab-channel">🏪 By Channel</button>
+    </div>
+    <div class="on-filter-row">
+      <div class="dd" id="dd-brand">
+        <div class="ddt" id="ddt-brand" onclick="ddToggle('brand')">
+          <span id="ddlbl-brand">Brand</span>
+          <svg class="cv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="ddm" id="ddm-brand" style="display:none">
+          <div class="ddl" id="ddl-brand"></div>
+          <div class="ddf"><button class="ddf-btn" onclick="ddAll('brand')">All</button><button class="ddf-btn" onclick="ddNone('brand')">Clear</button></div>
+        </div>
+      </div>
+      <div class="dd" id="dd-size">
+        <div class="ddt" id="ddt-size" onclick="ddToggle('size')">
+          <span id="ddlbl-size">Storage</span>
+          <svg class="cv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="ddm" id="ddm-size" style="display:none">
+          <div class="ddl" id="ddl-size"></div>
+          <div class="ddf"><button class="ddf-btn" onclick="ddAll('size')">All</button><button class="ddf-btn" onclick="ddNone('size')">Clear</button></div>
+        </div>
+      </div>
+      <div class="dd" id="dd-model">
+        <div class="ddt" id="ddt-model" onclick="ddToggle('model')">
+          <span id="ddlbl-model">Model</span>
+          <svg class="cv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="ddm" id="ddm-model" style="display:none;min-width:230px;">
+          <div class="dds">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input id="mq" type="text" placeholder="Search model…" oninput="ddSearch()">
+          </div>
+          <div class="ddl" id="ddl-model"></div>
+          <div class="ddf"><button class="ddf-btn" onclick="ddAll('model')">All</button><button class="ddf-btn" onclick="ddNone('model')">Clear</button></div>
+        </div>
+      </div>
+      <button class="reset-btn" onclick="ddAllReset()">↺ Reset</button>
+    </div>
+  </div>
+
+  <div class="on-main">
+    <div class="on-section on" id="on-sec-evolution">
+      <div id="on-insights-row"></div>
+      <div class="on-card">
+        <div class="on-card-hd">
+          <div><div class="on-card-title">Weekly ASP Evolution</div><div class="on-card-hint">One line per model · use Model filter to isolate</div></div>
+          <div id="on-evo-mem-badge" style="display:none;align-items:center;gap:6px;flex-wrap:wrap"></div>
+        </div>
+        <div id="on-evo-legend" class="on-legend-grid"></div>
+        <svg id="on-evo-svg" style="width:100%;overflow:visible;display:block;"></svg>
+      </div>
+      <div class="on-card">
+        <div class="on-card-hd"><div><div class="on-card-title">Weekly Detail</div><div class="on-card-hint">Trend = W-1 → W only</div></div></div>
+        <div id="on-evo-table"></div>
+      </div>
+    </div>
+    <div class="on-section" id="on-sec-heatmap">
+      <div class="on-card">
+        <div class="on-card-hd">
+          <div><div class="on-card-title">ASP Heatmap · W11</div><div class="on-card-hint">Ranked high → low</div></div>
+          <div id="on-hm-gradient" style="display:flex;align-items:center;gap:8px;min-width:180px;"></div>
+        </div>
+        <div class="on-hm" id="on-hm-content"></div>
+      </div>
+    </div>
+    <div class="on-section" id="on-sec-channel">
+
+      <!-- CHART 1: Price by channel for selected model/size -->
+      <div class="on-card" style="margin-bottom:18px">
+        <div class="on-card-hd" style="flex-wrap:wrap;gap:12px">
+          <div>
+            <div class="on-card-title">Price by Channel</div>
+            <div class="on-card-hint">Preço W11 por canal para o SKU selecionado</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+            <select id="ch-model-sel" onchange="chRender()" style="padding:6px 10px;border:1px solid var(--border2);border-radius:7px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;background:var(--surface2);color:var(--text);cursor:pointer"></select>
+            <select id="ch-size-sel"  onchange="chRender()" style="padding:6px 10px;border:1px solid var(--border2);border-radius:7px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;background:var(--surface2);color:var(--text);cursor:pointer"></select>
+          </div>
+        </div>
+        <div id="ch-bar-chart" style="margin-top:4px"></div>
+      </div>
+
+      <!-- CHART 2: W10 vs W11 avg per channel -->
+      <div class="on-card">
+        <div class="on-card-hd">
+          <div>
+            <div class="on-card-title">W10 vs W11 — Average ASP by Channel</div>
+            <div class="on-card-hint">Avg across all filtered SKUs · same model/size filters apply</div>
+          </div>
+        </div>
+        <div id="ch-week-chart" style="margin-top:4px"></div>
+      </div>
+
+    </div>
+  </div>
+</div><!-- /online -->
+
+<!-- ══════════════ OFFLINE ══════════════ -->
+<div class="channel on" id="offline">
+
+  <header>
+    <div class="header-left">
+      <p class="off-h1">Offline Price Monitoring</p>
+      <h2 class="off-h2">Casas <span>Bahia</span></h2>
+    </div>
+    <div class="off-meta">
+      <span class="off-date">W11 · 03/11/2025</span>
+    </div>
+  </header>
+
+  <div class="off-stats-bar">
+    <div class="off-stat"><div class="off-stat-label">Models monitored</div><div class="off-stat-value cyan" id="off-stat-total">36</div></div>
+    <div class="off-stat"><div class="off-stat-label">Brands</div><div class="off-stat-value" id="off-stat-brands">6</div></div>
+    <div class="off-stat"><div class="off-stat-label">Lowest price W11</div><div class="off-stat-value cyan" id="off-stat-min">—</div></div>
+    <div class="off-stat"><div class="off-stat-label">Highest price W11</div><div class="off-stat-value orange" id="off-stat-max">—</div></div>
+    <div class="off-stat"><div class="off-stat-label">Avg. ticket W11</div><div class="off-stat-value purple" id="off-stat-avg">—</div></div>
+  </div>
+
+  <!-- Unified sticky bar: tabs + shared filters -->
+  <div class="off-filterbar">
+    <div class="on-nav-tabs" style="border-right:1px solid var(--border)">
+      <button class="on-nav-tab on" id="off-tab-evolution" onclick="offGoTo('evolution')" style="font-family:'Plus Jakarta Sans',sans-serif">📈 W10 → W11</button>
+      <button class="on-nav-tab"    id="off-tab-prices"    onclick="offGoTo('prices')"   style="font-family:'Plus Jakarta Sans',sans-serif">🏷 Prices</button>
+      <button class="on-nav-tab"    id="off-tab-specs"     onclick="offGoTo('specs')"    style="font-family:'Plus Jakarta Sans',sans-serif">📋 Specs</button>
+    </div>
+    <div class="on-filter-row">
+      <div class="dd" id="off-dd-brand">
+        <div class="ddt" id="off-ddt-brand" onclick="offDdToggle('brand')">
+          <span id="off-ddlbl-brand">Brand</span>
+          <svg class="cv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="ddm" id="off-ddm-brand" style="display:none">
+          <div class="ddl" id="off-ddl-brand"></div>
+          <div class="ddf"><button class="ddf-btn" onclick="offDdAll('brand')">All</button><button class="ddf-btn" onclick="offDdNone('brand')">Clear</button></div>
+        </div>
+      </div>
+      <div class="dd" id="off-dd-tier">
+        <div class="ddt" id="off-ddt-tier" onclick="offDdToggle('tier')">
+          <span id="off-ddlbl-tier">Price Range</span>
+          <svg class="cv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="ddm" id="off-ddm-tier" style="display:none">
+          <div class="ddl" id="off-ddl-tier"></div>
+          <div class="ddf"><button class="ddf-btn" onclick="offDdAll('tier')">All</button><button class="ddf-btn" onclick="offDdNone('tier')">Clear</button></div>
+        </div>
+      </div>
+      <button class="reset-btn" onclick="offDdReset()">↺ Reset</button>
+    </div>
+    <!-- Sort controls: only shown in Prices tab -->
+    <div class="on-filter-row" id="off-sort-controls" style="margin-left:auto;padding-left:0">
+      <span id="off-results-count" style="font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace"></span>
+      <button class="off-view-btn active" id="off-btn-price" onclick="offSetSort('price')">↑ Price</button>
+      <button class="off-view-btn" id="off-btn-brand" onclick="offSetSort('brand')">By brand</button>
+    </div>
+  </div>
+
+  <!-- PRICES -->
+  <div id="off-sec-prices" style="display:none">
+    <div style="padding:8px 36px 20px">
+      <div id="off-product-list"></div>
+      <div class="off-no-results" id="off-no-results">No products found</div>
+      <div class="off-chart-section" style="margin-top:20px;">
+        <div class="off-chart-title">Models per price tier, by brand</div>
+        <div class="off-brand-dist-legend" id="off-tier-legend"></div>
+        <div id="off-stacked-chart"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EVOLUTION W10→W11 -->
+  <div id="off-sec-evolution">
+    <div style="padding:24px 36px">
+      <div id="off-evo-insights" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px"></div>
+      <div style="display:grid;grid-template-columns:1fr 280px;gap:28px;align-items:start">
+        <div class="off-chart-section">
+          <div class="off-chart-title" id="off-evo-chart-title">Price Variation W10 → W11</div>
+          <div id="off-evo-chart"></div>
+        </div>
+        <div class="off-chart-section">
+          <div class="off-chart-title">Ranking by Brand</div>
+          <div id="off-evo-brand-ranking"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPECS -->
+  <div id="off-sec-specs" style="display:none">
+    <div class="off-specs-wrap">
+
+      <div class="off-specs-selector" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:12px 0 16px">
+        <span class="off-specs-selector-label" style="margin-right:4px">Jovi Model</span>
+        <button class="specs-pill active" data-key="x300ultra" onclick="specsSelect(this)">X300 Ultra</button>
+        <button class="specs-pill" data-key="x300fe" onclick="specsSelect(this)">X300 FE</button>
+        <button class="specs-pill" data-key="v70" onclick="specsSelect(this)">V70</button>
+        <button class="specs-pill" data-key="y31" onclick="specsSelect(this)">Y31</button>
+        <button class="specs-pill" data-key="y29s" onclick="specsSelect(this)">Y29s</button>
+        <button class="specs-pill" data-key="y29" onclick="specsSelect(this)">Y29</button>
+        <button class="specs-pill" data-key="y21" onclick="specsSelect(this)">Y21</button>
+        <button class="specs-pill" data-key="y19s" onclick="specsSelect(this)">Y19s</button>
+      </div>
+
+      <div id="specs-content"></div>
+    </div>
+  </div>
+
+</div><!-- /offline -->
+
+<script>
+/* ══════════════════════════════════
+   CHANNEL SWITCHER
+══════════════════════════════════ */
+function switchChannel(ch) {
+  document.querySelectorAll('.channel').forEach(el => el.classList.remove('on'));
+  document.querySelectorAll('.channel-tab').forEach(el => el.classList.remove('on'));
+  document.getElementById(ch).classList.add('on');
+  document.getElementById('ctab-'+ch).classList.add('on');
+}
+
+/* ══════════════════════════════════
+   ONLINE — DATA & LOGIC
+══════════════════════════════════ */
+const ON_RAW = [
+  {brand:"Samsung",competitor:"Galaxy S26 Ultra", size:"256 GB",W07:null,    W08:null,     W09:null,     W10:11499,    W11:11499},
+  {brand:"Samsung",competitor:"Galaxy S26 Ultra", size:"512 GB",W07:null,    W08:null,     W09:null,     W10:11499,    W11:11499},
+  {brand:"Samsung",competitor:"Galaxy S26 Ultra", size:"1 TB",  W07:null,    W08:null,     W09:null,     W10:13099,    W11:13099},
+  {brand:"Samsung",competitor:"Galaxy S25 Ultra", size:"256 GB",W07:7506.14, W08:7317.28,  W09:7481.5,   W10:7484.92,  W11:7304.25},
+  {brand:"Samsung",competitor:"Galaxy S25 Ultra", size:"512 GB",W07:7199,    W08:7167.82,  W09:7174,     W10:7399,     W11:7246.75},
+  {brand:"Samsung",competitor:"Galaxy S25 Ultra", size:"1 TB",  W07:12890,   W08:11444.5,  W09:11244.5,  W10:10299,    W11:9975},
+  {brand:"Apple",  competitor:"iPhone 17 Pro Max",size:"256 GB",W07:12499,   W08:12498.94, W09:12498.94, W10:11498.94, W11:11874},
+  {brand:"Apple",  competitor:"iPhone 17 Pro Max",size:"512 GB",W07:13998.84,W08:13498.92, W09:13998.21, W10:13065.26, W11:13159},
+  {brand:"Apple",  competitor:"iPhone 17 Pro Max",size:"1 TB",  W07:15498.84,W08:15498.84, W09:15498.84, W10:15498.84, W11:15498.23},
+  {brand:"Apple",  competitor:"iPhone 17 Pro Max",size:"2 TB",  W07:18499,   W08:18499,    W09:18499,    W10:17399,    W11:19061.5},
+  {brand:"Apple",  competitor:"iPhone 16 Pro Max",size:"256 GB",W07:11749,   W08:12499,    W09:12499,    W10:12499,    W11:12499},
+  {brand:"Apple",  competitor:"iPhone 16 Pro Max",size:"512 GB",W07:12999,   W08:12999,    W09:13499,    W10:12999,    W11:12999},
+  {brand:"Samsung",competitor:"Galaxy S26 Plus",  size:"256 GB",W07:null,    W08:null,     W09:null,     W10:9199,     W11:9199},
+  {brand:"Samsung",competitor:"Galaxy S26 Plus",  size:"512 GB",W07:null,    W08:null,     W09:null,     W10:9199,     W11:9199},
+  {brand:"Samsung",competitor:"Galaxy S25 Plus",  size:"256 GB",W07:5028.97, W08:5130.41,  W09:5097.56,  W10:4985.06,  W11:5016.78},
+  {brand:"Samsung",competitor:"Galaxy S25 Plus",  size:"512 GB",W07:5389.98, W08:5299,     W09:5299,     W10:5199,     W11:5199},
+  {brand:"Samsung",competitor:"Galaxy S26",       size:"256 GB",W07:null,    W08:null,     W09:null,     W10:7499,     W11:7499},
+  {brand:"Samsung",competitor:"Galaxy S26",       size:"512 GB",W07:null,    W08:7499,     W09:null,     W10:7499,     W11:7499},
+  {brand:"Samsung",competitor:"Galaxy S25",       size:"256 GB",W07:4331.31, W08:4330.67,  W09:4331,     W10:4165.25,  W11:4165.25},
+  {brand:"Apple",  competitor:"iPhone Air",       size:"256 GB",W07:8067.65, W08:8067.65,  W09:8067.65,  W10:7765.27,  W11:7754.5},
+  {brand:"Apple",  competitor:"iPhone Air",       size:"512 GB",W07:9498.8,  W08:9497.71,  W09:9497.71,  W10:9206.58,  W11:9130.83},
+  {brand:"Apple",  competitor:"iPhone Air",       size:"1 TB",  W07:10309.68,W08:11609.68, W09:11609.68, W10:10601.15, W11:9749},
+  {brand:"Apple",  competitor:"iPhone 17 Pro",    size:"256 GB",W07:10923.91,W08:10636.44, W09:10923.97, W10:10461.47, W11:9999},
+  {brand:"Apple",  competitor:"iPhone 17 Pro",    size:"512 GB",W07:12641.42,W08:12448.97, W09:12673.94, W10:11823.97, W11:12998.33},
+  {brand:"Apple",  competitor:"iPhone 17 Pro",    size:"1 TB",  W07:14182.1, W08:14348.43, W09:14015.43, W10:13761.32, W11:13515.43},
+  {brand:"Apple",  competitor:"iPhone 16 Pro",    size:"128 GB",W07:9499,    W08:9999,     W09:9131.72,  W10:9131.72,  W11:10499},
+  {brand:"Apple",  competitor:"iPhone 16 Pro",    size:"256 GB",W07:null,    W08:null,     W09:null,     W10:11299,    W11:11299},
+  {brand:"Apple",  competitor:"iPhone 16 Pro",    size:"512 GB",W07:11689,   W08:11689,    W09:11689,    W10:11689,    W11:11689},
+  {brand:"Apple",  competitor:"iPhone 16 Plus",   size:"128 GB",W07:8299,    W08:8299,     W09:8085.33,  W10:8332.33,  W11:7499},
+  {brand:"Apple",  competitor:"iPhone 16 Plus",   size:"256 GB",W07:9099,    W08:9099,     W09:8459.11,  W10:8815.61,  W11:8021},
+  {brand:"Apple",  competitor:"iPhone 17",        size:"256 GB",W07:7997.75, W08:7737.25,  W09:7373.42,  W10:7145.75,  W11:7123.25},
+  {brand:"Apple",  competitor:"iPhone 17",        size:"512 GB",W07:9496.97, W08:9131.57,  W09:9315.32,  W10:8823.25,  W11:8748.25},
+  {brand:"Apple",  competitor:"iPhone 16",        size:"128 GB",W07:5131.42, W08:5099.67,  W09:4939.36,  W10:5097.75,  W11:4953},
+  {brand:"Apple",  competitor:"iPhone 16",        size:"256 GB",W07:5998.39, W08:5965.69,  W09:5930.33,  W10:5582,     W11:5512.25},
+  {brand:"Apple",  competitor:"iPhone 15",        size:"128 GB",W07:4515.24, W08:4486.75,  W09:4482.92,  W10:4499.5,   W11:4454.75},
+  {brand:"Apple",  competitor:"iPhone 15",        size:"256 GB",W07:5229.47, W08:5098.69,  W09:5097.22,  W10:4991.97,  W11:4991.72},
+  {brand:"Samsung",competitor:"Galaxy A56",       size:"128 GB",W07:2202.92, W08:2147.11,  W09:2227.5,   W10:2239.75,  W11:2214.75},
+  {brand:"Samsung",competitor:"Galaxy A56",       size:"256 GB",W07:2608.43, W08:2581.3,   W09:2641.25,  W10:2563.5,   W11:2535},
+  {brand:"Samsung",competitor:"Galaxy S25 FE",    size:"128 GB",W07:3098.24, W08:3096.08,  W09:3090.75,  W10:2940.5,   W11:2887.25},
+  {brand:"Samsung",competitor:"Galaxy S25 FE",    size:"256 GB",W07:3986.75, W08:3912,     W09:4096,     W10:3710,     W11:3846.25},
+  {brand:"Apple",  competitor:"iPhone 16e",       size:"128 GB",W07:3898.74, W08:3887.41,  W09:3887.41,  W10:4089.89,  W11:4042.16},
+  {brand:"Apple",  competitor:"iPhone 16e",       size:"256 GB",W07:4774,    W08:4974,     W09:4749,     W10:4373,     W11:4992.33},
+  {brand:"Apple",  competitor:"iPhone 16e",       size:"512 GB",W07:6110,    W08:6443.16,  W09:6421,     W10:5949,     W11:6079},
+  {brand:"Apple",  competitor:"iPhone 17e",       size:"256 GB",W07:5499,    W08:4373,     W09:null,     W10:null,     W11:5799},
+  {brand:"Apple",  competitor:"iPhone 17e",       size:"512 GB",W07:3699,    W08:5949,     W09:null,     W10:null,     W11:7299},
+  {brand:"OPPO",   competitor:"Reno 14",          size:"512 GB",W07:4999,    W08:4999,     W09:5224.5,   W10:5133.5,   W11:4999},
+  {brand:"OPPO",   competitor:"Reno 14F",         size:"256 GB",W07:3548.97, W08:3498.94,  W09:3448.97,  W10:3373.97,  W11:3348.97},
+  {brand:"OPPO",   competitor:"Reno 13",          size:"512 GB",W07:4298.89, W08:4298.89,  W09:null,     W10:4298,     W11:4298},
+  {brand:"OPPO",   competitor:"Reno 13F",         size:"256 GB",W07:2999,    W08:2999,     W09:2999,     W10:2999,     W11:2999},
+];
+const WW=['W07','W08','W09','W10','W11'];
+const SZO=['128 GB','256 GB','512 GB','1 TB','2 TB'];
+const ON_BRANDS=['Samsung','Apple','OPPO'];
+const ON_BC={Samsung:'#7c3aed',Apple:'#d97706',OPPO:'#059669'};
+const allModels=[...new Set(ON_RAW.map(r=>r.competitor))].sort();
+const allSizes=[...new Set(ON_RAW.map(r=>r.size))].sort((a,b)=>SZO.indexOf(a)-SZO.indexOf(b));
+const F={brand:new Set(ON_BRANDS),size:new Set(['256 GB']),model:new Set(['Galaxy S25 Ultra','iPhone 17 Pro Max'])};
+let onActiveTab='evolution', onSortMode='model';
+const K=v=>v==null?'—':'R$\u202f'+Math.round(v).toLocaleString('pt-BR');
+const K2=v=>v==null?'—':'R$\u202f'+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const $=s=>document.getElementById(s);
+
+function onTrend(r){const ok=WW.filter(w=>r[w]!=null);if(ok.length<2)return null;const c=ok[ok.length-1],p=ok[ok.length-2];return{pct:(r[c]-r[p])/r[p]*100,from:p,to:c,vCur:r[c],vPrev:r[p]};}
+function onTCell(t){if(!t)return'<span class="on-t-fl">—</span>';const cls=t.pct>0.5?'on-t-up':t.pct<-0.5?'on-t-dn':'on-t-fl';return`<span class="${cls}">${t.from}→${t.to} ${(t.pct>0?'+':'')+t.pct.toFixed(1)}%</span>`;}
+function onRows(){
+  if(F.size.size===0||F.model.size===0) return [];
+  return ON_RAW.filter(r=>F.brand.has(r.brand)&&F.size.has(r.size)&&F.model.has(r.competitor)&&WW.some(w=>r[w]!=null));
+}
+function onModelColor(comp,data){
+  const brand=data.find(r=>r.competitor===comp)?.brand||'Samsung';
+  const brandModels=[...new Set(data.filter(r=>r.brand===brand).map(r=>r.competitor))];
+  const idx=brandModels.indexOf(comp),n=brandModels.length;
+  const hR={Samsung:[240,290],Apple:[20,55],OPPO:[140,175]}[brand]||[240,290];
+  const hue=n>1?hR[0]+((hR[1]-hR[0])*(idx/(n-1))):((hR[0]+hR[1])/2);
+  return`hsl(${Math.round(hue)},80%,${idx%2===0?42:55}%)`;
+}
+
+function onRefreshKpis(){const d=onRows();const w11=d.map(r=>r.W11).filter(v=>v!=null);$('kpi-comp').textContent=[...new Set(d.map(r=>r.competitor))].length;$('kpi-skus').textContent=d.length;$('kpi-avg').textContent=w11.length?K(w11.reduce((a,b)=>a+b)/w11.length):'—';}
+
+/* dropdowns */
+function onBuildDDs(){
+  ON_BRANDS.forEach(b=>onAddOpt('brand',b,ON_BC[b],b,''));
+  allSizes.forEach(s=>onAddOpt('size',s,'#9ca3af',s,''));
+  allModels.forEach(m=>{const br=ON_RAW.find(r=>r.competitor===m)?.brand||'';onAddOpt('model',m,ON_BC[br]||'#ccc',m,br);});
+}
+function onAddOpt(key,val,col,label,sub){
+  const sid='cb_'+key+'_'+val.replace(/[^a-z0-9]/gi,'_');
+  const el=document.createElement('div');el.className='ddi';el.dataset.lbl=label.toLowerCase();
+  const chk=F[key].has(val)?'checked':'';
+  el.innerHTML=`<input type="checkbox" id="${sid}" ${chk}><span class="ddi-dot" style="background:${col}"></span><span class="ddi-name">${label}</span>${sub?`<span class="ddi-sub">${sub}</span>`:''}`;
+  el.querySelector('input').onchange=e=>{e.target.checked?F[key].add(val):F[key].delete(val);onUpdateDDLabel(key);onRender();};
+  $('ddl-'+key).appendChild(el);
+}
+function ddToggle(key){const m=$('ddm-'+key),t=$('ddt-'+key);const open=m.style.display!=='none';document.querySelectorAll('.ddm').forEach(x=>x.style.display='none');document.querySelectorAll('.ddt').forEach(x=>x.classList.remove('open'));if(!open){m.style.display='block';t.classList.add('open');}}
+function ddSearch(){const q=$('mq').value.toLowerCase();$('ddl-model').querySelectorAll('.ddi').forEach(el=>{el.style.display=el.dataset.lbl.includes(q)?'':'none';});}
+function ddAll(key){const all=key==='brand'?ON_BRANDS:key==='size'?allSizes:allModels;all.forEach(v=>F[key].add(v));$('ddl-'+key).querySelectorAll('input').forEach(c=>c.checked=true);onUpdateDDLabel(key);onRender();}
+function ddNone(key){F[key].clear();$('ddl-'+key).querySelectorAll('input').forEach(c=>c.checked=false);onUpdateDDLabel(key);onRender();}
+function ddAllReset(){
+  // Brand → all selected; Size + Model → cleared
+  ON_BRANDS.forEach(v=>F.brand.add(v));$('ddl-brand').querySelectorAll('input').forEach(c=>c.checked=true);onUpdateDDLabel('brand');
+  ['size','model'].forEach(k=>{F[k].clear();$('ddl-'+k).querySelectorAll('input').forEach(c=>c.checked=false);onUpdateDDLabel(k);});
+  onRender();
+}
+function onUpdateDDLabel(key){const totals={brand:ON_BRANDS.length,size:allSizes.length,model:allModels.length};const labels={brand:'Brand',size:'Storage',model:'Model'};const sel=F[key].size,total=totals[key];const trig=$('ddt-'+key),span=$('ddlbl-'+key);trig.querySelectorAll('.dd-badge').forEach(b=>b.remove());const isEmpty=(key!=='brand'&&sel===0);if(sel===total||isEmpty){span.textContent=labels[key];trig.classList.remove('on');}else{span.textContent=labels[key]+' ';const b=document.createElement('span');b.className='dd-badge';b.textContent=sel;trig.insertBefore(b,trig.querySelector('.cv'));trig.classList.add('on');}}
+document.addEventListener('click',e=>{if(!e.target.closest('.dd')){document.querySelectorAll('.ddm').forEach(m=>m.style.display='none');document.querySelectorAll('.ddt').forEach(t=>t.classList.remove('open'));}});
+
+function onGoTo(tab){onActiveTab=tab;document.querySelectorAll('.on-section').forEach(s=>s.classList.remove('on'));document.querySelectorAll('.on-nav-tab').forEach(t=>t.classList.remove('on'));$('on-sec-'+tab).classList.add('on');$('on-tab-'+tab).classList.add('on');onRender();}
+function onRender(){
+  onRefreshKpis();
+  // Memory badge
+  const badge=$('on-evo-mem-badge');
+  if(F.size.size>0){
+    const sizes=[...F.size].sort((a,b)=>SZO.indexOf(a)-SZO.indexOf(b));
+    badge.style.display='flex';
+    badge.innerHTML=sizes.map(s=>`<span class="on-mem-badge"><span class="mb-icon">💾</span>${s}</span>`).join('');
+  } else {
+    badge.style.display='none'; badge.innerHTML='';
+  }
+  if(onActiveTab==='evolution')onRenderEvolution();
+  if(onActiveTab==='heatmap')onRenderHeatmap();
+  if(onActiveTab==='channel')chRender();
+}
+
+function onRenderEvolution(){
+  // insights — always from full dataset, rendered in stats bar
+  const allMoves=ON_RAW.filter(r=>r.W10!=null&&r.W11!=null).map(r=>({r,pct:(r.W11-r.W10)/r.W10*100}));
+  if(allMoves.length){
+    const rise=allMoves.reduce((a,b)=>b.pct>a.pct?b:a);
+    const drop=allMoves.reduce((a,b)=>b.pct<a.pct?b:a);
+    const top=ON_RAW.filter(r=>r.W11!=null).reduce((a,b)=>b.W11>a.W11?b:a);
+    $('kpi-rise-val').textContent=`+${rise.pct.toFixed(1)}%`;
+    $('kpi-rise-sub').textContent=`${rise.r.competitor} · ${rise.r.size}`;
+    $('kpi-drop-val').textContent=`${drop.pct.toFixed(1)}%`;
+    $('kpi-drop-sub').textContent=`${drop.r.competitor} · ${drop.r.size}`;
+    $('kpi-top-val').textContent=K(top.W11);
+    $('kpi-top-sub').textContent=`${top.competitor} · ${top.size}`;
+  }
+  $('on-insights-row').innerHTML='';
+
+  const data=onRows();if(!data.length){$('on-evo-svg').innerHTML='';$('on-evo-table').innerHTML='<div class="on-empty">No data.</div>';return;}
+  const comps=[...new Set(data.map(r=>r.competitor))];
+  const compAvg={};comps.forEach(comp=>{compAvg[comp]={};WW.forEach(w=>{const vals=data.filter(r=>r.competitor===comp&&r[w]!=null).map(r=>r[w]);compAvg[comp][w]=vals.length?vals.reduce((a,b)=>a+b)/vals.length:null;});});
+  const allV=comps.flatMap(c=>WW.map(w=>compAvg[c][w]).filter(v=>v!=null));
+  if(!allV.length)return;
+  const yMin=Math.floor(Math.min(...allV)*.90/1000)*1000;
+  const yMax=Math.ceil(Math.max(...allV)*1.10/1000)*1000;
+  const W=900,H=400,PL=72,PR=200,PT=28,PB=32;
+  const cW=W-PL-PR,cH=H-PT-PB;
+  const xs=i=>PL+(i/(WW.length-1))*cW;
+  const ys=v=>PT+cH-((v-yMin)/(yMax-yMin))*cH;
+  let grid='',yL='',xL='',paths='',dots='',labels='';
+  for(let i=0;i<=5;i++){const v=yMin+(i/5)*(yMax-yMin),y=ys(v);grid+=`<line x1="${PL}" x2="${W-PR}" y1="${y}" y2="${y}" stroke="#e2e5f0" stroke-width="1"/>`;yL+=`<text x="${PL-8}" y="${y+4}" text-anchor="end" font-size="12" fill="#9ca3af" font-family="DM Mono">${Math.round(v/1000)}k</text>`;}
+  xL=WW.map((w,i)=>`<text x="${xs(i)}" y="${H-4}" text-anchor="middle" font-size="12" fill="#9ca3af" font-family="DM Mono">${w}</text>`).join('');
+  comps.forEach(comp=>{
+    const col=onModelColor(comp,data);
+    const avg=compAvg[comp];
+    const pts=WW.map((w,i)=>avg[w]!=null?{x:xs(i),y:ys(avg[w]),v:avg[w]}:null);
+    let d='';pts.forEach((p,i)=>{if(!p)return;if(!d){d=`M${p.x},${p.y}`;return;}let pv=null;for(let j=i-1;j>=0;j--){if(pts[j]){pv=pts[j];break;}}if(pv){const cx=(pv.x+p.x)/2;d+=` C${cx},${pv.y} ${cx},${p.y} ${p.x},${p.y}`;}});
+    if(d)paths+=`<path d="${d}" fill="none" stroke="${col}" stroke-width="2" opacity=".9"/>`;
+    pts.forEach(p=>{if(!p)return;dots+=`<circle cx="${p.x}" cy="${p.y}" r="4" fill="${col}" stroke="#ffffff" stroke-width="1.5"/>`;dots+=`<text x="${p.x}" y="${p.y-9}" text-anchor="middle" font-size="12" font-weight="600" fill="${col}" font-family="DM Mono" opacity=".95">${K(p.v)}</text>`;});
+    const lp=[...pts].reverse().find(p=>p!=null);if(lp)labels+=`<text x="${lp.x+10}" y="${lp.y+4}" font-size="12" font-weight="600" fill="${col}" font-family="DM Sans">${comp}</text>`;
+  });
+  const svg=$('on-evo-svg');svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.setAttribute('height',H);svg.innerHTML=`${grid}${yL}${xL}${paths}${dots}${labels}`;
+  const compColors={};comps.forEach(c=>{compColors[c]=onModelColor(c,data);});
+  $('on-evo-legend').innerHTML=comps.map(c=>`<div class="on-leg-item"><div class="on-leg-swatch" style="background:${compColors[c]}"></div>${c}</div>`).join('');
+  // table
+  let tbody='';comps.forEach(comp=>{const cr=data.filter(r=>r.competitor===comp);const brand=cr[0].brand;tbody+=`<tr class="on-grp-hd"><td colspan="${2+WW.length+1}"><span class="on-stripe" style="background:${ON_BC[brand]}"></span>${comp}<span class="on-badge on-b-${brand}" style="margin-left:6px">${brand}</span></td></tr>`;cr.forEach(r=>{const t=onTrend(r);tbody+=`<tr><td style="padding-left:20px"><span class="on-sz">${r.size}</span></td>${WW.map(w=>`<td class="r">${r[w]!=null?`<span class="on-pv">${K(r[w])}</span>`:'<span class="on-nv">—</span>'}</td>`).join('')}<td class="r">${onTCell(t)}</td></tr>`;});});
+  $('on-evo-table').innerHTML=`<table class="on-t"><thead><tr><th>Storage</th>${WW.map(w=>`<th class="r">${w}</th>`).join('')}<th class="r">W-1→W</th></tr></thead><tbody>${tbody}</tbody></table>`;
+}
+
+function onRenderHeatmap(){
+  const data=onRows().filter(r=>r.W11!=null).sort((a,b)=>b.W11-a.W11);
+  if(!data.length){$('on-hm-content').innerHTML='<div class="on-empty">No W11 data.</div>';return;}
+  const mn=Math.min(...data.map(r=>r.W11)),mx=Math.max(...data.map(r=>r.W11));
+  function hcol(v){const t=(v-mn)/(mx-mn||1);if(t<.5){const tt=t*2;return`rgb(${Math.round(22+tt*233)},${Math.round(163-tt*75)},${Math.round(74-tt*62)})`;}const tt=(t-.5)*2;return`rgb(${Math.round(255-tt*35)},${Math.round(88-tt*50)},${Math.round(12+tt*26)})`;}
+  $('on-hm-gradient').innerHTML=`<span style="font-size:12px;font-family:'DM Mono',monospace;color:#6b7280">${K(mn)}</span><div style="flex:1;height:6px;border-radius:3px;background:linear-gradient(to right,rgb(22,163,74),rgb(255,88,12),rgb(220,38,38))"></div><span style="font-size:12px;font-family:'DM Mono',monospace;color:#6b7280">${K(mx)}</span>`;
+  const rowsHtml=data.map(r=>{const norm=(r.W11-mn)/(mx-mn||1);const col=hcol(r.W11);const t=onTrend(r);return`<div class="on-hm-row"><div style="display:flex;align-items:center;gap:7px;font-size:14px;font-weight:600"><span style="display:inline-block;width:3px;height:18px;border-radius:2px;background:${ON_BC[r.brand]};flex-shrink:0"></span>${r.competitor}</div><div><span class="on-badge on-b-${r.brand}">${r.brand}</span></div><div><span class="on-sz">${r.size}</span></div><div style="display:flex;align-items:center;gap:10px"><div style="flex:1;height:6px;border-radius:3px;background:#eef0f8"><div style="width:${Math.round(norm*100)}%;height:100%;background:${col};border-radius:3px"></div></div><span style="font-family:'DM Mono',monospace;font-weight:600;font-size:14px;color:${col};min-width:96px;text-align:right">${K(r.W11)}</span></div><div style="text-align:right">${onTCell(t)}</div></div>`;}).join('');
+  $('on-hm-content').innerHTML=`<div class="on-hm-hd"><div>Model</div><div>Brand</div><div>Storage</div><div>ASP W11</div><div style="text-align:right">W10→W11</div></div>${rowsHtml}`;
+}
+
+function onSetSort(s){onSortMode=s;document.querySelectorAll('.on-sb').forEach(b=>b.classList.remove('on'));$('on-sb-'+s).classList.add('on');onRender();}
+/* ══════════════════════════════════
+   BY CHANNEL — DATA & LOGIC
+══════════════════════════════════ */
+const CH_DATA = [{"brand":"Samsung","model":"Galaxy S26 Ultra","size":"256 GB","week":"W10","ML":null,"Amazon":11499,"CB":11499,"MagLu":null,"avg":11499},{"brand":"Samsung","model":"Galaxy S26 Ultra","size":"512 GB","week":"W10","ML":11499,"Amazon":11499,"CB":11499,"MagLu":11499,"avg":11499},{"brand":"Samsung","model":"Galaxy S26 Ultra","size":"1 TB","week":"W10","ML":null,"Amazon":13099,"CB":null,"MagLu":null,"avg":13099},{"brand":"Samsung","model":"Galaxy S25 Ultra","size":"256 GB","week":"W10","ML":7332,"Amazon":7332,"CB":7776.67,"MagLu":7499,"avg":7484.92},{"brand":"Samsung","model":"Galaxy S25 Ultra","size":"512 GB","week":"W10","ML":7399,"Amazon":7399,"CB":7399,"MagLu":null,"avg":7399},{"brand":"Apple","model":"Iphone 17 Pro Max","size":"256 GB","week":"W10","ML":10999,"Amazon":11249,"CB":12498.78,"MagLu":11249,"avg":11498.94},{"brand":"Apple","model":"Iphone 17 Pro Max","size":"512 GB","week":"W10","ML":12599,"Amazon":12599,"CB":13997.78,"MagLu":null,"avg":13065.26},{"brand":"Apple","model":"Iphone 17 Pro Max","size":"1 TB","week":"W10","ML":15498.84,"Amazon":15498.84,"CB":null,"MagLu":null,"avg":15498.84},{"brand":"Apple","model":"Iphone 17 Pro Max","size":"2 TB","week":"W10","ML":16299,"Amazon":18499,"CB":null,"MagLu":null,"avg":17399},{"brand":"Apple","model":"Iphone 16 Pro Max","size":"256 GB","week":"W10","ML":12499,"Amazon":12499,"CB":null,"MagLu":null,"avg":12499},{"brand":"Apple","model":"Iphone 16 Pro Max","size":"512 GB","week":"W10","ML":null,"Amazon":12999,"CB":null,"MagLu":null,"avg":12999},{"brand":"Samsung","model":"Galaxy S26 Plus","size":"256 GB","week":"W10","ML":null,"Amazon":9199,"CB":9199,"MagLu":9199,"avg":9199},{"brand":"Samsung","model":"Galaxy S26 Plus","size":"512 GB","week":"W10","ML":9199,"Amazon":9199,"CB":9199,"MagLu":null,"avg":9199},{"brand":"Samsung","model":"Galaxy S25 Plus","size":"256 GB","week":"W10","ML":5221.11,"Amazon":4599,"CB":5221.11,"MagLu":4899,"avg":4985.06},{"brand":"Samsung","model":"Galaxy S25 Plus","size":"512 GB","week":"W10","ML":5299,"Amazon":4999,"CB":5299,"MagLu":null,"avg":5199},{"brand":"Samsung","model":"Galaxy S26","size":"256 GB","week":"W10","ML":null,"Amazon":7499,"CB":7499,"MagLu":7499,"avg":7499},{"brand":"Samsung","model":"Galaxy S26","size":"512 GB","week":"W10","ML":7499,"Amazon":7499,"CB":7499,"MagLu":null,"avg":7499},{"brand":"Samsung","model":"Galaxy S25","size":"256 GB","week":"W10","ML":4331,"Amazon":3999,"CB":4332,"MagLu":3999,"avg":4165.25},{"brand":"Apple","model":"Iphone Air","size":"256 GB","week":"W10","ML":7099,"Amazon":7799,"CB":8053.1,"MagLu":8110,"avg":7765.27},{"brand":"Apple","model":"Iphone Air","size":"512 GB","week":"W10","ML":8499,"Amazon":9443,"CB":9441,"MagLu":9443.33,"avg":9206.58},{"brand":"Apple","model":"Iphone Air","size":"1 TB","week":"W10","ML":10740,"Amazon":10399,"CB":10664.44,"MagLu":null,"avg":10601.15},{"brand":"Apple","model":"Iphone 17 Pro","size":"256 GB","week":"W10","ML":10348.89,"Amazon":9999,"CB":11499,"MagLu":9999,"avg":10461.47},{"brand":"Apple","model":"Iphone 17 Pro","size":"512 GB","week":"W10","ML":11299,"Amazon":11299,"CB":11698.89,"MagLu":12999,"avg":11823.97},{"brand":"Apple","model":"Iphone 17 Pro","size":"1 TB","week":"W10","ML":12999,"Amazon":14499,"CB":13048.29,"MagLu":14499,"avg":13761.32},{"brand":"Apple","model":"Iphone 16 Pro","size":"128 GB","week":"W10","ML":null,"Amazon":10499,"CB":7764.44,"MagLu":null,"avg":9131.72},{"brand":"Apple","model":"Iphone 16 Pro","size":"256 GB","week":"W10","ML":null,"Amazon":11299,"CB":null,"MagLu":null,"avg":11299},{"brand":"Apple","model":"Iphone 16 Pro","size":"512 GB","week":"W10","ML":null,"Amazon":11689,"CB":null,"MagLu":null,"avg":11689},{"brand":"Apple","model":"Iphone 16 Pro","size":"1 TB","week":"W10","ML":14299,"Amazon":null,"CB":null,"MagLu":null,"avg":14299},{"brand":"Apple","model":"Iphone 16 Plus","size":"128 GB","week":"W10","ML":7499,"Amazon":8499,"CB":null,"MagLu":8999,"avg":8332.33},{"brand":"Apple","model":"Iphone 16 Plus","size":"256 GB","week":"W10","ML":null,"Amazon":9299,"CB":8332.22,"MagLu":null,"avg":8815.61},{"brand":"Apple","model":"Iphone 17","size":"256 GB","week":"W10","ML":7099,"Amazon":7187,"CB":7098,"MagLu":7199,"avg":7145.75},{"brand":"Apple","model":"Iphone 17","size":"512 GB","week":"W10","ML":8599,"Amazon":8598,"CB":8597,"MagLu":9499,"avg":8823.25},{"brand":"Apple","model":"Iphone 16","size":"128 GB","week":"W10","ML":5176,"Amazon":5053,"CB":5052,"MagLu":5110,"avg":5097.75},{"brand":"Apple","model":"Iphone 16","size":"256 GB","week":"W10","ML":5499,"Amazon":5499,"CB":5776,"MagLu":5554,"avg":5582},{"brand":"Apple","model":"Iphone 15","size":"128 GB","week":"W10","ML":4567,"Amazon":4497,"CB":4436,"MagLu":4498,"avg":4499.5},{"brand":"Apple","model":"Iphone 15","size":"256 GB","week":"W10","ML":4886,"Amazon":4887,"CB":5096,"MagLu":5098.89,"avg":4991.97},{"brand":"Samsung","model":"Galaxy A56","size":"128 GB","week":"W10","ML":2219,"Amazon":2299,"CB":2220,"MagLu":2221,"avg":2239.75},{"brand":"Samsung","model":"Galaxy A56","size":"256 GB","week":"W10","ML":2553,"Amazon":2549,"CB":2553,"MagLu":2599,"avg":2563.5},{"brand":"Samsung","model":"Galaxy S25 FE","size":"128 GB","week":"W10","ML":2888,"Amazon":2888,"CB":3099,"MagLu":2887,"avg":2940.5},{"brand":"Samsung","model":"Galaxy S25 FE","size":"256 GB","week":"W10","ML":3443,"Amazon":3799,"CB":3799,"MagLu":3799,"avg":3710},{"brand":"Apple","model":"Iphone 16e","size":"128 GB","week":"W10","ML":4475,"Amazon":3898.66,"CB":3896,"MagLu":null,"avg":4089.89},{"brand":"Apple","model":"Iphone 16e","size":"256 GB","week":"W10","ML":4499,"Amazon":4247,"CB":null,"MagLu":null,"avg":4373},{"brand":"Apple","model":"Iphone 16e","size":"512 GB","week":"W10","ML":5949,"Amazon":5949,"CB":null,"MagLu":null,"avg":5949},{"brand":"OPPO","model":"Reno 14","size":"512 GB","week":"W10","ML":5268,"Amazon":null,"CB":null,"MagLu":4999,"avg":5133.5},{"brand":"OPPO","model":"Reno 14F","size":"256 GB","week":"W10","ML":3299,"Amazon":3299,"CB":3498.89,"MagLu":3399,"avg":3373.97},{"brand":"OPPO","model":"Reno 13","size":"512 GB","week":"W10","ML":null,"Amazon":null,"CB":4298,"MagLu":null,"avg":4298},{"brand":"OPPO","model":"Reno 13F","size":"256 GB","week":"W10","ML":null,"Amazon":null,"CB":2999,"MagLu":null,"avg":2999},{"brand":"Samsung","model":"Galaxy S26 Ultra","size":"256 GB","week":"W11","ML":null,"Amazon":11499,"CB":11499,"MagLu":null,"avg":11499},{"brand":"Samsung","model":"Galaxy S26 Ultra","size":"512 GB","week":"W11","ML":11499,"Amazon":11499,"CB":11499,"MagLu":11499,"avg":11499},{"brand":"Samsung","model":"Galaxy S26 Ultra","size":"1 TB","week":"W11","ML":null,"Amazon":13099,"CB":null,"MagLu":null,"avg":13099},{"brand":"Samsung","model":"Galaxy S25 Ultra","size":"256 GB","week":"W11","ML":7332,"Amazon":7332,"CB":7332,"MagLu":7221,"avg":7304.25},{"brand":"Samsung","model":"Galaxy S25 Ultra","size":"512 GB","week":"W11","ML":7490,"Amazon":6899,"CB":7299,"MagLu":7299,"avg":7246.75},{"brand":"Samsung","model":"Galaxy S25 Ultra","size":"1 TB","week":"W11","ML":9975,"Amazon":null,"CB":null,"MagLu":null,"avg":9975},{"brand":"Apple","model":"Iphone 17 Pro Max","size":"256 GB","week":"W11","ML":12499,"Amazon":11249,"CB":null,"MagLu":null,"avg":11874},{"brand":"Apple","model":"Iphone 17 Pro Max","size":"512 GB","week":"W11","ML":13159,"Amazon":13159,"CB":null,"MagLu":null,"avg":13159},{"brand":"Apple","model":"Iphone 17 Pro Max","size":"1 TB","week":"W11","ML":15498.84,"Amazon":15498.84,"CB":15497,"MagLu":null,"avg":15498.23},{"brand":"Apple","model":"Iphone 17 Pro Max","size":"2 TB","week":"W11","ML":18499,"Amazon":19624,"CB":null,"MagLu":null,"avg":19061.5},{"brand":"Apple","model":"Iphone 16 Pro Max","size":"256 GB","week":"W11","ML":12499,"Amazon":12499,"CB":null,"MagLu":null,"avg":12499},{"brand":"Apple","model":"Iphone 16 Pro Max","size":"512 GB","week":"W11","ML":null,"Amazon":12999,"CB":null,"MagLu":null,"avg":12999},{"brand":"Samsung","model":"Galaxy S26 Plus","size":"256 GB","week":"W11","ML":null,"Amazon":9199,"CB":9199,"MagLu":9199,"avg":9199},{"brand":"Samsung","model":"Galaxy S26 Plus","size":"512 GB","week":"W11","ML":9199,"Amazon":9199,"CB":9199,"MagLu":null,"avg":9199},{"brand":"Samsung","model":"Galaxy S25 Plus","size":"256 GB","week":"W11","ML":5348,"Amazon":4599,"CB":5221.11,"MagLu":4899,"avg":5016.78},{"brand":"Samsung","model":"Galaxy S25 Plus","size":"512 GB","week":"W11","ML":5299,"Amazon":4999,"CB":5299,"MagLu":5199,"avg":5199},{"brand":"Samsung","model":"Galaxy S26","size":"256 GB","week":"W11","ML":null,"Amazon":7499,"CB":7499,"MagLu":7499,"avg":7499},{"brand":"Samsung","model":"Galaxy S26","size":"512 GB","week":"W11","ML":7499,"Amazon":7499,"CB":7499,"MagLu":null,"avg":7499},{"brand":"Samsung","model":"Galaxy S25","size":"256 GB","week":"W11","ML":4331,"Amazon":3999,"CB":4332,"MagLu":3999,"avg":4165.25},{"brand":"Apple","model":"Iphone Air","size":"256 GB","week":"W11","ML":6999,"Amazon":7799,"CB":8110,"MagLu":8110,"avg":7754.5},{"brand":"Apple","model":"Iphone Air","size":"512 GB","week":"W11","ML":8199,"Amazon":9443,"CB":9438,"MagLu":9443.33,"avg":9130.83},{"brand":"Apple","model":"Iphone Air","size":"1 TB","week":"W11","ML":9099,"Amazon":10399,"CB":null,"MagLu":null,"avg":9749},{"brand":"Apple","model":"Iphone 17 Pro","size":"256 GB","week":"W11","ML":9999,"Amazon":9999,"CB":null,"MagLu":null,"avg":9999},{"brand":"Apple","model":"Iphone 17 Pro","size":"512 GB","week":"W11","ML":12998,"Amazon":12998,"CB":null,"MagLu":12999,"avg":12998.33},{"brand":"Apple","model":"Iphone 17 Pro","size":"1 TB","week":"W11","ML":14499,"Amazon":12999,"CB":13048.29,"MagLu":null,"avg":13515.43},{"brand":"Apple","model":"Iphone 16 Pro","size":"128 GB","week":"W11","ML":null,"Amazon":10499,"CB":null,"MagLu":null,"avg":10499},{"brand":"Apple","model":"Iphone 16 Pro","size":"256 GB","week":"W11","ML":null,"Amazon":11299,"CB":null,"MagLu":null,"avg":11299},{"brand":"Apple","model":"Iphone 16 Pro","size":"512 GB","week":"W11","ML":null,"Amazon":11689,"CB":null,"MagLu":null,"avg":11689},{"brand":"Apple","model":"Iphone 16 Plus","size":"128 GB","week":"W11","ML":6999,"Amazon":7999,"CB":null,"MagLu":null,"avg":7499},{"brand":"Apple","model":"Iphone 16 Plus","size":"256 GB","week":"W11","ML":7599,"Amazon":8443,"CB":null,"MagLu":null,"avg":8021},{"brand":"Apple","model":"Iphone 17","size":"256 GB","week":"W11","ML":7099,"Amazon":7097,"CB":7098,"MagLu":7199,"avg":7123.25},{"brand":"Apple","model":"Iphone 17","size":"512 GB","week":"W11","ML":8499,"Amazon":8498,"CB":8497,"MagLu":9499,"avg":8748.25},{"brand":"Apple","model":"Iphone 16","size":"128 GB","week":"W11","ML":4817,"Amazon":4775,"CB":5110,"MagLu":5110,"avg":4953},{"brand":"Apple","model":"Iphone 16","size":"256 GB","week":"W11","ML":5499,"Amazon":5499,"CB":5497,"MagLu":5554,"avg":5512.25},{"brand":"Apple","model":"Iphone 15","size":"128 GB","week":"W11","ML":4554,"Amazon":4435,"CB":4276,"MagLu":4554,"avg":4454.75},{"brand":"Apple","model":"Iphone 15","size":"256 GB","week":"W11","ML":4886,"Amazon":4887,"CB":5095,"MagLu":5098.89,"avg":4991.72},{"brand":"Samsung","model":"Galaxy A56","size":"128 GB","week":"W11","ML":2219,"Amazon":2222,"CB":2197,"MagLu":2221,"avg":2214.75},{"brand":"Samsung","model":"Galaxy A56","size":"256 GB","week":"W11","ML":2553,"Amazon":2499,"CB":2553,"MagLu":null,"avg":2535},{"brand":"Samsung","model":"Galaxy S25 FE","size":"128 GB","week":"W11","ML":2888,"Amazon":2888,"CB":2886,"MagLu":2887,"avg":2887.25},{"brand":"Samsung","model":"Galaxy S25 FE","size":"256 GB","week":"W11","ML":3988,"Amazon":3799,"CB":3799,"MagLu":3799,"avg":3846.25},{"brand":"Apple","model":"Iphone 16e","size":"128 GB","week":"W11","ML":4475,"Amazon":3898.66,"CB":3896,"MagLu":3899,"avg":4042.16},{"brand":"Apple","model":"Iphone 16e","size":"256 GB","week":"W11","ML":5647,"Amazon":4665,"CB":null,"MagLu":4665,"avg":4992.33},{"brand":"Apple","model":"Iphone 16e","size":"512 GB","week":"W11","ML":6209,"Amazon":5949,"CB":null,"MagLu":null,"avg":6079},{"brand":"Apple","model":"Iphone 17e","size":"256 GB","week":"W11","ML":null,"Amazon":5799,"CB":5799,"MagLu":5799,"avg":5799},{"brand":"Apple","model":"Iphone 17e","size":"512 GB","week":"W11","ML":7299,"Amazon":7299,"CB":null,"MagLu":7299,"avg":7299},{"brand":"OPPO","model":"Reno 14","size":"512 GB","week":"W11","ML":4999,"Amazon":null,"CB":null,"MagLu":4999,"avg":4999},{"brand":"OPPO","model":"Reno 14F","size":"256 GB","week":"W11","ML":3199,"Amazon":3299,"CB":3498.89,"MagLu":3399,"avg":3348.97},{"brand":"OPPO","model":"Reno 13","size":"512 GB","week":"W11","ML":null,"Amazon":null,"CB":4298,"MagLu":null,"avg":4298},{"brand":"OPPO","model":"Reno 13F","size":"256 GB","week":"W11","ML":null,"Amazon":null,"CB":2999,"MagLu":null,"avg":2999}];
+
+const CH_CHANNELS = ['ML','Amazon','CB','MagLu'];
+const CH_LABELS   = {ML:'Mercado Livre', Amazon:'Amazon', CB:'Casas Bahia', MagLu:'Mag. Luiza'};
+const CH_COLORS   = {ML:'#f59e0b', Amazon:'#3b82f6', CB:'#ef4444', MagLu:'#8b5cf6'};
+
+// Unique models + sizes from CH_DATA
+const chModels = [...new Set(CH_DATA.map(r=>r.model))].sort();
+let chInitDone = false;
+
+function chBuildSelectors() {
+  const sel = $('ch-model-sel');
+  chModels.forEach(m => { const o=document.createElement('option'); o.value=m; o.textContent=m; sel.appendChild(o); });
+  chUpdateSizes();
+  chInitDone = true;
+}
+
+function chUpdateSizes() {
+  const model = $('ch-model-sel').value;
+  const ssel = $('ch-size-sel');
+  const prev = ssel.value;
+  ssel.innerHTML = '';
+  const sizes = [...new Set(CH_DATA.filter(r=>r.model===model).map(r=>r.size))].sort((a,b)=>SZO.indexOf(a)-SZO.indexOf(b));
+  sizes.forEach(s => { const o=document.createElement('option'); o.value=s; o.textContent=s; ssel.appendChild(o); });
+  if(sizes.includes(prev)) ssel.value = prev;
+}
+
+function chRender() {
+  if(!chInitDone) return;
+  chUpdateSizes();
+  const model = $('ch-model-sel').value;
+  const size  = $('ch-size-sel').value;
+  chRenderBarChart(model, size);
+  chRenderWeekChart();
+}
+
+/* ── Chart 1: bars per channel for selected SKU — W11 only ── */
+function chRenderBarChart(model, size) {
+  const brand = CH_DATA.find(r=>r.model===model)?.brand || 'Samsung';
+  const w11 = CH_DATA.find(r=>r.model===model&&r.size===size&&r.week==='W11');
+
+  const W=820, H=260, PL=80, PR=24, PT=20, PB=44;
+  const cW=W-PL-PR, cH=H-PT-PB;
+  const allVals = CH_CHANNELS.map(ch=>w11?.[ch]).filter(v=>v!=null);
+  if(!allVals.length){$('ch-bar-chart').innerHTML='<div class="on-empty">No channel data for this SKU.</div>';return;}
+  const yMax = Math.ceil(Math.max(...allVals)*1.15/1000)*1000;
+  const ys = v => PT+cH - (v/yMax)*cH;
+
+  const nCh = CH_CHANNELS.length;
+  const grpW = cW / nCh;
+  const barW = grpW * 0.52;
+
+  let grid='', yL='', bars='', xL='';
+
+  for(let i=0;i<=5;i++){
+    const v=(i/5)*yMax, y=ys(v);
+    grid+=`<line x1="${PL}" x2="${W-PR}" y1="${y}" y2="${y}" stroke="#e2e5f0" stroke-width="1"/>`;
+    yL+=`<text x="${PL-8}" y="${y+4}" text-anchor="end" font-size="12" fill="#9ca3af" font-family="DM Mono">${Math.round(v/1000)}k</text>`;
+  }
+
+  CH_CHANNELS.forEach((ch, i) => {
+    const cx = PL + i*grpW + grpW/2;
+    const v = w11?.[ch];
+    if(v!=null){
+      const bx = cx - barW/2;
+      const by = ys(v); const bh = PT+cH-by;
+      bars+=`<rect x="${bx}" y="${by}" width="${barW}" height="${bh}" fill="${ON_BC[brand]}" rx="4"/>`;
+      bars+=`<text x="${cx}" y="${by-8}" text-anchor="middle" font-size="12" font-weight="700" fill="${ON_BC[brand]}" font-family="DM Mono">${K(v)}</text>`;
+    } else {
+      bars+=`<text x="${cx}" y="${PT+cH/2}" text-anchor="middle" font-size="12" fill="#d1d5db" font-family="DM Mono">—</text>`;
+    }
+    xL+=`<text x="${cx}" y="${H-8}" text-anchor="middle" font-size="13" font-weight="700" fill="#374151" font-family="DM Sans">${CH_LABELS[ch]}</text>`;
+  });
+
+  $('ch-bar-chart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" height="${H}" style="width:100%;overflow:visible">${grid}${yL}${bars}${xL}</svg>`;
+}
+
+/* ── Chart 2: W10 vs W11 avg per channel across all filtered SKUs ── */
+function chRenderWeekChart() {
+  // Filter CH_DATA by the same model/brand/size filters as online
+  const filtered = CH_DATA.filter(r => F.brand.has(r.brand) && F.model.has(r.model) && F.size.has(r.size));
+
+  const W=820, H=260, PL=80, PR=24, PT=20, PB=52;
+  const cW=W-PL-PR, cH=H-PT-PB;
+
+  // Compute avg per channel per week
+  const avgs = {};
+  ['W10','W11'].forEach(wk=>{
+    avgs[wk]={};
+    CH_CHANNELS.forEach(ch=>{
+      const vals=filtered.filter(r=>r.week===wk&&r[ch]!=null).map(r=>r[ch]);
+      avgs[wk][ch]=vals.length ? vals.reduce((a,b)=>a+b)/vals.length : null;
+    });
+  });
+
+  const allVals=Object.values(avgs).flatMap(o=>Object.values(o)).filter(v=>v!=null);
+  if(!allVals.length){$('ch-week-chart').innerHTML='<div class="on-empty">No data.</div>';return;}
+  const yMax=Math.ceil(Math.max(...allVals)*1.12/1000)*1000;
+  const ys=v=>PT+cH-(v/yMax)*cH;
+  const nCh=CH_CHANNELS.length;
+  const grpW=cW/nCh;
+  const barW=grpW*0.32;
+  const gap=grpW*0.06;
+
+  let grid='',yL='',bars='',xL='',legend='';
+
+  for(let i=0;i<=5;i++){
+    const v=(i/5)*yMax,y=ys(v);
+    grid+=`<line x1="${PL}" x2="${W-PR}" y1="${y}" y2="${y}" stroke="#e2e5f0" stroke-width="1"/>`;
+    yL+=`<text x="${PL-8}" y="${y+4}" text-anchor="end" font-size="12" fill="#9ca3af" font-family="DM Mono">${Math.round(v/1000)}k</text>`;
+  }
+
+  CH_CHANNELS.forEach((ch,i)=>{
+    const cx=PL+i*grpW+grpW/2;
+    const v10=avgs.W10[ch], v11=avgs.W11[ch];
+    if(v10!=null){
+      const bx=cx-barW-gap/2, by=ys(v10), bh=PT+cH-by;
+      bars+=`<rect x="${bx}" y="${by}" width="${barW}" height="${bh}" fill="#94a3b8" rx="3"/>`;
+      bars+=`<text x="${bx+barW/2}" y="${by-5}" text-anchor="middle" font-size="12" fill="#64748b" font-family="DM Mono">${K(Math.round(v10))}</text>`;
+    }
+    if(v11!=null){
+      const bx=cx+gap/2, by=ys(v11), bh=PT+cH-by;
+      bars+=`<rect x="${bx}" y="${by}" width="${barW}" height="${bh}" fill="#1a56db" rx="3"/>`;
+      bars+=`<text x="${bx+barW/2}" y="${by-5}" text-anchor="middle" font-size="12" font-weight="700" fill="#1a56db" font-family="DM Mono">${K(Math.round(v11))}</text>`;
+      if(v10!=null){
+        const diff=((v11-v10)/v10*100);
+        const arrow=diff>0.1?'▲':diff<-0.1?'▼':'';
+        const col=diff>0.1?'#dc2626':diff<-0.1?'#059669':'#9ca3af';
+        if(arrow) bars+=`<text x="${cx}" y="${by-18}" text-anchor="middle" font-size="11" font-weight="700" fill="${col}" font-family="DM Mono">${arrow}${Math.abs(diff).toFixed(1)}%</text>`;
+      }
+    }
+    xL+=`<text x="${cx}" y="${H-6}" text-anchor="middle" font-size="13" font-weight="700" fill="#374151" font-family="DM Sans">${CH_LABELS[ch]}</text>`;
+  });
+
+  legend=`<rect x="${PL}" y="${H-22}" width="10" height="10" fill="#94a3b8" rx="2"/>
+  <text x="${PL+14}" y="${H-14}" font-size="12" fill="#6b7280" font-family="DM Sans">W10 avg</text>
+  <rect x="${PL+76}" y="${H-22}" width="10" height="10" fill="#1a56db" rx="2"/>
+  <text x="${PL+90}" y="${H-14}" font-size="12" fill="#6b7280" font-family="DM Sans">W11 avg</text>`;
+
+  $('ch-week-chart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" height="${H}" style="width:100%;overflow:visible">${grid}${yL}${bars}${xL}${legend}</svg>`;
+}
+
+
+/* ══════════════════════════════════
+   OFFLINE — DATA & LOGIC
+══════════════════════════════════ */
+const offData = [
+  // R$6k+ — W10 only (not found in W11)
+  { tier: 'R$6k+', brand: 'Apple',    model: 'iPhone 17 Pro',   memory: '256 GB', W10: 11499,   W11: null },
+  { tier: 'R$6k+', brand: 'Apple',    model: 'iPhone 17 Pro',   memory: '512 GB', W10: 13999,   W11: null },
+  { tier: 'R$6k+', brand: 'Apple',    model: 'iPhone 17',       memory: '256 GB', W10: 7999,    W11: null },
+  { tier: 'R$6k+', brand: 'Apple',    model: 'iPhone 17',       memory: '512 GB', W10: null,    W11: 9796 },
+  // R$2.5k–6k
+  { tier: 'R$2.5k–6k', brand: 'JOVI',     model: 'JOVI V70',        memory: '256 GB', W10: 3499,    W11: 3499 },
+  { tier: 'R$2.5k–6k', brand: 'JOVI',     model: 'JOVI V70',        memory: '512 GB', W10: 3999,    W11: 3999 },
+  { tier: 'R$2.5k–6k', brand: 'JOVI',     model: 'JOVI V50',        memory: '512 GB', W10: null,    W11: 3999 },
+  { tier: 'R$2.5k–6k', brand: 'JOVI',     model: 'JOVI V50 Lite',   memory: '256 GB', W10: null,    W11: 2699 },
+  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 16e',      memory: '128 GB', W10: null,    W11: 3899 },
+  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 16e',      memory: '256 GB', W10: 4499,    W11: null },
+  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 16',       memory: '128 GB', W10: null,    W11: 5199 },
+  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 15',       memory: '128 GB', W10: 4899,    W11: null },
+  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 14',       memory: '128 GB', W10: null,    W11: 4639 },
+  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S25 FE',   memory: '128 GB', W10: 3199,    W11: 2999 },
+  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S25 FE',   memory: '256 GB', W10: 3799,    W11: null },
+  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy A56',      memory: '128 GB', W10: 2199,    W11: 2369 },
+  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy A56',      memory: '256 GB', W10: 3428,    W11: 3427 },
+  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S25',      memory: '256 GB', W10: 4799,    W11: null },
+  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S24',      memory: '128 GB', W10: 3099,    W11: 2889 },
+  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S24',      memory: '256 GB', W10: 5157,    W11: null },
+  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy A26',      memory: '256 GB', W10: 2570,    W11: 1959 },
+  { tier: 'R$2.5k–6k', brand: 'OPPO',     model: 'Reno 14F',        memory: '256 GB', W10: 3499,    W11: 3699 },
+  { tier: 'R$2.5k–6k', brand: 'OPPO',     model: 'Reno 13',         memory: '512 GB', W10: 4298,    W11: null },
+  { tier: 'R$2.5k–6k', brand: 'OPPO',     model: 'Reno 13F',        memory: '256 GB', W10: 2999,    W11: 2999 },
+  { tier: 'R$2.5k–6k', brand: 'OPPO',     model: 'A5 Pro',          memory: '256 GB', W10: 2899,    W11: 2899 },
+  { tier: 'R$2.5k–6k', brand: 'Motorola', model: 'Edge 60 Pro',     memory: '256 GB', W10: 3499,    W11: 3499 },
+  { tier: 'R$2.5k–6k', brand: 'Motorola', model: 'Edge 60 Fusion',  memory: '256 GB', W10: 2399,    W11: 2399 },
+  { tier: 'R$2.5k–6k', brand: 'Motorola', model: 'Moto G86',        memory: '512 GB', W10: 3795,    W11: 3189 },
+  // R$1.5k–2.5k
+  { tier: 'R$1.5k–2.5k', brand: 'JOVI',     model: 'JOVI Y31',       memory: '256 GB', W10: 2299,    W11: 2299 },
+  { tier: 'R$1.5k–2.5k', brand: 'JOVI',     model: 'JOVI Y31',       memory: '512 GB', W10: 2799,    W11: null },
+  { tier: 'R$1.5k–2.5k', brand: 'JOVI',     model: 'JOVI Y29s',      memory: '256 GB', W10: 1699,    W11: 1599 },
+  { tier: 'R$1.5k–2.5k', brand: 'JOVI',     model: 'JOVI Y21 5G',    memory: '256 GB', W10: 1899,    W11: null },
+  { tier: 'R$1.5k–2.5k', brand: 'Samsung',  model: 'Galaxy A17',     memory: '128 GB', W10: 1599,    W11: 1099 },
+  { tier: 'R$1.5k–2.5k', brand: 'Samsung',  model: 'Galaxy A36',     memory: '128 GB', W10: 2199,    W11: 1799 },
+  { tier: 'R$1.5k–2.5k', brand: 'Samsung',  model: 'Galaxy A26',     memory: '256 GB', W10: null,    W11: 1959 },
+  { tier: 'R$1.5k–2.5k', brand: 'OPPO',     model: 'A5',             memory: '256 GB', W10: 2299,    W11: 1499 },
+  { tier: 'R$1.5k–2.5k', brand: 'OPPO',     model: 'A60',            memory: '256 GB', W10: null,    W11: 1899 },
+  { tier: 'R$1.5k–2.5k', brand: 'Motorola', model: 'Moto A60',       memory: '256 GB', W10: 1899,    W11: null },
+  { tier: 'R$1.5k–2.5k', brand: 'Motorola', model: 'Moto G56',       memory: '256 GB', W10: 2080,    W11: 1749 },
+  { tier: 'R$1.5k–2.5k', brand: 'Motorola', model: 'Moto G75',       memory: '256 GB', W10: 2203,    W11: null },
+  { tier: 'R$1.5k–2.5k', brand: 'Motorola', model: 'Edge 50 Neo',    memory: '256 GB', W10: null,    W11: 1999 },
+  { tier: 'R$1.5k–2.5k', brand: 'Motorola', model: 'Moto G86',       memory: '256 GB', W10: null,    W11: 1999 },
+  { tier: 'R$1.5k–2.5k', brand: 'Motorola', model: 'Edge 60 Fusion', memory: '256 GB', W10: null,    W11: 2399 },
+  { tier: 'R$1.5k–2.5k', brand: 'HONOR',    model: 'X6B',            memory: '256 GB', W10: 1799,    W11: null },
+  { tier: 'R$1.5k–2.5k', brand: 'HONOR',    model: 'X5B Plus',       memory: '256 GB', W10: null,    W11: 1701 },
+  { tier: 'R$1.5k–2.5k', brand: 'Xiaomi',   model: 'Redmi 14C',      memory: '256 GB', W10: null,    W11: 2020 },
+  // R$1k–1.5k
+  { tier: 'R$1k–1.5k', brand: 'JOVI',     model: 'JOVI Y29',       memory: '256 GB', W10: 1399,    W11: null },
+  { tier: 'R$1k–1.5k', brand: 'JOVI',     model: 'JOVI Y21',       memory: '128 GB', W10: 1299,    W11: null },
+  { tier: 'R$1k–1.5k', brand: 'JOVI',     model: 'JOVI Y21',       memory: '256 GB', W10: 1599,    W11: null },
+  { tier: 'R$1k–1.5k', brand: 'JOVI',     model: 'JOVI Y19s',      memory: '256 GB', W10: 1099,    W11: 1199 },
+  { tier: 'R$1k–1.5k', brand: 'Samsung',  model: 'Galaxy A07',     memory: '128 GB', W10: 849,     W11: 699 },
+  { tier: 'R$1k–1.5k', brand: 'OPPO',     model: 'A6X',            memory: '128 GB', W10: 1199,    W11: 1199 },
+  { tier: 'R$1k–1.5k', brand: 'OPPO',     model: 'A5',             memory: '256 GB', W10: null,    W11: 1499 },
+  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G06',       memory: '256 GB', W10: 799,     W11: null },
+  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G06',       memory: '128 GB', W10: null,    W11: 699 },
+  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G15',       memory: '256 GB', W10: 1223,    W11: 999 },
+  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G17',       memory: '-',      W10: 1299,    W11: 1591 },
+  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G35',       memory: '256 GB', W10: 1199,    W11: 1199 },
+  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G55',       memory: '256 GB', W10: 1399,    W11: 1439 },
+  { tier: 'R$1k–1.5k', brand: 'Xiaomi',   model: 'Redmi A3',       memory: '128 GB', W10: 899,     W11: null },
+  { tier: 'R$1k–1.5k', brand: 'Xiaomi',   model: 'Redmi 14C',      memory: '256 GB', W10: 1449,    W11: null },
+];
+// Add price field = W11 if available, else W10 (for price list view)
+offData.forEach(d => d.price = d.W11 ?? d.W10);
+const offBrandColors={Apple:'#e8a020',Samsung:'#7c3aed',Motorola:'#444444',OPPO:'#1aaa55',Xiaomi:'#ff6900',HONOR:'#e42125',JOVI:'#1a3a6b'};
+const offBrands=[...new Set(offData.map(d=>d.brand))];
+const offTiers=[...new Set(offData.map(d=>d.tier))];
+const offTierLabels={'R$6k+':'🔴 Above R$6,000','R$2.5k–6k':'🟠 R$2.500 – R$6.000','R$1.5k–2.5k':'🟡 R$1.500 – R$2.500','R$1k–1.5k':'🟢 R$1.000 – R$1.500'};
+let offActiveBrands=new Set(offBrands);let offActiveTiers=new Set(offTiers);let offSortMode='price';let offSortDir='asc';
+const offFmt=n=>'R$'+n.toLocaleString('pt-BR');
+
+function offBuildFilters(){
+  // Brand dropdown
+  const bl=$('off-ddl-brand');
+  offBrands.forEach(brand=>{
+    const count=offData.filter(d=>d.brand===brand).length;
+    const item=document.createElement('div'); item.className='ddi';
+    const cb=document.createElement('input'); cb.type='checkbox'; cb.checked=true;
+    const dot=document.createElement('span'); dot.className='ddi-dot'; dot.style.background=offBrandColors[brand]||'#888';
+    const name=document.createElement('span'); name.className='ddi-name'; name.textContent=brand;
+    const sub=document.createElement('span'); sub.className='ddi-sub'; sub.textContent=count;
+    item.append(cb,dot,name,sub);
+    cb.addEventListener('change',()=>{ offActiveBrands[cb.checked?'add':'delete'](brand); offRenderActive(); offDdUpdateLabel('brand'); });
+    bl.appendChild(item);
+  });
+  // Tier dropdown
+  const tl=$('off-ddl-tier');
+  const tierOrder=['R$6k+','R$2.5k–6k','R$1.5k–2.5k','R$1k–1.5k'];
+  tierOrder.filter(t=>offTiers.includes(t)).forEach(tier=>{
+    const count=offData.filter(d=>d.tier===tier).length;
+    const item=document.createElement('div'); item.className='ddi';
+    const cb=document.createElement('input'); cb.type='checkbox'; cb.checked=true;
+    const name=document.createElement('span'); name.className='ddi-name'; name.textContent=tier;
+    const sub=document.createElement('span'); sub.className='ddi-sub'; sub.textContent=count;
+    item.append(cb,name,sub);
+    cb.addEventListener('change',()=>{ offActiveTiers[cb.checked?'add':'delete'](tier); offRenderActive(); offDdUpdateLabel('tier'); });
+    tl.appendChild(item);
+  });
+  // close on outside click
+  document.addEventListener('click',e=>{ ['brand','tier'].forEach(k=>{ if(!$('off-dd-'+k)?.contains(e.target)){const m=$('off-ddm-'+k);if(m)m.style.display='none';$('off-ddt-'+k)?.classList.remove('open');} }); });
+}
+
+function offDdToggle(key){
+  const m=$('off-ddm-'+key); const t=$('off-ddt-'+key);
+  const isOpen=m.style.display!=='none';
+  // close others
+  ['brand','tier'].forEach(k=>{ $('off-ddm-'+k).style.display='none'; $('off-ddt-'+k).classList.remove('open'); });
+  if(!isOpen){ m.style.display='block'; t.classList.add('open'); }
+}
+function offDdAll(key){
+  $('off-ddl-'+key).querySelectorAll('input[type=checkbox]').forEach(cb=>{cb.checked=true;cb.dispatchEvent(new Event('change'));});
+}
+function offDdNone(key){
+  $('off-ddl-'+key).querySelectorAll('input[type=checkbox]').forEach(cb=>{cb.checked=false;cb.dispatchEvent(new Event('change'));});
+}
+function offDdReset(){
+  offDdAll('brand'); offDdAll('tier');
+  offDdUpdateLabel('brand'); offDdUpdateLabel('tier');
+  offRenderActive();
+}
+function offDdUpdateLabel(key){
+  const checks=$('off-ddl-'+key).querySelectorAll('input[type=checkbox]');
+  const total=checks.length, sel=[...checks].filter(c=>c.checked).length;
+  const labels={brand:'Brand',tier:'Price Range'};
+  const trig=$('off-ddt-'+key), span=$('off-ddlbl-'+key);
+  trig.querySelectorAll('.dd-badge').forEach(b=>b.remove());
+  if(sel===total||sel===0){ span.textContent=labels[key]; trig.classList.remove('on'); }
+  else{ span.textContent=labels[key]+' '; const b=document.createElement('span'); b.className='dd-badge'; b.textContent=sel; trig.insertBefore(b,trig.querySelector('.cv')); trig.classList.add('on'); }
+}
+
+
+function offSetSort(mode){
+  if(mode==='price'){
+    if(offSortMode==='price') offSortDir=offSortDir==='asc'?'desc':'asc';
+    else { offSortMode='price'; offSortDir='asc'; }
+  } else {
+    offSortMode=mode; offSortDir='asc';
+  }
+  const arrow=offSortDir==='asc'?'↑':'↓';
+  $('off-btn-price').textContent=`${arrow} Price`;
+  $('off-btn-price').classList.toggle('active',offSortMode==='price');
+  $('off-btn-brand').classList.toggle('active',offSortMode==='brand');
+  offRenderList(offData.filter(d=>offActiveBrands.has(d.brand)&&offActiveTiers.has(d.tier)));
+}
+
+function offMakeRow(item){
+  const c=offBrandColors[item.brand]||'#888';
+  const w10cell = item.W10 ? `<span style="font-family:'JetBrains Mono',monospace">${offFmt(item.W10)}</span>` : `<span style="color:var(--muted)">—</span>`;
+  const w11cell = item.W11 ? `<span style="font-family:'JetBrains Mono',monospace;font-weight:700">${offFmt(item.W11)}</span>` : `<span style="color:var(--muted)">—</span>`;
+  let changeCell='<span style="color:var(--muted)">—</span>';
+  let pctCell='<span style="color:var(--muted)">—</span>';
+  if(item.W10&&item.W11){
+    const diff=item.W11-item.W10, pct=(diff/item.W10*100);
+    const isPos=diff>0, isFlat=diff===0;
+    const col=isFlat?'#9ca3af':isPos?'#ef4444':'#22c55e';
+    const arrow=isFlat?'→':isPos?'▲':'▼';
+    changeCell=`<span style="color:${col};font-family:'JetBrains Mono',monospace;font-size:12px">${arrow} ${offFmt(Math.abs(diff))}</span>`;
+    pctCell=`<span style="color:${col};font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px">${isPos?'+':''}${pct.toFixed(1)}%</span>`;
+  }
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td class="off-td-brand"><span class="off-brand-color-bar" style="background:${c}"></span></td><td class="off-td-model">${item.model}</td><td class="off-td-memory">${item.memory}</td><td class="off-td-tier">${item.tier}</td><td style="padding:8px 12px;text-align:right">${w10cell}</td><td style="padding:8px 12px;text-align:right">${w11cell}</td><td style="padding:8px 12px;text-align:right">${changeCell}</td><td style="padding:8px 14px;text-align:right">${pctCell}</td>`;
+  return tr;
+}
+
+function offRenderList(filtered){
+  const container=$('off-product-list');const noR=$('off-no-results');container.innerHTML='';
+  if(!filtered.length){noR.style.display='block';return;}noR.style.display='none';
+  if(offSortMode==='price'){
+    const sorted=[...filtered].sort((a,b)=>offSortDir==='asc'?a.price-b.price:b.price-a.price);
+    const table=document.createElement('table');table.className='off-product-table';
+    table.innerHTML=`<thead><tr><th></th><th>Model</th><th>Memory</th><th>Price range</th><th style="text-align:right">W10</th><th style="text-align:right">W11</th><th style="text-align:right">CHANGE</th><th style="text-align:right">%</th></tr></thead>`;
+    const tbody=document.createElement('tbody');sorted.forEach(item=>tbody.appendChild(offMakeRow(item)));table.appendChild(tbody);container.appendChild(table);
+  }else{
+    offBrands.filter(b=>offActiveBrands.has(b)&&filtered.some(d=>d.brand===b)).forEach(brand=>{
+      const bd=[...filtered.filter(d=>d.brand===brand)].sort((a,b)=>a.price-b.price);if(!bd.length)return;
+      const c=offBrandColors[brand];const hdr=document.createElement('div');hdr.className='off-brand-group-header';hdr.style.color=c;
+      hdr.innerHTML=`${brand} <span class="bgh-count">${bd.length} model${bd.length>1?'s':''}</span>`;container.appendChild(hdr);
+      const table=document.createElement('table');table.className='off-product-table';
+      table.innerHTML=`<thead><tr><th></th><th>Model</th><th>Memory</th><th>Price range</th><th style="text-align:right">W10</th><th style="text-align:right">W11</th><th style="text-align:right">CHANGE</th><th style="text-align:right">%</th></tr></thead>`;
+      const tbody=document.createElement('tbody');bd.forEach(item=>tbody.appendChild(offMakeRow(item)));table.appendChild(tbody);container.appendChild(table);
+    });
+  }
+}
+
+function offRenderActive(){
+  const evoVisible = $('off-sec-evolution') && $('off-sec-evolution').style.display !== 'none';
+  if(evoVisible) offRenderEvolution(); else offRender();
+}
+
+function offRender(){
+  const filtered=offData.filter(d=>offActiveBrands.has(d.brand)&&offActiveTiers.has(d.tier));
+  $('off-stat-total').textContent=filtered.length;
+  $('off-stat-brands').textContent=new Set(filtered.map(d=>d.brand)).size;
+  // Stats always based on W11 prices only
+  const w11prices=filtered.filter(d=>d.W11!=null).map(d=>d.W11);
+  if(w11prices.length){
+    $('off-stat-min').textContent=offFmt(Math.min(...w11prices));
+    $('off-stat-max').textContent=offFmt(Math.max(...w11prices));
+    $('off-stat-avg').textContent=offFmt(Math.round(w11prices.reduce((a,b)=>a+b,0)/w11prices.length));
+  }
+  $('off-results-count').textContent=`${filtered.length} product${filtered.length!==1?'s':''}`;
+  offRenderList(filtered);
+  offRenderStackedChart(filtered);
+}
+
+function offRenderRangeChart(filtered){
+  const rc=$('off-range-chart');rc.innerHTML='';
+  const activeBrandList=offBrands.filter(b=>offActiveBrands.has(b));
+  const globalMax=Math.max(...filtered.map(d=>d.price),1);
+  const globalMin=Math.min(...filtered.map(d=>d.price),0);
+  const pad=(globalMax-globalMin)*.03;const rangeSpan=(globalMax-globalMin+pad*2)||1;
+  const toX=p=>(((p-globalMin+pad)/rangeSpan)*100).toFixed(2)+'%';
+  const numTicks=6;const tickValues=Array.from({length:numTicks},(_,i)=>Math.round(globalMin+((globalMax-globalMin)/(numTicks-1))*i));
+  activeBrandList.forEach(brand=>{
+    const bd=[...filtered.filter(d=>d.brand===brand)].sort((a,b)=>a.price-b.price);if(!bd.length)return;
+    const prices=bd.map(d=>d.price);const minP=Math.min(...prices),maxP=Math.max(...prices),avgP=Math.round(prices.reduce((a,b)=>a+b,0)/prices.length);
+    const color=offBrandColors[brand];const row=document.createElement('div');row.className='off-range-row';
+    const label=document.createElement('div');label.className='off-range-brand-label';label.style.color=color;label.textContent=brand;
+    const trackWrap=document.createElement('div');trackWrap.className='off-range-track-wrap';
+    const axisLine=document.createElement('div');axisLine.className='off-range-axis-line';trackWrap.appendChild(axisLine);
+    const rangeLine=document.createElement('div');rangeLine.className='off-range-line';rangeLine.style.left=toX(minP);rangeLine.style.width=(((maxP-minP)/rangeSpan)*100).toFixed(2)+'%';rangeLine.style.background=color+'33';rangeLine.style.border=`1.5px solid ${color}66`;trackWrap.appendChild(rangeLine);
+    const placedX=[];bd.forEach(item=>{const xPct=parseFloat(toX(item.price));const tooClose=placedX.some(px=>Math.abs(px-xPct)<2.2);placedX.push(xPct);
+      const wrap=document.createElement('div');wrap.className='off-range-dot-wrap';wrap.style.left=toX(item.price);if(tooClose)wrap.style.top='30%';
+      const dot=document.createElement('div');dot.className='off-range-dot';dot.style.background=color;dot.style.borderColor='#fff';
+      const tooltip=document.createElement('div');tooltip.className='off-range-tooltip';tooltip.innerHTML=`<strong>${item.model}</strong><br>${item.memory}<br>${offFmt(item.price)}`;
+      wrap.appendChild(dot);wrap.appendChild(tooltip);trackWrap.appendChild(wrap);});
+    [minP,maxP].forEach(p=>{const tick=document.createElement('div');tick.style.cssText=`position:absolute;left:${toX(p)};bottom:2px;transform:translateX(-50%);font-size:9px;font-family:'JetBrains Mono',monospace;color:${color};white-space:nowrap;`;tick.textContent=offFmt(p);trackWrap.appendChild(tick);});
+    const avgDot=document.createElement('div');avgDot.className='off-range-dot-avg';avgDot.style.left=toX(avgP);avgDot.style.background=color;avgDot.style.border='3px solid white';avgDot.title=`Avg: ${offFmt(avgP)}`;trackWrap.appendChild(avgDot);
+    const stat=document.createElement('div');stat.className='off-range-stat';stat.innerHTML=`<strong>${offFmt(avgP)}</strong><br>avg<br><span>${prices.length} model${prices.length>1?'s':''}</span>`;
+    row.appendChild(label);row.appendChild(trackWrap);row.appendChild(stat);rc.appendChild(row);
+  });
+  const axisRow=document.createElement('div');axisRow.className='off-chart-x-axis';
+  axisRow.innerHTML=`<div></div><div class="off-axis-ticks">${tickValues.map(v=>`<span>R$${(v/1000).toFixed(1)}k</span>`).join('')}</div><div></div>`;
+  rc.appendChild(axisRow);
+}
+
+function offRenderStackedChart(filtered){
+  const tierOrder=['R$6k+','R$2.5k–6k','R$1.5k–2.5k','R$1k–1.5k'];
+  const tierShort={'R$6k+':'R$6k+','R$2.5k–6k':'R$2.5k–6k','R$1.5k–2.5k':'R$1.5k–2.5k','R$1k–1.5k':'R$1k–1.5k'};
+  const activeBrandList=offBrands.filter(b=>offActiveBrands.has(b)&&filtered.some(d=>d.brand===b));
+  const activeTierOrder=tierOrder.filter(t=>offActiveTiers.has(t));
+  const legendEl=$('off-tier-legend');legendEl.innerHTML='';
+  activeBrandList.forEach(brand=>{const c=offBrandColors[brand];const item=document.createElement('div');item.className='off-brand-dist-legend-item';item.innerHTML=`<div class="off-brand-dist-legend-dot" style="background:${c}"></div>${brand}`;legendEl.appendChild(item);});
+  const chart=$('off-stacked-chart');chart.innerHTML='';const yTicks=[0,25,50,75,100];
+  const wrap=document.createElement('div');wrap.className='off-grouped-chart-wrap';
+  const yAxis=document.createElement('div');yAxis.className='off-grouped-y-axis';
+  yTicks.forEach(v=>{const tick=document.createElement('div');tick.className='off-grouped-y-tick';tick.textContent=v+'%';yAxis.appendChild(tick);});wrap.appendChild(yAxis);
+  const inner=document.createElement('div');inner.className='off-grouped-chart-inner';
+  const grid=document.createElement('div');grid.className='off-grouped-gridlines';
+  yTicks.forEach(v=>{const line=document.createElement('div');line.className='off-grouped-gridline';line.style.bottom=(v/100*100)+'%';grid.appendChild(line);});
+  const barsArea=document.createElement('div');barsArea.className='off-grouped-bars-area';barsArea.appendChild(grid);
+  activeTierOrder.forEach(tier=>{
+    const tierTotal=filtered.filter(d=>d.tier===tier).length||1;
+    const group=document.createElement('div');group.className='off-grouped-brand-group';
+    activeBrandList.forEach(brand=>{const count=filtered.filter(d=>d.brand===brand&&d.tier===tier).length;const pct=count/tierTotal*100;const heightPx=pct/100*200;const c=offBrandColors[brand];
+      const bar=document.createElement('div');bar.className='off-grouped-bar';bar.style.height=heightPx+'px';bar.style.background=c;
+      bar.innerHTML=`<div class="off-gbar-tooltip">${brand}<br>${tierShort[tier]}<br>${count} model${count!==1?'s':''} — ${Math.round(pct)}%</div>`;group.appendChild(bar);});
+    barsArea.appendChild(group);});
+  inner.appendChild(barsArea);
+  const xAxis=document.createElement('div');xAxis.className='off-grouped-x-axis';
+  activeTierOrder.forEach(tier=>{const lbl=document.createElement('div');lbl.className='off-grouped-x-label';lbl.style.color='var(--muted)';lbl.style.fontSize='12px';lbl.textContent=tierShort[tier];xAxis.appendChild(lbl);});
+  inner.appendChild(xAxis);wrap.appendChild(inner);chart.appendChild(wrap);
+}
+
+/* ══════════════════════════════════
+   OFFLINE TAB + SPECS
+══════════════════════════════════ */
+function offGoTo(tab){
+  ['prices','evolution','specs'].forEach(t=>{
+    const sec=$('off-sec-'+t);
+    const btn=$('off-tab-'+t);
+    if(sec) sec.style.display = t===tab?'block':'none';
+    if(btn) btn.classList.toggle('on', t===tab);
+  });
+  const sc=$('off-sort-controls');
+  if(sc) sc.style.display = tab==='prices'?'flex':'none';
+  if(tab==='evolution') offRenderEvolution();
+  if(tab==='specs') specsRender();
+}
+
+function offRenderEvolution(){
+  const filtered = offData.filter(d=>offActiveBrands.has(d.brand)&&offActiveTiers.has(d.tier));
+  const comparable = filtered.filter(d=>d.W10!=null&&d.W11!=null);
+  const allW11 = filtered.filter(d=>d.W11!=null);
+  const w11Only = filtered.filter(d=>d.W11!=null&&d.W10==null);
+  const w10Only = filtered.filter(d=>d.W10!=null&&d.W11==null);
+
+  // KPI biggest rise/drop: always use FULL dataset regardless of filters
+  const allComparable = offData.filter(d=>d.W10!=null&&d.W11!=null);
+  const allMoves = allComparable.map(d=>({d, pct:(d.W11-d.W10)/d.W10*100, abs:d.W11-d.W10}));
+
+  // ── KPI cards ────────────────────────────────────────
+  const moves = comparable.map(d=>({d, pct:(d.W11-d.W10)/d.W10*100, abs:d.W11-d.W10}));
+  let insHtml='';
+  if(allMoves.length){
+    const rise=allMoves.reduce((a,b)=>b.pct>a.pct?b:a);
+    const drop=allMoves.reduce((a,b)=>b.pct<a.pct?b:a);
+    const nUp=moves.filter(m=>m.pct>0.2).length;
+    const nDn=moves.filter(m=>m.pct<-0.2).length;
+    const nFl=moves.length-nUp-nDn;
+    insHtml+=`<div class="on-insight-card insight-rising"><div class="on-insight-lbl">🔺 Biggest Increase</div><div class="on-insight-model">${rise.d.model}</div><div class="on-insight-meta">${rise.d.brand} · ${rise.d.memory}</div><div class="on-insight-val red">+${rise.pct.toFixed(1)}% (${offFmt(rise.abs)})</div></div>`;
+    insHtml+=`<div class="on-insight-card insight-falling"><div class="on-insight-lbl">🔻 Biggest Drop</div><div class="on-insight-model">${drop.d.model}</div><div class="on-insight-meta">${drop.d.brand} · ${drop.d.memory}</div><div class="on-insight-val green">${drop.pct.toFixed(1)}% (${offFmt(drop.abs)})</div></div>`;
+    insHtml+=`<div class="on-insight-card"><div class="on-insight-lbl">📊 Movement</div><div style="display:flex;gap:16px;margin-top:10px;align-items:baseline"><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#ef4444">${nUp}</div><div style="font-size:10px;color:var(--muted);margin-top:2px">increased</div></div><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#22c55e">${nDn}</div><div style="font-size:10px;color:var(--muted);margin-top:2px">decreased</div></div><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#9ca3af">${nFl}</div><div style="font-size:10px;color:var(--muted);margin-top:2px">stable</div></div></div></div>`;
+    insHtml+=`<div class="on-insight-card insight-leader"><div class="on-insight-lbl">📋 Coverage</div><div class="on-insight-model">${comparable.length} compared</div><div class="on-insight-meta">${w11Only.length} new W11 · ${w10Only.length} W10 only</div><div class="on-insight-val blue">${allW11.length} total W11</div></div>`;
+  } else {
+    insHtml='<div style="grid-column:1/-1;color:var(--muted);font-size:13px;padding:12px 0">No comparable SKUs for selected filters.</div>';
+  }
+  $('off-evo-insights').innerHTML=insHtml;
+
+  // ── % variation bar chart ─────────────────────────────
+  $('off-evo-chart-title').textContent=`Price Variation W10 → W11 · ${comparable.length} SKUs`;
+  const sorted=[...moves].sort((a,b)=>b.pct-a.pct);
+  const maxAbs=Math.max(...sorted.map(m=>Math.abs(m.pct)),1);
+  let chartHtml='<div style="display:flex;flex-direction:column;gap:7px;margin-top:8px">';
+  sorted.forEach(({d,pct,abs})=>{
+    const col=offBrandColors[d.brand]||'#888';
+    const isPos=pct>0.2, isNeg=pct<-0.2;
+    const barColor=isPos?'#ef4444':isNeg?'#22c55e':'#9ca3af';
+    const sign=pct>0?'+':'';
+    const barW=Math.abs(pct)/maxAbs*48;
+    chartHtml+=`<div style="display:grid;grid-template-columns:190px 1fr 270px;align-items:center;gap:10px">
+      <div style="font-size:12px;font-weight:600;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+        <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${col};margin-right:5px;flex-shrink:0"></span>${d.model} <span style="color:#9ca3af;font-weight:400">${d.memory}</span>
+      </div>
+      <div style="background:#f1f2f7;border-radius:4px;height:18px;position:relative">
+        <div style="position:absolute;${isPos?'left:50%':'right:50%'};width:${barW}%;height:100%;background:${barColor};border-radius:4px;opacity:.85"></div>
+        <div style="position:absolute;left:50%;top:0;width:1px;height:100%;background:#d1d5db"></div>
+      </div>
+      <div style="font-size:12px;font-weight:700;color:${barColor};font-family:'JetBrains Mono',monospace;white-space:nowrap">
+        ${sign}${pct.toFixed(1)}%
+        <span style="color:#6b7280;font-weight:500;font-size:11px">${offFmt(d.W10)} → ${offFmt(d.W11)}</span>
+        <span style="color:#9ca3af;font-size:11px;font-weight:400">(${sign}${offFmt(abs)})</span>
+      </div>
+    </div>`;
+  });
+  chartHtml+='</div>';
+  $('off-evo-chart').innerHTML = moves.length ? chartHtml : '<div style="color:var(--muted);font-size:13px;padding:12px 0">—</div>';
+
+  // ── Brand ranking ─────────────────────────────────────
+  // For each brand: show top mover up + top mover down, sorted by avg change
+  const byBrand={};
+  moves.forEach(m=>{
+    const b=m.d.brand;
+    if(!byBrand[b]) byBrand[b]={moves:[],up:[],dn:[],fl:[]};
+    byBrand[b].moves.push(m);
+    if(m.pct>0.2) byBrand[b].up.push(m);
+    else if(m.pct<-0.2) byBrand[b].dn.push(m);
+    else byBrand[b].fl.push(m);
+  });
+  // Sort brands by avg pct change desc
+  const brandsSorted=Object.entries(byBrand).sort((a,b)=>{
+    const avgA=a[1].moves.reduce((s,m)=>s+m.pct,0)/a[1].moves.length;
+    const avgB=b[1].moves.reduce((s,m)=>s+m.pct,0)/b[1].moves.length;
+    return avgB-avgA;
+  });
+  let rankHtml='<div style="display:flex;flex-direction:column;gap:14px;margin-top:4px">';
+  brandsSorted.forEach(([brand,s])=>{
+    const c=offBrandColors[brand]||'#888';
+    const avg=s.moves.reduce((a,m)=>a+m.pct,0)/s.moves.length;
+    const avgCol=avg>0.2?'#ef4444':avg<-0.2?'#22c55e':'#9ca3af';
+    const avgSign=avg>0?'+':'';
+    // top riser and top faller for this brand
+    const topUp=s.up.length?s.up.reduce((a,b)=>b.pct>a.pct?b:a):null;
+    const topDn=s.dn.length?s.dn.reduce((a,b)=>b.pct<a.pct?b:a):null;
+    rankHtml+=`<div style="border:1px solid var(--border);border-radius:10px;overflow:hidden">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--surface2);border-bottom:1px solid var(--border)">
+        <span style="font-size:12px;font-weight:700;color:${c};border-left:3px solid ${c};padding-left:7px">${brand}</span>
+        <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:${avgCol}">avg ${avgSign}${avg.toFixed(1)}%</span>
+      </div>
+      <div style="padding:8px 12px;display:flex;gap:16px;font-size:11px;border-bottom:1px solid var(--border)">
+        <span style="color:#ef4444;font-weight:700">${s.up.length} <span style="font-weight:400;color:var(--muted)">up</span></span>
+        <span style="color:#22c55e;font-weight:700">${s.dn.length} <span style="font-weight:400;color:var(--muted)">down</span></span>
+        <span style="color:#9ca3af;font-weight:700">${s.fl.length} <span style="font-weight:400;color:var(--muted)">stable</span></span>
+        <span style="margin-left:auto;color:var(--muted)">${s.moves.length} SKU${s.moves.length!==1?'s':''}</span>
+      </div>`;
+    if(topUp) rankHtml+=`<div style="padding:6px 12px;display:flex;justify-content:space-between;align-items:center;font-size:11px;border-bottom:1px solid var(--border)">
+        <span style="color:#374151">📈 ${topUp.d.model} <span style="color:#9ca3af">${topUp.d.memory}</span></span>
+        <span style="color:#ef4444;font-family:'JetBrains Mono',monospace;font-weight:700">+${topUp.pct.toFixed(1)}%</span>
+      </div>`;
+    if(topDn) rankHtml+=`<div style="padding:6px 12px;display:flex;justify-content:space-between;align-items:center;font-size:11px">
+        <span style="color:#374151">📉 ${topDn.d.model} <span style="color:#9ca3af">${topDn.d.memory}</span></span>
+        <span style="color:#22c55e;font-family:'JetBrains Mono',monospace;font-weight:700">${topDn.pct.toFixed(1)}%</span>
+      </div>`;
+    if(!topUp&&!topDn) rankHtml+=`<div style="padding:6px 12px;font-size:11px;color:#9ca3af;font-style:italic">No movement</div>`;
+    rankHtml+='</div>';
+  });
+  rankHtml+='</div>';
+  $('off-evo-brand-ranking').innerHTML = brandsSorted.length ? rankHtml : '<div style="color:var(--muted);font-size:13px">—</div>';
+}
+function specPriceCell(items){
+  let html = '<div class="spec-prices">';
+  items.forEach(({cfg, W10, W11}) => {
+    const fmt = v => v ? `R$\u202f${Number(v).toLocaleString('pt-BR')}` : null;
+    const w10s = fmt(W10), w11s = fmt(W11);
+
+    html += `<div style="padding:4px 2px;margin-bottom:3px;text-align:center">`;
+    if(cfg) html += `<div style="font-size:10px;color:#9ca3af;margin-bottom:2px">${cfg}</div>`;
+
+    if(W10 && W11){
+      const pct=(W11-W10)/W10*100, isPos=pct>0.2, isNeg=pct<-0.2;
+      const col=isPos?'#ef4444':isNeg?'#22c55e':'#9ca3af';
+      const arrow=isPos?'▲':isNeg?'▼':'→';
+      const sign=pct>0?'+':'';
+      html += `<div style="display:flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap">`;
+      html += `<span style="font-size:11px;color:#9ca3af"><span style="font-size:9px;text-transform:uppercase;letter-spacing:.4px">W10</span> ${w10s}</span>`;
+      html += `<span style="color:#d1d5db;font-size:10px">→</span>`;
+      html += `<span style="font-size:12px;font-weight:700;color:var(--text)"><span style="font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.4px;color:#6b7280">W11</span> ${w11s}</span>`;
+      html += `<span style="color:${col};font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700">${arrow} ${sign}${pct.toFixed(1)}%</span>`;
+      html += `</div>`;
+    } else if(W11 && !W10){
+      html += `<span style="font-size:12px;font-weight:700;color:var(--text)"><span style="font-size:9px;font-weight:400;color:#9ca3af">W11 </span>${w11s}</span>`;
+    } else if(W10 && !W11){
+      html += `<div style="display:flex;align-items:center;justify-content:center;gap:5px">`;
+      html += `<span style="font-size:12px;font-weight:600;color:var(--text)"><span style="font-size:9px;font-weight:400;color:#9ca3af">W10 </span>${w10s}</span>`;
+      html += `<span style="font-size:10px;color:#fca5a5;font-style:italic">W11 n/a</span>`;
+      html += `</div>`;
+    } else {
+      html += `<span style="font-size:11px;color:#d1d5db">—</span>`;
+    }
+    html += `</div>`;
+  });
+  html += '</div>';
+  return html;
+}
+
+const SPECS = {
+  x300ultra: {
+    title: 'X300 Ultra — Competitors · Ultra / Pro Max',
+    cols: [
+      { label:'Galaxy S26 Ultra', cls:'col-samsung' },
+      { label:'Galaxy S25 Ultra', cls:'col-samsung' },
+      { label:'iPhone 17 Pro Max', cls:'col-apple' },
+      { label:'iPhone 16 Pro Max', cls:'col-apple' },
+      { label:'iPhone 17 Pro',    cls:'col-apple' },
+    ],
+    priceRaw: [
+      {col:'Galaxy S26 Ultra',  W10:11499, W11:null},
+      {col:'Galaxy S25 Ultra',  W10:7484,  W11:null},
+      {col:'iPhone 17 Pro Max', W10:null,  W11:null},
+      {col:'iPhone 16 Pro Max', W10:12499, W11:null},
+      {col:'iPhone 17 Pro',     W10:11499, W11:null},
+    ],
+    rows: {
+      '📅 Launch':   ['Feb\'26','Jan\'25','Sep\'25','Sep\'24','Sep\'25'],
+      '💰 Price': [
+        specPriceCell([{cfg:'12GB+256GB',W10:11499,W11:null},{cfg:'12GB+512GB',W10:11499,W11:null},{cfg:'16GB+1TB',W10:13099,W11:null}]),
+        specPriceCell([{cfg:'12GB+256GB',W10:7484,W11:null},{cfg:'12GB+512GB',W10:7399,W11:null}]),
+        specPriceCell([{cfg:'12GB+256GB',W10:null,W11:null},{cfg:'12GB+512GB',W10:null,W11:null}]),
+        specPriceCell([{cfg:'8GB+512GB',W10:12499,W11:null},{cfg:'8GB+1TB',W10:12999,W11:null}]),
+        specPriceCell([{cfg:'12GB+256GB',W10:11499,W11:null},{cfg:'12GB+512GB',W10:13999,W11:null}]),
+      ],
+      '🤳 Selfie':   ['12 MP','12 MP','18 MP','12 MP','18 MP'],
+      '📷 Camera':   ['200 OIS(W)/50(UW)/10(3X) MP','200 OIS(W)/50(UW)/10(3X) MP','48 OIS(W)+48(UW)/48(4x) MP','48 OIS(W)+48(UW)/12(5x) MP','48 OIS(W)+48(UW)/48(4x) MP'],
+      '⚙️ Chipset':  ['Snapdragon 8 Elite Gen 5 (3nm) 5G','Snapdragon 8 Elite (3nm) 5G','Apple A19 Pro (3nm) 5G','Apple A18 Pro (3nm) 5G','Apple A19 Pro (3nm) 5G'],
+      '📱 Screen':   ['6.9" AMOLED 120Hz<br><small>Privacy Display</small>','6.9" AMOLED 120Hz','6.9" XDR OLED 120Hz','6.9" XDR OLED 120Hz','6.3" XDR OLED 120Hz'],
+      '🔋 Battery':  ['5000 mAh<br><small>60/25W inbox</small>','5000 mAh<br><small>45/25W inbox</small>','4823 mAh<br><small>45/25W inbox</small>','4685 mAh<br><small>45/25W inbox</small>','3998 mAh<br><small>45/25W inbox</small>'],
+      '🛡 Rating':   ['IP68','IP68','IP68','IP68','IP68'],
+    }
+  },
+  x300fe: {
+    title: 'X300 FE — Competitors · Plus / Standard / Air',
+    cols: [
+      { label:'Galaxy S26 Plus', cls:'col-samsung' },
+      { label:'Galaxy S25 Plus', cls:'col-samsung' },
+      { label:'Galaxy S26',      cls:'col-samsung' },
+      { label:'Galaxy S25',      cls:'col-samsung' },
+      { label:'iPhone 17',       cls:'col-apple'   },
+      { label:'iPhone Air',      cls:'col-apple'   },
+    ],
+    priceRaw: [
+      {col:'Galaxy S26 Plus', W10:9199, W11:null},
+      {col:'Galaxy S25 Plus', W10:4985, W11:null},
+      {col:'Galaxy S26',      W10:7499, W11:null},
+      {col:'Galaxy S25',      W10:4165, W11:null},
+      {col:'iPhone 17',       W10:7999, W11:null},
+      {col:'iPhone Air',      W10:7765, W11:null},
+    ],
+    rows: {
+      '📅 Launch':   ['Feb\'26','Feb\'26','Feb\'26','Jan\'25','Sep\'25','Sep\'25'],
+      '💰 Price': [
+        specPriceCell([{cfg:'12GB+256GB',W10:9199,W11:null},{cfg:'12GB+512GB',W10:9199,W11:null}]),
+        specPriceCell([{cfg:'12GB+256GB',W10:4985,W11:null},{cfg:'12GB+512GB',W10:5199,W11:null}]),
+        specPriceCell([{cfg:'12GB+256GB',W10:7499,W11:null},{cfg:'12GB+512GB',W10:7499,W11:null}]),
+        specPriceCell([{cfg:'12GB+256GB',W10:4165,W11:null}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:7999,W11:null}]),
+        specPriceCell([{cfg:'12GB+256GB',W10:7765,W11:null},{cfg:'12GB+512GB',W10:9206,W11:null},{cfg:'12GB+1TB',W10:10601,W11:null}]),
+      ],
+      '🤳 Selfie':   ['12 MP','12 MP','12 MP','12 MP','18 MP','18 MP'],
+      '📷 Camera':   ['50 OIS/12(UW)/10(3x) MP','50 OIS/12(UW)/10(3x) MP','50 OIS/12(UW)/10(3x) MP','50 OIS/12(UW)/10(3x) MP','48 OIS(W)+48(UW)','48 OIS(W)'],
+      '⚙️ Chipset':  ['Exynos 2600 (2nm) 5G','Snapdragon 8 Elite (3nm) 5G','Exynos 2600 (2nm) 5G','Snapdragon 8 Elite (3nm) 5G','Apple A19 Pro (3nm) 5G','Apple A19 Pro (3nm) 5G'],
+      '📱 Screen':   ['6.7" AMOLED 120Hz','6.7" AMOLED 120Hz','6.3" AMOLED 120Hz','6.2" AMOLED 120Hz','6.3" XDR OLED 120Hz','6.5" XDR OLED 120Hz'],
+      '🔋 Battery':  ['4900 mAh<br><small>45/25W inbox</small>','4900 mAh<br><small>45/25W inbox</small>','4300 mAh<br><small>45/25W inbox</small>','4000 mAh<br><small>45/25W inbox</small>','3692 mAh<br><small>45/25W inbox</small>','3149 mAh<br><small>20W inbox</small>'],
+      '🛡 Rating':   ['IP68','IP68','IP68','IP68','IP68','IP68'],
+    }
+  },
+  v70: {
+    title: 'JOVI V70 — Specs Comparison',
+    cols: [
+      { label:'JOVI V70',       cls:'col-jovi'    },
+      { label:'Galaxy S25 FE',  cls:'col-samsung' },
+      { label:'Oppo Reno 14F',  cls:'col-oppo'    },
+      { label:'Moto Edge 70',   cls:'col-moto'    },
+    ],
+    priceRaw: [
+      {col:'JOVI V70',      W10:3499, W11:3499},
+      {col:'Galaxy S25 FE', W10:3199, W11:2999},
+      {col:'Oppo Reno 14F', W10:3499, W11:3699},
+      {col:'Moto Edge 70',  W10:4499, W11:null},
+    ],
+    rows: {
+      '📅 Launch':   ['Mar\'26','Sep\'25','Sep\'25','Mar\'26'],
+      '💰 Price': [
+        specPriceCell([{cfg:'8GB+256GB',W10:3499,W11:3499},{cfg:'8GB+512GB',W10:3999,W11:3999}]),
+        specPriceCell([{cfg:'8GB+128GB',W10:3199,W11:2999}]),
+        specPriceCell([{cfg:'12GB+256GB',W10:3499,W11:3699}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:4499,W11:null},{cfg:'12GB+512GB',W10:4999,W11:null}]),
+      ],
+      '🧠 Memory':   ['8+256GB / 8+512GB','8+256GB','12+256GB','8+256GB / 12+512GB'],
+      '🤳 Selfie':   ['32MP – Aura Light','12 MP','32 MP','50 MP'],
+      '📷 Camera':   ['200 OIS(30x)/8(UW) MP','50 OIS(W)/12(UW)/8(3x) MP','50 OIS(W)/8(UW)/2(M) MP','50 OIS(W)/50(UW) MP'],
+      '⚙️ Chipset':  ['Mediatek D7360 Turbo (4nm) 5G','Exynos 2400 (4nm) 5G','Snapdragon 6 Gen1 (4nm) 5G','Snapdragon 7 Gen 4 (4nm) 5G'],
+      '📱 Screen':   ['6.8" FHD+ AMOLED 120Hz','6.7" FHD+ AMOLED 120Hz','6.6" FHD+ AMOLED 120Hz','6.7" FHD+ POLED 120Hz'],
+      '🔋 Battery':  ['7000 mAh<br><small>90W inbox</small>','4900 mAh<br><small>25W inbox</small>','6000 mAh<br><small>80W inbox</small>','4800 mAh<br><small>68W inbox</small>'],
+      '🛡 Additional':['IP69, Inbox Cover, NFC','IP68, NFC, W-Charge','IP69, Inbox Cover','IP69, NFC, W-Charge'],
+      '🔒 Warranty': ['<div class="spec-warranty">2 yr warranty<br>4-yr battery<br>5-yr maintenance</div>','1 yr warranty','2 yr warranty','1 yr warranty'],
+    }
+  },
+  y31: {
+    title: 'JOVI Y31 — Specs Comparison',
+    cols: [
+      { label:'JOVI Y31',      cls:'col-jovi'    },
+      { label:'Galaxy A36',    cls:'col-samsung' },
+      { label:'Galaxy A27',    cls:'col-samsung' },
+      { label:'Oppo A5 5G',   cls:'col-oppo'    },
+      { label:'Oppo A6s',     cls:'col-oppo'    },
+      { label:'Moto G77',     cls:'col-moto'    },
+      { label:'Moto G86',     cls:'col-moto'    },
+    ],
+    priceRaw: [
+      {col:'JOVI Y31',    W10:2299, W11:2299},
+      {col:'Galaxy A36',  W10:2199, W11:1799},
+      {col:'Galaxy A27',  W10:2499, W11:null},
+      {col:'Oppo A5 5G',  W10:2299, W11:null},
+      {col:'Oppo A6s',    W10:1999, W11:null},
+      {col:'Moto G77',    W10:2499, W11:null},
+      {col:'Moto G86',    W10:1899, W11:1999},
+    ],
+    rows: {
+      '📅 Launch':   ['Feb\'26','Mar\'25','Mar\'26 (TBC)','May\'25','Apr\'26 (TBC)','Mar\'26','Sep\'25'],
+      '💰 Price': [
+        specPriceCell([{cfg:'8GB+256GB',W10:2299,W11:2299},{cfg:'8GB+512GB',W10:2799,W11:null}]),
+        specPriceCell([{cfg:'8GB+128GB',W10:2199,W11:1799}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:2499,W11:null}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:2299,W11:null}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:1999,W11:null}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:2499,W11:null}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:1899,W11:1999}]),
+      ],
+      '🧠 Memory':   ['8+256GB / 8+512GB','8+256GB','8+256GB','8+256GB','8+256GB / 8+512GB','8+256GB','8+256GB / 12+512GB'],
+      '🤳 Selfie':   ['32 MP','13 MP','13 MP','8 MP','16 MP','32 MP','32 MP'],
+      '📷 Camera':   ['50(W)/2(D) MP','50 OIS/8(UW)/5(M) MP','50MP/5MP/5MP','50(W)/2(D) MP','50(W)/2(D) MP','108(W)/8(UW) MP','50(W)/2(D) MP'],
+      '⚙️ Chipset':  ['6s 4G Gen2 (6nm) LTE','Snapdragon 6 Gen3 (4nm) 5G','Exynos 1380 5G','D7300 5G','Snapdragon 685 (6nm) LTE','D6400 (6nm) 5G','D7300 (4nm) 5G'],
+      '📱 Screen':   ['6.75" HD LCD 120Hz','6.6" FHD AMOLED 120Hz','6.7" FHD GOLED 120Hz','6.7" HD IPS 120Hz','6.75" HD LCD','6.8" HD AMOLED 120Hz','6.7" FHD+ POLED 120Hz'],
+      '🔋 Battery':  ['7200 mAh<br><small>44W inbox</small>','5000 mAh<br><small>15W inbox</small>','5000 mAh<br><small>15W inbox</small>','6000 mAh<br><small>45W inbox</small>','7000 mAh<br><small>80W inbox</small>','5200 mAh<br><small>33W inbox</small>','4800 mAh<br><small>68W inbox</small>'],
+      '🛡 Additional':['IP69+, NFC, Infrared','IP67, NFC','IP68, NFC','IP68, NFC','IP68, NFC','IP64, NFC','IP68, NFC'],
+      '🔒 Warranty': ['<div class="spec-warranty">Inbox Cover<br>2 yr warranty<br>4-yr battery</div>','1 yr warranty','1 yr warranty','<div class="spec-warranty">Inbox Cover<br>2 yr warranty</div>','<div class="spec-warranty">Inbox Cover<br>2 yr warranty</div>','1 yr warranty','1 yr warranty'],
+    }
+  },
+  y29s: {
+    title: 'JOVI Y29s — Specs Comparison',
+    cols: [
+      { label:'JOVI Y29s',    cls:'col-jovi'    },
+      { label:'JOVI Y21 5G', cls:'col-jovi'    },
+      { label:'Galaxy A36',  cls:'col-samsung' },
+      { label:'Oppo A5 5G', cls:'col-oppo'    },
+      { label:'Moto G67',   cls:'col-moto'    },
+    ],
+    priceRaw: [
+      {col:'JOVI Y29s',    W10:1699, W11:1599},
+      {col:'JOVI Y21 5G', W10:1899, W11:null},
+      {col:'Galaxy A36',  W10:2199, W11:1799},
+      {col:'Oppo A5 5G',  W10:2299, W11:null},
+      {col:'Moto G67',    W10:2499, W11:null},
+    ],
+    rows: {
+      '📅 Launch':   ['Aug\'25','Apr\'26','Mar\'25','May\'25','Mar\'26'],
+      '💰 Price': [
+        specPriceCell([{cfg:'8GB+256GB',W10:1699,W11:1599}]),
+        specPriceCell([{cfg:'4GB+256GB',W10:1899,W11:null}]),
+        specPriceCell([{cfg:'8GB+128GB',W10:2199,W11:1799}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:2299,W11:null}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:2499,W11:null}]),
+      ],
+      '🧠 Memory':   ['8+256GB','4+256GB','8+256GB','8+256GB','8+256GB'],
+      '🤳 Selfie':   ['8 MP','5 MP','13 MP','8 MP','32 MP'],
+      '📷 Camera':   ['50(W)/2(D) MP','50(W)/IR','50 OIS/8(UW)/5(M) MP','50(W)/2(D) MP','108(W)/8(UW) MP'],
+      '⚙️ Chipset':  ['D6300 (6nm) 5G','D6300 (6nm) 5G','Snapdragon 6 Gen3 (4nm) 5G','D6300 (6nm) 5G','D6300 (6nm) 5G'],
+      '📱 Screen':   ['6.7" HD IPS 90Hz','6.7" HD IPS 120Hz','6.6" FHD AMOLED 120Hz','6.7" HD IPS 120Hz','6.8" HD AMOLED 120Hz'],
+      '🔋 Battery':  ['6000 mAh<br><small>44W inbox</small>','6500 mAh<br><small>44W inbox</small>','5000 mAh<br><small>15W inbox</small>','6000 mAh<br><small>45W inbox</small>','5200 mAh<br><small>33W inbox</small>'],
+      '🛡 Additional':['IP64, NFC','IP65, NFC, Infrared','IP67, NFC','IP65','IP64, NFC'],
+      '🔒 Warranty': ['<div class="spec-warranty">Inbox Cover<br>1 yr warranty</div>','<div class="spec-warranty">Inbox Cover<br>1 yr warranty</div>','1 yr warranty','<div class="spec-warranty">Inbox Cover<br>2 yr warranty</div>','1 yr warranty'],
+    }
+  },
+  y29: {
+    title: 'JOVI Y29 — Specs Comparison',
+    cols: [
+      { label:'JOVI Y29',     cls:'col-jovi'    },
+      { label:'Galaxy A26 5G',cls:'col-samsung' },
+      { label:'OPPO A60',    cls:'col-oppo'    },
+      { label:'MOTO G56 5G', cls:'col-moto'    },
+    ],
+    priceRaw: [
+      {col:'JOVI Y29',      W10:1399, W11:null},
+      {col:'Galaxy A26 5G', W10:2570, W11:1959},
+      {col:'OPPO A60',      W10:null, W11:1899},
+      {col:'MOTO G56 5G',   W10:2080, W11:1749},
+    ],
+    rows: {
+      '📅 Launch':   ['Jun\'25','Mar\'25','Mar\'25','Aug\'25'],
+      '💰 Price': [
+        specPriceCell([{cfg:'8GB+256GB',W10:1399,W11:null}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:2570,W11:1959}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:null,W11:1899}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:2080,W11:1749}]),
+      ],
+      '🧠 Memory':   ['8+256GB','8+256GB','8+256GB','8+256GB'],
+      '🤳 Selfie':   ['8 MP','13 MP','5 MP','32 MP'],
+      '📷 Camera':   ['50(W)/2(D) MP','50(W)/5(UW)/2(M) MP','50(W) MP','50 OIS(W)/8(D) MP'],
+      '⚙️ Chipset':  ['Snapdragon 685 (6nm) LTE','Exynos 1330 (5nm) 5G','Snapdragon 6s G1 (6nm) LTE','Dimensity 7025 (6nm) 5G'],
+      '📱 Screen':   ['6.7" HD IPS 120Hz','6.6" FHD+ AMOLED 90Hz','6.7" HD IPS 90Hz','6.72" FHD IPS 120Hz'],
+      '🔋 Battery':  ['6500 mAh<br><small>44W inbox</small>','5000 mAh<br><small>15W inbox</small>','5100 mAh<br><small>45W inbox</small>','5200 mAh<br><small>30W inbox</small>'],
+      '🛡 Additional':['IP64, NFC, Infrared','IP67, NFC','IP54','IP68, NFC'],
+      '🔒 Warranty': ['<div class="spec-warranty">Inbox Cover<br>2 yr warranty<br>3-yr maintenance<br>4-yr battery</div>','1 yr warranty','<div class="spec-warranty">Inbox Cover<br>2 yr warranty</div>','1 yr warranty'],
+    }
+  },
+  y21: {
+    title: 'JOVI Y21 — Specs Comparison',
+    cols: [
+      { label:'JOVI Y21',    cls:'col-jovi'    },
+      { label:'Galaxy A17', cls:'col-samsung' },
+      { label:'Oppo A6 4G', cls:'col-oppo'    },
+      { label:'Moto G17 4G',cls:'col-moto'    },
+    ],
+    priceRaw: [
+      {col:'JOVI Y21',    W10:1299, W11:null},
+      {col:'Galaxy A17',  W10:1599, W11:1099},
+      {col:'Oppo A6 4G',  W10:1499, W11:null},
+      {col:'Moto G17 4G', W10:1299, W11:1591},
+    ],
+    rows: {
+      '📅 Launch':   ['Mar\'26','Sep\'25','Apr\'26','Feb\'26'],
+      '💰 Price': [
+        specPriceCell([{cfg:'4GB+128GB',W10:1299,W11:null},{cfg:'4GB+256GB',W10:1599,W11:null}]),
+        specPriceCell([{cfg:'8GB+128GB',W10:1599,W11:1099}]),
+        specPriceCell([{cfg:'6GB+256GB',W10:1499,W11:null}]),
+        specPriceCell([{cfg:'4GB+128GB',W10:1299,W11:1591}]),
+      ],
+      '🧠 Memory':   ['4+128GB / 4+256GB','8+256GB','6+256GB','4+128GB / 4+256GB'],
+      '🤳 Selfie':   ['5 MP','13 MP','8 MP','32 MP'],
+      '📷 Camera':   ['50(W)/IR','50(W)/5(UW)/2(M) MP','50(W) MP + AUX','50(W) MP + AUX'],
+      '⚙️ Chipset':  ['Unisoc T612+ (12nm) LTE','Mediatek G99 (6nm) LTE','Snapdragon 685 (6nm) LTE','Mediatek Helio G81 (12nm) LTE'],
+      '📱 Screen':   ['6.7" HD IPS 90Hz','6.7" FHD AMOLED 90Hz','6.8" HD+ PLS 120Hz','6.7" FHD IPS 60Hz'],
+      '🔋 Battery':  ['6500 mAh<br><small>44W inbox</small>','5000 mAh<br><small>15W inbox</small>','6500 mAh<br><small>45W inbox</small>','5200 mAh<br><small>20W inbox</small>'],
+      '🛡 Additional':['IP69, NFC, Infrared','IP54, NFC','IP69, NFC','IP54, NFC'],
+      '🔒 Warranty': ['<div class="spec-warranty">Inbox Cover<br>1 yr warranty</div>','1 yr warranty','2 yr warranty','1 yr warranty'],
+    }
+  },
+  y19s: {
+    title: 'JOVI Y19s — Specs Comparison',
+    cols: [
+      { label:'JOVI Y19s',     cls:'col-jovi'    },
+      { label:'Galaxy A17',   cls:'col-samsung' },
+      { label:'A6x 4G',       cls:'col-oppo'    },
+      { label:'OPPO A5',      cls:'col-oppo'    },
+      { label:'Moto G17 4G',  cls:'col-moto'    },
+      { label:'MOTO G35 5G',  cls:'col-moto'    },
+    ],
+    priceRaw: [
+      {col:'JOVI Y19s',    W10:1099, W11:1199},
+      {col:'Galaxy A17',   W10:1599, W11:1099},
+      {col:'A6x 4G',       W10:1199, W11:1199},
+      {col:'OPPO A5',      W10:2299, W11:1499},
+      {col:'Moto G17 4G',  W10:1299, W11:1591},
+      {col:'MOTO G35 5G',  W10:1199, W11:1199},
+    ],
+    rows: {
+      '📅 Launch':   ['Jul\'25','Oct\'25','Apr\'26','May\'25','Feb\'26','Oct\'24'],
+      '💰 Price': [
+        specPriceCell([{cfg:'4GB+256GB',W10:1099,W11:1199}]),
+        specPriceCell([{cfg:'8GB+128GB',W10:1599,W11:1099}]),
+        specPriceCell([{cfg:'4GB+128GB',W10:1099,W11:null},{cfg:'4GB+256GB',W10:1299,W11:null}]),
+        specPriceCell([{cfg:'6GB+256GB',W10:2299,W11:1499}]),
+        specPriceCell([{cfg:'4GB+128GB',W10:1299,W11:1591}]),
+        specPriceCell([{cfg:'4GB+256GB',W10:1199,W11:1199}]),
+      ],
+      '🧠 Memory':   ['4+256GB','8+256GB','4+128GB / 4+256GB','6+256GB','4+128GB / 4+256GB','4+256GB'],
+      '🤳 Selfie':   ['5 MP','13 MP','5 MP','5 MP','32 MP','16 MP'],
+      '📷 Camera':   ['50(W)/0.08(D) MP','50(W)/5(UW)/2(M) MP','13(W)+0.08(D) MP','50(W)/2(D) MP','50(W)+5(D) MP','50(W)/8(D) MP'],
+      '⚙️ Chipset':  ['Unisoc T612 (12nm) LTE','Mediatek G99 (6nm) LTE','Snapdragon 685 (6nm) LTE','Snapdragon 6s G1 (6nm) LTE','Mediatek Helio G81 (12nm) LTE','Unisoc T760 (6nm) 5G'],
+      '📱 Screen':   ['6.7" HD IPS 90Hz','6.6" FHD AMOLED 90Hz','6.75" HD LCD','6.7" HD IPS 120Hz','6.7" FHD LCD','6.72" FHD IPS 120Hz'],
+      '🔋 Battery':  ['5500 mAh<br><small>15W inbox</small>','5000 mAh<br><small>15W inbox</small>','6500 mAh<br><small>15W inbox</small>','6000 mAh<br><small>45W inbox</small>','5200 mAh<br><small>18W inbox</small>','5000 mAh<br><small>18W inbox</small>'],
+      '🛡 Additional':['IP64','IP54, NFC','IP64, NFC','IP65, Inbox Cover','IP64, NFC','IP54, NFC'],
+      '🔒 Warranty': ['<div class="spec-warranty">Inbox Cover<br>2 yr warranty</div>','1 yr warranty','2 yr warranty','2 yr warranty','1 yr warranty','1 yr warranty'],
+    }
+  },
+};
+
+let currentSpecsKey = 'x300ultra';
+
+function specsSelect(btn){
+  document.querySelectorAll('.specs-pill').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  currentSpecsKey = btn.dataset.key;
+  specsRender();
+}
+
+function specsRender(){
+  const key = currentSpecsKey;
+  const d = SPECS[key];
+  if(!d){ $('specs-content').innerHTML=''; return; }
+
+  const isJoviCol = d.cols[0].cls === 'col-jovi';
+  let thead = '<tr><th style="background:var(--surface2);border:1px solid var(--border);width:110px"></th>';
+  d.cols.forEach((c,i) => {
+    const extra = (i===0 && isJoviCol) ? ' style="min-width:150px"' : '';
+    thead += `<th class="${c.cls}"${extra}>${c.label}</th>`;
+  });
+  thead += '</tr>';
+
+  let tbody = '';
+  Object.entries(d.rows).forEach(([label, vals]) => {
+    const isPriceRow = label.includes('Price');
+    const rowCls = isPriceRow ? ' class="price-row"' : '';
+    tbody += `<tr${rowCls}><td class="spec-label">${label}</td>`;
+    vals.forEach((v, i) => {
+      const cellCls = (i===0 && isJoviCol) ? ' col-jovi-cell' : '';
+      tbody += `<td class="${cellCls}">${v}</td>`;
+    });
+    tbody += '</tr>';
+  });
+
+  // Build price variation chart using priceRaw data
+  const priceRaw = d.priceRaw;
+  const chartItems = priceRaw ? priceRaw.filter(r=>r.W10&&r.W11).map(r=>({...r, pct:(r.W11-r.W10)/r.W10*100})) : [];
+
+  let chartHtml = '';
+  if(chartItems.length > 0){
+    const maxAbs = Math.max(...chartItems.map(m=>Math.abs(m.pct)), 1);
+    chartHtml = `<div class="off-specs-group-title" style="margin-top:24px">📈 Price Variation W10 → W11</div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">`;
+    chartItems.forEach(({col,W10,W11,pct}) => {
+      const isPos=pct>0, isFlat=pct===0;
+      const barCol=isPos?'#ef4444':isFlat?'#9ca3af':'#22c55e';
+      const sign=isPos?'+':'';
+      const barW=Math.abs(pct)/maxAbs*45;
+      chartHtml+=`<div style="display:grid;grid-template-columns:160px 1fr 180px;align-items:center;gap:10px">
+        <div style="font-size:12px;font-weight:600;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${col}</div>
+        <div style="background:#f1f2f7;border-radius:4px;height:18px;position:relative">
+          <div style="position:absolute;${isPos?'left:50%':'right:50%'};width:${barW}%;height:100%;background:${barCol};border-radius:4px;opacity:.8"></div>
+          <div style="position:absolute;left:50%;top:0;width:1px;height:100%;background:#d1d5db"></div>
+        </div>
+        <div style="font-size:12px;font-family:'JetBrains Mono',monospace;color:${barCol};font-weight:700">${sign}${pct.toFixed(1)}% &nbsp;<span style="color:#9ca3af;font-weight:400;font-size:11px">W10: R$${W10.toLocaleString('pt-BR')} → W11: R$${W11.toLocaleString('pt-BR')}</span></div>
+      </div>`;
+    });
+    chartHtml += '</div>';
+  }
+
+  $('specs-content').innerHTML = `
+    <div class="off-specs-group-title">${d.title}</div>
+    <div style="overflow-x:auto">
+      <table class="off-specs-table">
+        <thead>${thead}</thead>
+        <tbody>${tbody}</tbody>
+      </table>
+    </div>
+    ${chartHtml}`;
+}
+
+
+/* ══════  BOOT  ══════ */
+onBuildDDs();
+['brand','size','model'].forEach(k=>onUpdateDDLabel(k));
+onRender();
+chBuildSelectors();
+offBuildFilters();
+offRender();
+offRenderEvolution();
+// hide sort controls since evolution is default
+const _sc=$('off-sort-controls'); if(_sc) _sc.style.display='none';
+specsRender();
+</script>
+</body>
+</html>
