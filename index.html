@@ -1,7 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<style>
+#auth-gate{position:fixed;inset:0;z-index:99999;background:#0f0f13;display:flex;align-items:center;justify-content:center;font-family:"Plus Jakarta Sans",sans-serif;}
+#auth-box{background:#1a1a24;border:1px solid #2a2a3a;border-radius:16px;padding:40px 48px;width:360px;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.6);}
+#auth-box .logo{font-size:28px;font-weight:800;color:#fff;letter-spacing:.04em;margin-bottom:6px;}
+#auth-box .sub{font-size:12px;color:#6b7280;margin-bottom:32px;letter-spacing:.08em;text-transform:uppercase;}
+#auth-box input{width:100%;box-sizing:border-box;padding:11px 16px;border:1px solid #2a2a3a;border-radius:9px;background:#0f0f13;color:#fff;font-size:15px;font-family:inherit;outline:none;transition:border-color .2s;margin-bottom:14px;letter-spacing:.05em;}
+#auth-box input:focus{border-color:#1a56db;}
+#auth-box button{width:100%;padding:12px;border:none;border-radius:9px;background:#1a56db;color:#fff;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;transition:background .2s;}
+#auth-box button:hover{background:#1e40af;}
+#auth-error{color:#ef4444;font-size:12px;margin-top:10px;min-height:18px;}
+</style>
 <meta charset="UTF-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Price Monitoring · Online & Offline</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -27,6 +39,11 @@ body { background:#f1f2f7; font-family:'DM Sans',sans-serif; min-height:100vh; }
 .channel-logo-title { font-size:15px; font-weight:800; color:#fff; letter-spacing:-.2px; }
 .channel-logo-title em { color:#f97316; font-style:normal; }
 
+.channel-logo-right {
+  margin-left:auto;
+  display:flex; align-items:center; padding:7px 0;
+}
+.channel-logo-right img { height:32px; width:auto; border-radius:6px; }
 .channel-tabs { display:flex; align-items:stretch; gap:0; }
 .channel-tab {
   display:flex; align-items:center; gap:8px;
@@ -109,6 +126,8 @@ body { background:#f1f2f7; font-family:'DM Sans',sans-serif; min-height:100vh; }
 .ddf-btn+.ddf-btn { border-left:1px solid var(--border); }
 .reset-btn { padding:5px 10px; border:none; background:none; font-family:'DM Mono',monospace; font-size:10px; color:var(--muted2); cursor:pointer; border-radius:5px; transition:all .15s; }
 .reset-btn:hover { color:var(--sub); background:var(--surface2); }
+.export-btn { padding:5px 11px; border:1px solid var(--border2); border-radius:7px; background:var(--surface2); color:#16a34a; font-family:'DM Mono',monospace; font-size:11px; font-weight:700; cursor:pointer; transition:all .15s; white-space:nowrap; }
+.export-btn:hover { background:#f0fdf4; border-color:#16a34a; }
 
 /* content */
 .on-main { padding:24px 36px; }
@@ -273,25 +292,25 @@ table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700
 .off-specs-selector select { padding:8px 14px; border:1px solid var(--border); border-radius:8px; font-family:'Plus Jakarta Sans',sans-serif; font-size:14px; font-weight:700; background:var(--surface2); color:var(--text); cursor:pointer; outline:none; }
 .off-specs-group-title { font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); font-family:'JetBrains Mono',monospace; margin-bottom:18px; padding-bottom:10px; border-bottom:2px solid var(--border); }
 .off-specs-table { width:100%; border-collapse:collapse; margin-bottom:8px; }
-.off-specs-table th { padding:11px 14px; font-size:13px; font-weight:700; text-align:center; border:1px solid var(--border); font-family:'Plus Jakarta Sans',sans-serif; }
+.off-specs-table th { padding:11px 14px; font-size:15px; font-weight:700; text-align:center; border:1px solid var(--border); font-family:'Plus Jakarta Sans',sans-serif; }
 .off-specs-table th.col-jovi { background:#1a3a6b; color:#fff; }
 .off-specs-table th.col-samsung { background:rgba(124,58,237,.13); color:#7c3aed; }
 .off-specs-table th.col-apple { background:rgba(217,119,6,.13); color:#b45309; }
 .off-specs-table th.col-oppo { background:rgba(5,150,105,.13); color:#047857; }
 .off-specs-table th.col-moto { background:rgba(30,30,30,.08); color:#1a1a1a; }
-.off-specs-table td { padding:8px 10px; font-size:12px; border:1px solid var(--border); vertical-align:top; line-height:1.55; text-align:center; }
-.off-specs-table td.spec-label { font-size:11px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); font-family:'JetBrains Mono',monospace; white-space:nowrap; background:var(--surface2); text-align:left; width:110px; }
+.off-specs-table td { padding:10px 12px; font-size:14px; border:1px solid var(--border); vertical-align:top; line-height:1.55; text-align:center; }
+.off-specs-table td.spec-label { font-size:12px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); font-family:'JetBrains Mono',monospace; white-space:nowrap; background:var(--surface2); text-align:left; width:110px; }
 .off-specs-table td.col-jovi-cell { background:rgba(26,58,107,.04); font-weight:600; }
-.spec-prices { font-family:'JetBrains Mono',monospace; font-size:11px; line-height:1.8; text-align:center; display:inline-block; }
-.spec-prices .pc { display:block; color:var(--muted); font-size:10px; }
-.spec-prices .pv { font-weight:700; color:var(--accent); font-size:12px; }
-.spec-warranty { font-size:12px; line-height:1.7; }
+.spec-prices { font-family:'JetBrains Mono',monospace; font-size:13px; line-height:1.8; text-align:center; display:inline-block; }
+.spec-prices .pc { display:block; color:var(--muted); font-size:12px; }
+.spec-prices .pv { font-weight:700; color:var(--accent); font-size:14px; }
+.spec-warranty { font-size:13px; line-height:1.7; }
 /* Price row highlight */
 .off-specs-table tr.price-row td { background:#fff8e1; }
-.off-specs-table tr.price-row td.spec-label { background:#ffeaa0; color:#92670a; font-size:12px; }
-.off-specs-table tr.price-row .spec-prices { font-size:12px; line-height:1.9; }
-.off-specs-table tr.price-row .spec-prices .pv { font-size:13px; color:#b45309; }
-.off-specs-table tr.price-row .spec-prices .pc { font-size:10px; }
+.off-specs-table tr.price-row td.spec-label { background:#ffeaa0; color:#92670a; font-size:13px; }
+.off-specs-table tr.price-row .spec-prices { font-size:13px; line-height:1.9; }
+.off-specs-table tr.price-row .spec-prices .pv { font-size:15px; color:#b45309; }
+.off-specs-table tr.price-row .spec-prices .pc { font-size:11px; }
 .off-specs-table tr.price-row td.col-jovi-cell { background:#fff0c0; }
 
 /* Range chart */
@@ -341,6 +360,7 @@ table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700
 </style>
 </head>
 <body>
+<div id="auth-gate"><div id="auth-box"><img src="data:image/png;base64,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" style="width:120px;border-radius:10px;margin-bottom:6px"><div class="sub">Price Monitoring · Restricted Access</div><input type="password" id="auth-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')authCheck()"><button onclick="authCheck()">Access Dashboard</button><div id="auth-error"></div></div></div><script>function authCheck(){const v=document.getElementById('auth-input').value;if(v==='JOVI@2026!'){document.getElementById('auth-gate').style.display='none';sessionStorage.setItem('jovi_auth','1');}else{const e=document.getElementById('auth-error');e.textContent='Incorrect password';document.getElementById('auth-input').value='';}}if(sessionStorage.getItem('jovi_auth')==='1'){document.getElementById('auth-gate').style.display='none';}</script>
 
 <!-- CHANNEL SWITCHER -->
 <div class="channel-bar">
@@ -359,6 +379,9 @@ table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700
       <span class="ct-dot" style="background:#4f8ef7"></span>
       Online
     </button>
+  </div>
+  <div class="channel-logo-right">
+    <img src="data:image/png;base64,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" alt="JOVI">
   </div>
 </div>
 
@@ -436,6 +459,7 @@ table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700
         </div>
       </div>
       <button class="reset-btn" onclick="ddAllReset()">↺ Reset</button>
+      <button class="export-btn" onclick="exportOnline()" title="Export to Excel">⬇ Excel</button>
     </div>
   </div>
 
@@ -546,6 +570,7 @@ table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700
         </div>
       </div>
       <button class="reset-btn" onclick="offDdReset()">↺ Reset</button>
+      <button class="export-btn" onclick="exportOffline()" title="Export to Excel">⬇ Excel</button>
     </div>
     <!-- Sort controls: only shown in Prices tab -->
     <div class="on-filter-row" id="off-sort-controls" style="margin-left:auto;padding-left:0">
@@ -1737,7 +1762,327 @@ function specsRender(){
 
 
 /* ══════  BOOT  ══════ */
-onBuildDDs();
+
+
+/* ══════════════════════════════════
+   EXCEL EXPORT  (SheetJS .xlsx)
+══════════════════════════════════ */
+const XL_BRAND_COLORS = {
+  Apple:'FFFFC000', Samsung:'FFD9CCF5', JOVI:'FFC5D0E8',
+  OPPO:'FFC6EFD3', Motorola:'FFD9D9D9', Xiaomi:'FFFFD5B8', HONOR:'FFFCC9C9'
+};
+const XL_BG_HEADER = 'FFDEE0E3';
+const XL_BG_TIER   = 'FFF1F2F7';
+const XL_BG_UP     = 'FFFCE4E4';
+const XL_BG_DOWN   = 'FFE6F4EA';
+const XL_BG_WHITE  = 'FFFFFFFF';
+const XL_BG_ALT    = 'FFF8F9FA';
+const XL_COL_TEXT  = 'FF1F2329';
+const XL_RED       = 'FFDC2626';
+const XL_GREEN     = 'FF16A34A';
+const XL_MUTED     = 'FF9CA3AF';
+const XL_BLUE      = 'FF1A56DB';
+const XL_DARK_BLUE = 'FF1A3A6B';
+
+function _xlS(bg, color, bold, align, boldBorder) {
+  return {
+    font: { name:'Arial', sz:10, bold:!!bold, color:{rgb:(color||XL_COL_TEXT).replace(/^FF/,'')} },
+    fill: { patternType:'solid', fgColor:{rgb:(bg||XL_BG_WHITE).replace(/^FF/,'')} },
+    alignment: { horizontal:align||'center', vertical:'center', wrapText:false },
+    border: {
+      top:   {style:'thin',   color:{rgb:'D0D0D0'}},
+      bottom:{style:boldBorder?'medium':'thin', color:{rgb:boldBorder?'9CA3AF':'D0D0D0'}},
+      left:  {style:'thin',   color:{rgb:'D0D0D0'}},
+      right: {style:'thin',   color:{rgb:'D0D0D0'}}
+    }
+  };
+}
+
+function xlC(v, bg, color, bold, align, boldBorder) {
+  const t = (typeof v === 'number') ? 'n' : 's';
+  return { v: v??'', t, s: _xlS(bg,color,bold,align,boldBorder) };
+}
+function xlN(v, bg, color, bold) {
+  if (v == null) return { v:'', t:'s', s:_xlS(bg) };
+  return { v, t:'n', z:'R$#,##0', s:_xlS(bg,color,bold,'center') };
+}
+function xlP(v, bg, color) {
+  if (v == null) return { v:'', t:'s', s:_xlS(bg) };
+  return { v, t:'n', z:'0.0%', s:_xlS(bg,color,true,'center') };
+}
+function xlH(v) { return xlC(v, XL_BG_HEADER, XL_COL_TEXT, true, 'center', true); }
+function xlT(v) {
+  return { v, t:'s', s:{
+    font:{name:'Arial',sz:12,bold:true,color:{rgb:XL_DARK_BLUE.replace(/^FF/,'')}},
+    fill:{patternType:'solid',fgColor:{rgb:'FFFFFF'}},
+    alignment:{horizontal:'left',vertical:'center'},
+    border:{}
+  }};
+}
+function xlTier(v) { return xlC(v, XL_BG_TIER, 'FF374151', true, 'left'); }
+function xlBrand(brand) {
+  return xlC(brand, XL_BRAND_COLORS[brand]||XL_BG_WHITE, XL_COL_TEXT, true, 'center');
+}
+function xlBrandBlank(brand) {
+  return { v:'', t:'s', s:_xlS(XL_BRAND_COLORS[brand]||XL_BG_WHITE) };
+}
+
+function xlSet(ws, r, c, cell) {
+  const addr = XLSX.utils.encode_cell({r:r-1, c:c-1});
+  ws[addr] = cell;
+  if (!ws['!ref']) ws['!ref'] = addr+':'+addr;
+  const range = XLSX.utils.decode_range(ws['!ref']);
+  range.e.r = Math.max(range.e.r, r-1);
+  range.e.c = Math.max(range.e.c, c-1);
+  range.s.r = 0; range.s.c = 0;
+  ws['!ref'] = XLSX.utils.encode_range(range);
+}
+function xlRow(ws, r, arr, cStart) {
+  arr.forEach((cell,i) => xlSet(ws, r, cStart+i, cell));
+}
+function xlMerge(ws, r1, c1, r2, c2) {
+  if (!ws['!merges']) ws['!merges'] = [];
+  ws['!merges'].push({s:{r:r1-1,c:c1-1}, e:{r:r2-1,c:c2-1}});
+}
+function xlRowH(ws, r, h) {
+  if (!ws['!rows']) ws['!rows'] = [];
+  ws['!rows'][r-1] = {hpt:h};
+}
+function xlBlankRow(ws, r, cStart, n) {
+  for (let i=0;i<n;i++) xlSet(ws, r, cStart+i, {v:'',t:'s',s:{fill:{patternType:'solid',fgColor:{rgb:'FFFFFF'}},border:{bottom:{style:'thin',color:{rgb:'E5E7EB'}}},font:{name:'Arial',sz:10},alignment:{}}});
+}
+
+function xlToday() { return new Date().toISOString().slice(0,10); }
+
+/* ── HELPER: diff row bg/color ─────────────────────── */
+function diffStyle(diff) {
+  const bg = diff==null ? XL_BG_WHITE : diff>0 ? XL_BG_UP : diff<0 ? XL_BG_DOWN : XL_BG_WHITE;
+  const dc = diff==null ? XL_COL_TEXT : diff>0 ? XL_RED   : diff<0 ? XL_GREEN   : XL_MUTED;
+  return {bg, dc};
+}
+
+/* ══════════════════════════════════════════════════════
+   SHEET: OFFLINE PRICES
+══════════════════════════════════════════════════════ */
+function sheetOfflinePrices() {
+  const ws = {};
+  ws['!cols'] = [{wch:2},{wch:14},{wch:30},{wch:12},{wch:13},{wch:13},{wch:14},{wch:12}];
+  const TIERS = ['R$6k+','R$2.5k–6k','R$1.5k–2.5k','R$1k–1.5k'];
+  const filtered = offData.filter(d => offActiveBrands.has(d.brand) && offActiveTiers.has(d.tier));
+
+  let r = 1;
+  xlRowH(ws, r, 6); r++;
+  xlSet(ws, r, 2, xlT('Offline Price Monitoring · Casas Bahia · W10 (03/06) & W11 (03/11/2025)'));
+  xlMerge(ws, r, 2, r, 8); xlRowH(ws, r, 22); r++;
+  xlRowH(ws, r, 6); r++;
+  xlRow(ws, r, ['Brand','Model','Memory','W10','W11','Δ (R$)','Δ (%)'].map(xlH), 2);
+  xlRowH(ws, r, 28); r++;
+
+  TIERS.forEach(tier => {
+    const rows = filtered.filter(d => d.tier === tier);
+    if (!rows.length) return;
+    xlRow(ws, r, [xlTier(tier), ...Array(6).fill(xlC('',XL_BG_TIER))], 2);
+    xlMerge(ws, r, 2, r, 8); xlRowH(ws, r, 16); r++;
+
+    let prevBrand = null;
+    rows.forEach(d => {
+      const {brand, model, memory, W10, W11} = d;
+      const diff = (W10!=null && W11!=null) ? W11-W10 : null;
+      const pct  = diff!=null && W10 ? diff/W10 : null;
+      const {bg, dc} = diffStyle(diff);
+      const status = W10==null?'New W11' : W11==null?'W10 only' : null;
+
+      xlRow(ws, r, [
+        brand !== prevBrand ? xlBrand(brand) : xlBrandBlank(brand),
+        xlC(model, bg, XL_COL_TEXT, false, 'left'),
+        xlC(memory, bg),
+        xlN(W10, bg),
+        xlN(W11, bg, XL_COL_TEXT, true),
+        diff!=null ? xlN(diff, bg, dc, true) : xlC(status||'', bg, XL_MUTED),
+        pct!=null  ? xlP(pct,  bg, dc)       : xlC('', bg),
+      ], 2);
+      prevBrand = brand; xlRowH(ws, r, 18); r++;
+    });
+    xlBlankRow(ws, r, 2, 7); xlRowH(ws, r, 8); r++;
+  });
+  return ws;
+}
+
+/* ══════════════════════════════════════════════════════
+   SHEET: OFFLINE EVOLUTION W10→W11
+══════════════════════════════════════════════════════ */
+function sheetOfflineEvolution() {
+  const ws = {};
+  ws['!cols'] = [{wch:2},{wch:14},{wch:30},{wch:12},{wch:16},{wch:13},{wch:13},{wch:14},{wch:12},{wch:14}];
+  const BRANDS = ['JOVI','Apple','Samsung','OPPO','Motorola','Xiaomi','HONOR'];
+  const filtered = offData.filter(d => offActiveBrands.has(d.brand) && offActiveTiers.has(d.tier));
+  const comparable = filtered.filter(d => d.W10!=null && d.W11!=null);
+
+  let r = 1;
+  xlRowH(ws, r, 6); r++;
+  xlSet(ws, r, 2, xlT('Offline Price Evolution · W10 (03/06) → W11 (03/11/2025) · Casas Bahia'));
+  xlMerge(ws, r, 2, r, 10); xlRowH(ws, r, 22); r++;
+  xlRowH(ws, r, 6); r++;
+  xlRow(ws, r, ['Brand','Model','Memory','Tier','W10','W11','Δ (R$)','Δ (%)','Direction'].map(xlH), 2);
+  xlRowH(ws, r, 28); r++;
+
+  let prevBrand = null;
+  BRANDS.forEach(brand => {
+    const rows = comparable.filter(d => d.brand===brand).sort((a,b) => b.W10 - a.W10);
+    if (!rows.length) return;
+    rows.forEach(d => {
+      const diff = d.W11 - d.W10, pct = diff/d.W10;
+      const {bg, dc} = diffStyle(diff);
+      const dir = diff>0 ? '▲ Increase' : diff<0 ? '▼ Decrease' : '→ Stable';
+      xlRow(ws, r, [
+        brand !== prevBrand ? xlBrand(brand) : xlBrandBlank(brand),
+        xlC(d.model,  bg, XL_COL_TEXT, false, 'left'),
+        xlC(d.memory, bg),
+        xlC(d.tier,   bg, XL_MUTED),
+        xlN(d.W10, bg),
+        xlN(d.W11, bg, XL_COL_TEXT, true),
+        xlN(diff, bg, dc, true),
+        xlP(pct,  bg, dc),
+        xlC(dir,  bg, dc, true),
+      ], 2);
+      prevBrand = brand; xlRowH(ws, r, 18); r++;
+    });
+    xlBlankRow(ws, r, 2, 9); xlRowH(ws, r, 8); r++;
+  });
+  return ws;
+}
+
+/* ══════════════════════════════════════════════════════
+   SHEET: ONLINE WEEKLY EVOLUTION
+══════════════════════════════════════════════════════ */
+function sheetOnlineEvolution() {
+  const ws = {};
+  ws['!cols'] = [{wch:2},{wch:14},{wch:28},{wch:12},{wch:12},{wch:12},{wch:12},{wch:12},{wch:12},{wch:14},{wch:12}];
+
+  let r = 1;
+  xlRowH(ws, r, 6); r++;
+  xlSet(ws, r, 2, xlT('Online ASP Evolution · W07→W11 · Avg Selling Price (R$)'));
+  xlMerge(ws, r, 2, r, 11); xlRowH(ws, r, 22); r++;
+  xlRowH(ws, r, 6); r++;
+  xlRow(ws, r, ['Brand','Model','Memory','W07','W08','W09','W10','W11','Δ W10→W11','% Δ'].map(xlH), 2);
+  xlRowH(ws, r, 28); r++;
+
+  let prevBrand = null;
+  ['Samsung','Apple','OPPO'].forEach(brand => {
+    const rows = ON_RAW.filter(d => d.brand===brand);
+    if (!rows.length) return;
+    rows.forEach(d => {
+      const diff = (d.W10!=null && d.W11!=null) ? d.W11-d.W10 : null;
+      const pct  = diff!=null && d.W10 ? diff/d.W10 : null;
+      const {bg, dc} = diffStyle(diff);
+      xlRow(ws, r, [
+        brand !== prevBrand ? xlBrand(brand) : xlBrandBlank(brand),
+        xlC(d.competitor, bg, XL_COL_TEXT, false, 'left'),
+        xlC(d.size, bg),
+        xlN(d.W07, bg, d.W07==null?XL_MUTED:XL_COL_TEXT),
+        xlN(d.W08, bg, d.W08==null?XL_MUTED:XL_COL_TEXT),
+        xlN(d.W09, bg, d.W09==null?XL_MUTED:XL_COL_TEXT),
+        xlN(d.W10, bg),
+        xlN(d.W11, bg, XL_COL_TEXT, true),
+        diff!=null ? xlN(diff, bg, dc, true) : xlC('', bg),
+        pct!=null  ? xlP(pct,  bg, dc)       : xlC('', bg),
+      ], 2);
+      prevBrand = brand; xlRowH(ws, r, 18); r++;
+    });
+    xlBlankRow(ws, r, 2, 10); xlRowH(ws, r, 8); r++;
+  });
+  return ws;
+}
+
+/* ══════════════════════════════════════════════════════
+   SHEET: ONLINE BY CHANNEL
+══════════════════════════════════════════════════════ */
+function sheetOnlineChannel() {
+  const ws = {};
+  ws['!cols'] = [{wch:2},{wch:14},{wch:28},{wch:12},{wch:8},{wch:13},{wch:13},{wch:13},{wch:13},{wch:13},{wch:13},{wch:12}];
+
+  let r = 1;
+  xlRowH(ws, r, 6); r++;
+  xlSet(ws, r, 2, xlT('Online ASP by Channel · W10 vs W11 · Mercado Livre · Amazon · Casas Bahia · Mag. Luiza'));
+  xlMerge(ws, r, 2, r, 12); xlRowH(ws, r, 22); r++;
+  xlRowH(ws, r, 6); r++;
+  xlRow(ws, r, ['Brand','Model','Memory','Week','Merc. Livre','Amazon','Casas Bahia','Mag. Luiza','Avg ASP','Δ (R$)','Δ (%)'].map(xlH), 2);
+  xlRowH(ws, r, 28); r++;
+
+  let prevBrand = null;
+  ['Samsung','Apple','OPPO'].forEach(brand => {
+    const bData = CH_DATA.filter(d => d.brand===brand);
+    const skus = [...new Map(bData.map(d => [d.model+'|'+d.size, {model:d.model,size:d.size}])).values()];
+    skus.forEach(({model, size}) => {
+      const w10 = CH_DATA.find(d => d.model===model && d.size===size && d.week==='W10');
+      const w11 = CH_DATA.find(d => d.model===model && d.size===size && d.week==='W11');
+      [w10, w11].filter(Boolean).forEach(wd => {
+        const isW11 = wd.week === 'W11';
+        const diff = isW11 && w10?.avg && wd.avg ? wd.avg - w10.avg : null;
+        const pct  = diff!=null && w10.avg ? diff/w10.avg : null;
+        const bg   = !isW11 ? XL_BG_WHITE : diffStyle(diff).bg;
+        const dc   = !isW11 ? XL_COL_TEXT : diffStyle(diff).dc;
+        xlRow(ws, r, [
+          brand !== prevBrand ? xlBrand(brand) : xlBrandBlank(brand),
+          xlC(model, bg, XL_COL_TEXT, false, 'left'),
+          xlC(size,  bg),
+          xlC(wd.week, bg, isW11?XL_BLUE:XL_MUTED, isW11),
+          xlN(wd.ML,     bg),
+          xlN(wd.Amazon, bg),
+          xlN(wd.CB,     bg),
+          xlN(wd.MagLu,  bg),
+          xlN(wd.avg,    bg, XL_COL_TEXT, isW11),
+          diff!=null ? xlN(diff, bg, dc, true) : xlC('', bg),
+          pct!=null  ? xlP(pct,  bg, dc)       : xlC('', bg),
+        ], 2);
+        prevBrand = brand; xlRowH(ws, r, 18); r++;
+      });
+      xlBlankRow(ws, r, 2, 11); xlRowH(ws, r, 6); r++;
+    });
+  });
+  return ws;
+}
+
+/* ══════════════════════════════════════════════════════
+   MAIN EXPORT TRIGGERS (chamados pelos botões ⬇ Excel)
+══════════════════════════════════════════════════════ */
+function exportOnline() {
+  const wb = XLSX.utils.book_new();
+  if (onActiveTab === 'evolution') {
+    XLSX.utils.book_append_sheet(wb, sheetOnlineEvolution(), 'Weekly Evolution');
+    XLSX.writeFile(wb, `online_evolution_${xlToday()}.xlsx`, {bookType:'xlsx',cellStyles:true});
+  } else if (onActiveTab === 'heatmap') {
+    XLSX.utils.book_append_sheet(wb, sheetOnlineEvolution(), 'Heatmap W11');
+    XLSX.writeFile(wb, `online_heatmap_${xlToday()}.xlsx`, {bookType:'xlsx',cellStyles:true});
+  } else if (onActiveTab === 'channel') {
+    XLSX.utils.book_append_sheet(wb, sheetOnlineChannel(), 'By Channel');
+    XLSX.writeFile(wb, `online_by_channel_${xlToday()}.xlsx`, {bookType:'xlsx',cellStyles:true});
+  }
+}
+
+function exportOffline() {
+  const wb = XLSX.utils.book_new();
+  const evoVisible    = $('off-sec-evolution')?.style.display !== 'none';
+  const specsVisible  = $('off-sec-specs')?.style.display !== 'none';
+  const activeTab     = evoVisible ? 'evolution' : specsVisible ? 'specs' : 'prices';
+
+  if (activeTab === 'prices') {
+    XLSX.utils.book_append_sheet(wb, sheetOfflinePrices(), 'Prices');
+    XLSX.writeFile(wb, `offline_prices_${xlToday()}.xlsx`, {bookType:'xlsx',cellStyles:true});
+  } else if (activeTab === 'evolution') {
+    XLSX.utils.book_append_sheet(wb, sheetOfflineEvolution(), 'W10→W11 Evolution');
+    XLSX.writeFile(wb, `offline_evolution_${xlToday()}.xlsx`, {bookType:'xlsx',cellStyles:true});
+  } else if (activeTab === 'specs') {
+    const tbl = document.querySelector('#specs-content table');
+    if (!tbl) { alert('Selecione um modelo na aba Specs primeiro.'); return; }
+    const wsSpecs = XLSX.utils.table_to_sheet(tbl);
+    wsSpecs['!cols'] = Array.from({length:8},()=>({wch:22}));
+    const key = document.querySelector('.specs-pill.active')?.dataset?.key || 'model';
+    XLSX.utils.book_append_sheet(wb, wsSpecs, 'Specs');
+    XLSX.writeFile(wb, `offline_specs_${key}_${xlToday()}.xlsx`, {bookType:'xlsx',cellStyles:true});
+  }
+}
+
 ['brand','size','model'].forEach(k=>onUpdateDDLabel(k));
 onRender();
 chBuildSelectors();
