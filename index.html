@@ -1119,7 +1119,8 @@ const offData = [
   { tier: 'R$1.5k–2.5k', brand: 'JOVI',     model: 'JOVI Y31',       memory: '512 GB', W10: 2799,    W11: null },
   { tier: 'R$1.5k–2.5k', brand: 'JOVI',     model: 'JOVI Y29s',      memory: '256 GB', W10: 1699,    W11: 1599 },
   { tier: 'R$1.5k–2.5k', brand: 'JOVI',     model: 'JOVI Y21 5G',    memory: '256 GB', W10: 1899,    W11: null },
-  { tier: 'R$1.5k–2.5k', brand: 'Samsung',  model: 'Galaxy A17',     memory: '128 GB', W10: 1599,    W11: 1099 },
+  { tier: 'R$1.5k–2.5k', brand: 'Samsung',  model: 'Galaxy A17 5G',  memory: '128 GB', W10: 1599,    W11: 1599 },
+  { tier: 'R$1k–1.5k',   brand: 'Samsung',  model: 'Galaxy A17',     memory: '128 GB', W10: null,    W11: 1099 },
   { tier: 'R$1.5k–2.5k', brand: 'Samsung',  model: 'Galaxy A36',     memory: '128 GB', W10: 2199,    W11: 1799 },
   { tier: 'R$1.5k–2.5k', brand: 'Samsung',  model: 'Galaxy A26',     memory: '256 GB', W10: null,    W11: 1959 },
   { tier: 'R$1.5k–2.5k', brand: 'OPPO',     model: 'A5',             memory: '256 GB', W10: 2299,    W11: 1499 },
@@ -1727,13 +1728,13 @@ const SPECS = {
     title: 'JOVI Y21 — Specs Comparison',
     cols: [
       { label:'JOVI Y21',    cls:'col-jovi'    },
-      { label:'Galaxy A17', cls:'col-samsung' },
+      { label:'Galaxy A17 4G', cls:'col-samsung' },
       { label:'Oppo A6 4G', cls:'col-oppo'    },
       { label:'Moto G17 4G',cls:'col-moto'    },
     ],
     priceRaw: [
       {col:'JOVI Y21',    W10:1299, W11:null},
-      {col:'Galaxy A17',  W10:1599, W11:1099},
+      {col:'Galaxy A17 4G',  W10:null, W11:1099},
       {col:'Oppo A6 4G',  W10:1499, W11:null},
       {col:'Moto G17 4G', W10:1299, W11:1591},
     ],
@@ -1741,7 +1742,7 @@ const SPECS = {
       '📅 Launch':   ['Mar\'26','Sep\'25','Apr\'26','Feb\'26'],
       '💰 Price': [
         specPriceCell([{cfg:'4GB+128GB',W10:1299,W11:null},{cfg:'4GB+256GB',W10:1599,W11:null}]),
-        specPriceCell([{cfg:'8GB+128GB',W10:1599,W11:1099}]),
+        specPriceCell([{cfg:'4GB+128GB',W10:null,W11:1099}]),
         specPriceCell([{cfg:'6GB+256GB',W10:1499,W11:null}]),
         specPriceCell([{cfg:'4GB+128GB',W10:1299,W11:1591}]),
       ],
@@ -1759,7 +1760,7 @@ const SPECS = {
     title: 'JOVI Y19s — Specs Comparison',
     cols: [
       { label:'JOVI Y19s',     cls:'col-jovi'    },
-      { label:'Galaxy A17',   cls:'col-samsung' },
+      { label:'Galaxy A17 4G', cls:'col-samsung' },
       { label:'A6x 4G',       cls:'col-oppo'    },
       { label:'OPPO A5',      cls:'col-oppo'    },
       { label:'Moto G17 4G',  cls:'col-moto'    },
@@ -1767,7 +1768,7 @@ const SPECS = {
     ],
     priceRaw: [
       {col:'JOVI Y19s',    W10:1099, W11:1199},
-      {col:'Galaxy A17',   W10:1599, W11:1099},
+      {col:'Galaxy A17 4G', W10:null, W11:1099},
       {col:'A6x 4G',       W10:1199, W11:1199},
       {col:'OPPO A5',      W10:2299, W11:1499},
       {col:'Moto G17 4G',  W10:1299, W11:1591},
@@ -1777,7 +1778,7 @@ const SPECS = {
       '📅 Launch':   ['Jul\'25','Oct\'25','Apr\'26','May\'25','Feb\'26','Oct\'24'],
       '💰 Price': [
         specPriceCell([{cfg:'4GB+256GB',W10:1099,W11:1199}]),
-        specPriceCell([{cfg:'8GB+128GB',W10:1599,W11:1099}]),
+        specPriceCell([{cfg:'4GB+128GB',W10:null,W11:1099}]),
         specPriceCell([{cfg:'4GB+128GB',W10:1099,W11:null},{cfg:'4GB+256GB',W10:1299,W11:null}]),
         specPriceCell([{cfg:'6GB+256GB',W10:2299,W11:1499}]),
         specPriceCell([{cfg:'4GB+128GB',W10:1299,W11:1591}]),
