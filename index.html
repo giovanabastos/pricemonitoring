@@ -81,7 +81,7 @@ body { background:#f1f2f7; font-family:'DM Sans',sans-serif; min-height:100vh; }
 .week-chip { background:#1e293b; color:#94a3b8; font-family:'DM Mono',monospace; font-size:11px; font-weight:500; padding:5px 13px; border-radius:6px; letter-spacing:.04em; }
 
 /* stats */
-.on-stats { display:grid; grid-template-columns:repeat(6,1fr); background:var(--surface); border-bottom:1px solid var(--border); }
+.on-stats { display:grid; grid-template-columns:repeat(5,1fr); background:var(--surface); border-bottom:1px solid var(--border); }
 .on-stat { padding:14px 20px; border-right:1px solid var(--border); }
 .on-stat:last-child { border-right:none; }
 .on-stat-lbl { font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted2); font-family:'DM Mono',monospace; margin-bottom:4px; }
@@ -144,19 +144,19 @@ body { background:#f1f2f7; font-family:'DM Sans',sans-serif; min-height:100vh; }
 .on-mem-badge .mb-icon { font-size:11px; opacity:.7; }
 
 /* insight strip */
-.on-insight-strip { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:18px; }
-.on-insight-card { background:var(--surface2); border:1px solid var(--border2); border-radius:10px; padding:16px 18px; position:relative; overflow:hidden; }
+.on-insight-strip { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:18px; }
+.on-insight-card { background:#ffffff; border:1px solid #e5e7eb; border-radius:10px; padding:16px 18px; position:relative; overflow:hidden; color:#111827; }
 .on-insight-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; }
-.insight-rising::before { background:linear-gradient(90deg,var(--red),transparent); }
-.insight-falling::before { background:linear-gradient(90deg,var(--green),transparent); }
-.insight-leader::before { background:linear-gradient(90deg,var(--accent),transparent); }
-.on-insight-lbl { font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); font-family:'DM Mono',monospace; margin-bottom:8px; }
-.on-insight-model { font-size:13px; font-weight:700; margin-bottom:2px; }
-.on-insight-meta { font-size:11px; color:var(--sub); }
+.insight-rising::before { background:linear-gradient(90deg,#ef4444,transparent); }
+.insight-falling::before { background:linear-gradient(90deg,#22c55e,transparent); }
+.insight-leader::before { background:linear-gradient(90deg,#4f8ef7,transparent); }
+.on-insight-lbl { font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:#9ca3af; font-family:'DM Mono',monospace; margin-bottom:8px; }
+.on-insight-model { font-size:13px; font-weight:700; margin-bottom:2px; color:#111827; }
+.on-insight-meta { font-size:11px; color:#6b7280; }
 .on-insight-val { font-size:22px; font-weight:800; font-family:'DM Mono',monospace; margin-top:6px; }
-.on-insight-val.red { color:var(--red); }
-.on-insight-val.green { color:var(--green); }
-.on-insight-val.blue { color:var(--accent); }
+.on-insight-val.red { color:#ef4444; }
+.on-insight-val.green { color:#22c55e; }
+.on-insight-val.blue { color:#4f8ef7; }
 
 /* legend */
 .on-legend-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:5px 12px; margin-bottom:16px; }
@@ -290,27 +290,41 @@ table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700
 .off-specs-selector-label { font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); font-family:'JetBrains Mono',monospace; white-space:nowrap; }
 .off-specs-selector select { padding:8px 14px; border:1px solid var(--border); border-radius:8px; font-family:'Plus Jakarta Sans',sans-serif; font-size:14px; font-weight:700; background:var(--surface2); color:var(--text); cursor:pointer; outline:none; }
 .off-specs-group-title { font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); font-family:'JetBrains Mono',monospace; margin-bottom:18px; padding-bottom:10px; border-bottom:2px solid var(--border); }
-.off-specs-table { width:100%; border-collapse:collapse; margin-bottom:8px; }
-.off-specs-table th { padding:11px 14px; font-size:15px; font-weight:700; text-align:center; border:1px solid var(--border); font-family:'Plus Jakarta Sans',sans-serif; }
-.off-specs-table th.col-jovi { background:#1a3a6b; color:#fff; }
-.off-specs-table th.col-samsung { background:rgba(124,58,237,.13); color:#7c3aed; }
-.off-specs-table th.col-apple { background:rgba(217,119,6,.13); color:#b45309; }
-.off-specs-table th.col-oppo { background:rgba(5,150,105,.13); color:#047857; }
-.off-specs-table th.col-moto { background:rgba(30,30,30,.08); color:#1a1a1a; }
-.off-specs-table td { padding:10px 12px; font-size:14px; border:1px solid var(--border); vertical-align:top; line-height:1.55; text-align:center; }
-.off-specs-table td.spec-label { font-size:12px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); font-family:'JetBrains Mono',monospace; white-space:nowrap; background:var(--surface2); text-align:left; width:110px; }
-.off-specs-table td.col-jovi-cell { background:rgba(26,58,107,.04); font-weight:600; }
+/* ── Specs cards ── */
+.specs-grid { display:grid; gap:14px; margin-bottom:28px; }
+.spec-card { border-radius:14px; border:1.5px solid var(--border); overflow:hidden; background:var(--surface); box-shadow:0 1px 4px rgba(0,0,0,.05); }
+.spec-card-head { padding:14px 18px 12px; border-bottom:1.5px solid var(--border); }
+.spec-card-brand { font-size:9px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; font-family:'JetBrains Mono',monospace; opacity:.7; margin-bottom:3px; }
+.spec-card-name { font-size:15px; font-weight:800; letter-spacing:-.2px; font-family:'Plus Jakarta Sans',sans-serif; }
+.spec-card.col-jovi .spec-card-head { background:#1a3a6b; color:#fff; }
+.spec-card.col-jovi .spec-card-brand { opacity:.6; }
+.spec-card.col-samsung .spec-card-head { background:rgba(124,58,237,.1); }
+.spec-card.col-samsung .spec-card-name { color:#6d28d9; }
+.spec-card.col-samsung .spec-card-brand { color:#7c3aed; }
+.spec-card.col-apple .spec-card-head { background:rgba(217,119,6,.08); }
+.spec-card.col-apple .spec-card-name { color:#b45309; }
+.spec-card.col-apple .spec-card-brand { color:#d97706; }
+.spec-card.col-oppo .spec-card-head { background:rgba(5,150,105,.08); }
+.spec-card.col-oppo .spec-card-name { color:#047857; }
+.spec-card.col-oppo .spec-card-brand { color:#059669; }
+.spec-card.col-moto .spec-card-head { background:rgba(30,30,30,.05); }
+.spec-card.col-moto .spec-card-name { color:#1f2937; }
+.spec-card.col-moto .spec-card-brand { color:#6b7280; }
+.spec-row { display:flex; align-items:flex-start; gap:10px; padding:9px 16px; border-bottom:1px solid var(--border); }
+.spec-row:last-child { border-bottom:none; }
+.spec-row:nth-child(even) { background:rgba(0,0,0,.018); }
+.spec-row-icon { font-size:13px; width:18px; flex-shrink:0; margin-top:1px; }
+.spec-row-label { font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); font-family:'JetBrains Mono',monospace; white-space:nowrap; min-width:62px; flex-shrink:0; padding-top:2px; }
+.spec-row-val { font-size:13.5px; color:var(--text); line-height:1.45; font-family:'Plus Jakarta Sans',sans-serif; flex:1; }
+.spec-row.price-row { background:#fffbeb; }
+.spec-row.price-row .spec-row-label { color:#92670a; }
+.spec-row.price-row .spec-row-val { font-family:'JetBrains Mono',monospace; font-size:13px; color:#b45309; font-weight:700; }
 .spec-prices { font-family:'JetBrains Mono',monospace; font-size:13px; line-height:1.8; text-align:center; display:inline-block; }
 .spec-prices .pc { display:block; color:var(--muted); font-size:12px; }
 .spec-prices .pv { font-weight:700; color:var(--accent); font-size:14px; }
 .spec-warranty { font-size:13px; line-height:1.7; }
 /* Price row highlight */
-.off-specs-table tr.price-row td { background:#fff8e1; }
-.off-specs-table tr.price-row td.spec-label { background:#ffeaa0; color:#92670a; font-size:13px; }
-.off-specs-table tr.price-row .spec-prices { font-size:13px; line-height:1.9; }
-.off-specs-table tr.price-row .spec-prices .pv { font-size:15px; color:#b45309; }
-.off-specs-table tr.price-row .spec-prices .pc { font-size:11px; }
-.off-specs-table tr.price-row td.col-jovi-cell { background:#fff0c0; }
+
 
 /* Range chart */
 .off-chart-section { margin-top:32px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:24px; }
@@ -395,34 +409,32 @@ table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700
     <div class="week-chip">W07 – W11 · 2025</div>
   </div>
 
-  <div class="on-stats">
+  <div class="on-stats" style="display:grid;grid-template-columns:repeat(5,1fr);background:var(--surface);border-bottom:1px solid var(--border)">
     <div class="on-stat"><div class="on-stat-lbl">Competitors</div><div class="on-stat-val c-accent" id="kpi-comp">—</div></div>
     <div class="on-stat"><div class="on-stat-lbl">SKUs</div><div class="on-stat-val" id="kpi-skus">—</div></div>
-    <div class="on-stat"><div class="on-stat-lbl">Avg ASP · W11</div><div class="on-stat-val c-accent" id="kpi-avg">—</div></div>
-    <div class="on-stat on-stat-insight insight-rising">
-      <div class="on-stat-lbl">🔺 Biggest Increase · W10→W11</div>
-      <div class="on-stat-val" id="kpi-rise-val" style="font-size:15px">—</div>
-      <div class="on-stat-sub" id="kpi-rise-sub"></div>
-    </div>
-    <div class="on-stat on-stat-insight insight-falling">
-      <div class="on-stat-lbl">🔻 Biggest Drop · W10→W11</div>
-      <div class="on-stat-val" id="kpi-drop-val" style="font-size:15px">—</div>
-      <div class="on-stat-sub" id="kpi-drop-sub"></div>
-    </div>
-    <div class="on-stat on-stat-insight insight-leader">
-      <div class="on-stat-lbl">👑 Most Expensive · W11</div>
-      <div class="on-stat-val" id="kpi-top-val" style="font-size:15px">—</div>
-      <div class="on-stat-sub" id="kpi-top-sub"></div>
-    </div>
+    <div class="on-stat"><div class="on-stat-lbl">Avg ASP · W11</div><div class="on-stat-val" style="color:var(--accent3)" id="kpi-avg">—</div></div>
+    <div class="on-stat"><div class="on-stat-lbl">Lowest Price · W11</div><div class="on-stat-val c-accent" id="kpi-low">—</div></div>
+    <div class="on-stat" style="border-right:none"><div class="on-stat-lbl">Highest Price · W11</div><div class="on-stat-val" style="color:var(--accent2)" id="kpi-high">—</div></div>
   </div>
 
   <div class="on-filterbar">
     <div class="on-nav-tabs">
-      <button class="on-nav-tab on" onclick="onGoTo('evolution')" id="on-tab-evolution">📈 Weekly Evolution</button>
+      <button class="on-nav-tab on" onclick="onGoTo('evolution')" id="on-tab-evolution">📈 W10→W11</button>
+      <button class="on-nav-tab" onclick="onGoTo('weekly')" id="on-tab-weekly">📉 Weekly Price</button>
       <button class="on-nav-tab"    onclick="onGoTo('heatmap')"   id="on-tab-heatmap">🌡 Heatmap W11</button>
       <button class="on-nav-tab"    onclick="onGoTo('channel')"   id="on-tab-channel">🏪 By Channel</button>
     </div>
     <div class="on-filter-row">
+      <div class="dd" id="dd-tier">
+        <div class="ddt" id="ddt-tier" onclick="ddToggle('tier')">
+          <span id="ddlbl-tier">Price Range</span>
+          <svg class="cv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="ddm" id="ddm-tier" style="display:none">
+          <div class="ddl" id="ddl-tier"></div>
+          <div class="ddf"><button class="ddf-btn" onclick="ddAll('tier')">All</button><button class="ddf-btn" onclick="ddNone('tier')">Clear</button></div>
+        </div>
+      </div>
       <div class="dd" id="dd-brand">
         <div class="ddt" id="ddt-brand" onclick="ddToggle('brand')">
           <span id="ddlbl-brand">Brand</span>
@@ -443,7 +455,7 @@ table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700
           <div class="ddf"><button class="ddf-btn" onclick="ddAll('size')">All</button><button class="ddf-btn" onclick="ddNone('size')">Clear</button></div>
         </div>
       </div>
-      <div class="dd" id="dd-model">
+      <div class="dd" id="dd-model" style="display:none">
         <div class="ddt" id="ddt-model" onclick="ddToggle('model')">
           <span id="ddlbl-model">Model</span>
           <svg class="cv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
@@ -463,9 +475,29 @@ table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700
   </div>
 
   <div class="on-main">
+    <!-- TAB W10→W11: bar chart + brand ranking -->
     <div class="on-section on" id="on-sec-evolution">
       <div id="on-insights-row"></div>
-      <div class="on-card">
+      <div style="display:grid;grid-template-columns:1fr 280px;gap:16px;align-items:start">
+        <div class="on-card">
+          <div class="on-card-hd">
+            <div>
+              <div class="on-card-title" id="on-evo-bar-title">Price Variation W10 → W11</div>
+              <div class="on-card-hint">Sorted by % change · Brand + Storage + Price Range filters apply</div>
+            </div>
+          </div>
+          <div id="on-evo-bar-chart" style="margin-top:8px"></div>
+        </div>
+        <div class="on-card">
+          <div class="on-card-hd"><div><div class="on-card-title">Brand Ranking</div></div></div>
+          <div id="on-evo-brand-ranking" style="margin-top:4px"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB Weekly Price: line chart + detail table (model filter applies) -->
+    <div class="on-section" id="on-sec-weekly">
+      <div class="on-card" style="margin-bottom:16px">
         <div class="on-card-hd">
           <div><div class="on-card-title">Weekly ASP Evolution</div><div class="on-card-hint">One line per model · use Model filter to isolate</div></div>
           <div id="on-evo-mem-badge" style="display:none;align-items:center;gap:6px;flex-wrap:wrap"></div>
@@ -508,9 +540,10 @@ table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700
       <div class="on-card">
         <div class="on-card-hd">
           <div>
-            <div class="on-card-title">W10 vs W11 — Average ASP by Channel</div>
-            <div class="on-card-hint">Avg across all filtered SKUs · same model/size filters apply</div>
+            <div class="on-card-title">W10 vs W11 — Price by Channel</div>
+            <div class="on-card-hint">Comparação W10 (opaco) vs W11 (sólido) para o SKU selecionado</div>
           </div>
+
         </div>
         <div id="ch-week-chart" style="margin-top:4px"></div>
       </div>
@@ -595,7 +628,7 @@ table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700
   <!-- EVOLUTION W10→W11 -->
   <div id="off-sec-evolution">
     <div style="padding:24px 36px">
-      <div id="off-evo-insights" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px"></div>
+      <div id="off-evo-insights" class="on-insight-strip" style="margin-bottom:28px"></div>
       <div style="display:grid;grid-template-columns:1fr 280px;gap:28px;align-items:start">
         <div class="off-chart-section">
           <div class="off-chart-title" id="off-evo-chart-title">Price Variation W10 → W11</div>
@@ -689,8 +722,8 @@ const ON_RAW = [
   {brand:"Apple",  competitor:"iPhone 16e",       size:"128 GB",W07:3898.74, W08:3887.41,  W09:3887.41,  W10:4089.89,  W11:4042.16},
   {brand:"Apple",  competitor:"iPhone 16e",       size:"256 GB",W07:4774,    W08:4974,     W09:4749,     W10:4373,     W11:4992.33},
   {brand:"Apple",  competitor:"iPhone 16e",       size:"512 GB",W07:6110,    W08:6443.16,  W09:6421,     W10:5949,     W11:6079},
-  {brand:"Apple",  competitor:"iPhone 17e",       size:"256 GB",W07:5499,    W08:4373,     W09:null,     W10:null,     W11:5799},
-  {brand:"Apple",  competitor:"iPhone 17e",       size:"512 GB",W07:3699,    W08:5949,     W09:null,     W10:null,     W11:7299},
+  {brand:"Apple",  competitor:"iPhone 17e",       size:"256 GB",W07:null,    W08:null,     W09:null,     W10:null,     W11:5799},
+  {brand:"Apple",  competitor:"iPhone 17e",       size:"512 GB",W07:null,    W08:null,     W09:null,     W10:null,     W11:7299},
   {brand:"OPPO",   competitor:"Reno 14",          size:"512 GB",W07:4999,    W08:4999,     W09:5224.5,   W10:5133.5,   W11:4999},
   {brand:"OPPO",   competitor:"Reno 14F",         size:"256 GB",W07:3548.97, W08:3498.94,  W09:3448.97,  W10:3373.97,  W11:3348.97},
   {brand:"OPPO",   competitor:"Reno 13",          size:"512 GB",W07:4298.89, W08:4298.89,  W09:null,     W10:4298,     W11:4298},
@@ -702,7 +735,10 @@ const ON_BRANDS=['Samsung','Apple','OPPO'];
 const ON_BC={Samsung:'#7c3aed',Apple:'#d97706',OPPO:'#059669'};
 const allModels=[...new Set(ON_RAW.map(r=>r.competitor))].sort();
 const allSizes=[...new Set(ON_RAW.map(r=>r.size))].sort((a,b)=>SZO.indexOf(a)-SZO.indexOf(b));
-const F={brand:new Set(ON_BRANDS),size:new Set(['256 GB']),model:new Set(['Galaxy S25 Ultra','iPhone 17 Pro Max'])};
+const ON_TIERS=['R$8k+','R$4k-8k','R$2k-4k','Under R$2k'];
+const ON_TIER_LABELS={'R$8k+':'🔴 Above R$8,000','R$4k-8k':'🟠 R$4.000 – R$8.000','R$2k-4k':'🟡 R$2.000 – R$4.000','Under R$2k':'🟢 Under R$2,000'};
+function onGetTier(r){const p=r.W11!=null?r.W11:r.W10!=null?r.W10:0;if(p>=8000)return 'R$8k+';if(p>=4000)return 'R$4k-8k';if(p>=2000)return 'R$2k-4k';return 'Under R$2k';}
+const F={brand:new Set(ON_BRANDS),size:new Set(allSizes),model:new Set(['Galaxy S25 Ultra','iPhone 17 Pro Max']),tier:new Set(ON_TIERS)};
 let onActiveTab='evolution', onSortMode='model';
 const K=v=>v==null?'—':'R$\u202f'+Math.round(v).toLocaleString('pt-BR');
 const K2=v=>v==null?'—':'R$\u202f'+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -712,7 +748,10 @@ function onTrend(r){const ok=WW.filter(w=>r[w]!=null);if(ok.length<2)return null
 function onTCell(t){if(!t)return'<span class="on-t-fl">—</span>';const cls=t.pct>0.5?'on-t-up':t.pct<-0.5?'on-t-dn':'on-t-fl';return`<span class="${cls}">${t.from}→${t.to} ${(t.pct>0?'+':'')+t.pct.toFixed(1)}%</span>`;}
 function onRows(){
   if(F.size.size===0||F.model.size===0) return [];
-  return ON_RAW.filter(r=>F.brand.has(r.brand)&&F.size.has(r.size)&&F.model.has(r.competitor)&&WW.some(w=>r[w]!=null));
+  return ON_RAW.filter(r=>F.brand.has(r.brand)&&F.size.has(r.size)&&F.model.has(r.competitor)&&WW.some(w=>r[w]!=null)&&F.tier.has(onGetTier(r)));
+}
+function onRowsBase(){
+  return ON_RAW.filter(r=>F.brand.has(r.brand)&&F.size.has(r.size)&&WW.some(w=>r[w]!=null)&&F.tier.has(onGetTier(r)));
 }
 function onModelColor(comp,data){
   const brand=data.find(r=>r.competitor===comp)?.brand||'Samsung';
@@ -723,10 +762,19 @@ function onModelColor(comp,data){
   return`hsl(${Math.round(hue)},80%,${idx%2===0?42:55}%)`;
 }
 
-function onRefreshKpis(){const d=onRows();const w11=d.map(r=>r.W11).filter(v=>v!=null);$('kpi-comp').textContent=[...new Set(d.map(r=>r.competitor))].length;$('kpi-skus').textContent=d.length;$('kpi-avg').textContent=w11.length?K(w11.reduce((a,b)=>a+b)/w11.length):'—';}
+function onRefreshKpis(){
+  const d=ON_RAW.filter(r=>r.W11!=null);
+  const w11=d.map(r=>r.W11);
+  $('kpi-comp').textContent=[...new Set(d.map(r=>r.competitor))].length;
+  $('kpi-skus').textContent=d.length;
+  $('kpi-avg').textContent=w11.length?K(w11.reduce((a,b)=>a+b)/w11.length):'—';
+  $('kpi-low').textContent=w11.length?K(Math.min(...w11)):'—';
+  $('kpi-high').textContent=w11.length?K(Math.max(...w11)):'—';
+}
 
 /* dropdowns */
 function onBuildDDs(){
+  ON_TIERS.forEach(t=>onAddOpt('tier',t,'#9ca3af',ON_TIER_LABELS[t],''));
   ON_BRANDS.forEach(b=>onAddOpt('brand',b,ON_BC[b],b,''));
   allSizes.forEach(s=>onAddOpt('size',s,'#9ca3af',s,''));
   allModels.forEach(m=>{const br=ON_RAW.find(r=>r.competitor===m)?.brand||'';onAddOpt('model',m,ON_BC[br]||'#ccc',m,br);});
@@ -741,18 +789,40 @@ function onAddOpt(key,val,col,label,sub){
 }
 function ddToggle(key){const m=$('ddm-'+key),t=$('ddt-'+key);const open=m.style.display!=='none';document.querySelectorAll('.ddm').forEach(x=>x.style.display='none');document.querySelectorAll('.ddt').forEach(x=>x.classList.remove('open'));if(!open){m.style.display='block';t.classList.add('open');}}
 function ddSearch(){const q=$('mq').value.toLowerCase();$('ddl-model').querySelectorAll('.ddi').forEach(el=>{el.style.display=el.dataset.lbl.includes(q)?'':'none';});}
-function ddAll(key){const all=key==='brand'?ON_BRANDS:key==='size'?allSizes:allModels;all.forEach(v=>F[key].add(v));$('ddl-'+key).querySelectorAll('input').forEach(c=>c.checked=true);onUpdateDDLabel(key);onRender();}
+function ddAll(key){const all=key==='brand'?ON_BRANDS:key==='size'?allSizes:key==='tier'?ON_TIERS:allModels;all.forEach(v=>F[key].add(v));$('ddl-'+key).querySelectorAll('input').forEach(c=>c.checked=true);onUpdateDDLabel(key);onRender();}
 function ddNone(key){F[key].clear();$('ddl-'+key).querySelectorAll('input').forEach(c=>c.checked=false);onUpdateDDLabel(key);onRender();}
 function ddAllReset(){
-  // Brand → all selected; Size + Model → cleared
   ON_BRANDS.forEach(v=>F.brand.add(v));$('ddl-brand').querySelectorAll('input').forEach(c=>c.checked=true);onUpdateDDLabel('brand');
+  ON_TIERS.forEach(v=>F.tier.add(v));const dtl=$('ddl-tier');if(dtl)dtl.querySelectorAll('input').forEach(c=>c.checked=true);onUpdateDDLabel('tier');
   ['size','model'].forEach(k=>{F[k].clear();$('ddl-'+k).querySelectorAll('input').forEach(c=>c.checked=false);onUpdateDDLabel(k);});
   onRender();
 }
-function onUpdateDDLabel(key){const totals={brand:ON_BRANDS.length,size:allSizes.length,model:allModels.length};const labels={brand:'Brand',size:'Storage',model:'Model'};const sel=F[key].size,total=totals[key];const trig=$('ddt-'+key),span=$('ddlbl-'+key);trig.querySelectorAll('.dd-badge').forEach(b=>b.remove());const isEmpty=(key!=='brand'&&sel===0);if(sel===total||isEmpty){span.textContent=labels[key];trig.classList.remove('on');}else{span.textContent=labels[key]+' ';const b=document.createElement('span');b.className='dd-badge';b.textContent=sel;trig.insertBefore(b,trig.querySelector('.cv'));trig.classList.add('on');}}
+function onUpdateDDLabel(key){const totals={brand:ON_BRANDS.length,size:allSizes.length,model:allModels.length,tier:ON_TIERS.length};const labels={brand:'Brand',size:'Storage',model:'Model',tier:'Price Range'};const sel=F[key].size,total=totals[key];const trig=$('ddt-'+key),span=$('ddlbl-'+key);if(!trig||!span)return;trig.querySelectorAll('.dd-badge').forEach(b=>b.remove());const isEmpty=(key!=='brand'&&key!=='tier'&&sel===0);if(sel===total||isEmpty){span.textContent=labels[key];trig.classList.remove('on');}else{span.textContent=labels[key]+' ';const b=document.createElement('span');b.className='dd-badge';b.textContent=sel;trig.insertBefore(b,trig.querySelector('.cv'));trig.classList.add('on');}}
 document.addEventListener('click',e=>{if(!e.target.closest('.dd')){document.querySelectorAll('.ddm').forEach(m=>m.style.display='none');document.querySelectorAll('.ddt').forEach(t=>t.classList.remove('open'));}});
 
-function onGoTo(tab){onActiveTab=tab;document.querySelectorAll('.on-section').forEach(s=>s.classList.remove('on'));document.querySelectorAll('.on-nav-tab').forEach(t=>t.classList.remove('on'));$('on-sec-'+tab).classList.add('on');$('on-tab-'+tab).classList.add('on');onRender();}
+function onGoTo(tab){
+  onActiveTab=tab;
+  document.querySelectorAll('.on-section').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.on-nav-tab').forEach(t=>t.classList.remove('on'));
+  $('on-sec-'+tab).classList.add('on');
+  $('on-tab-'+tab).classList.add('on');
+  // Model filter: visible only on weekly tab
+  const ddm=$('dd-model');
+  if(ddm) ddm.style.display=(tab==='weekly')?'':'none';
+  // Size filter: all sizes on evolution, reset to 256GB on weekly
+  if(tab==='evolution'||tab==='heatmap'||tab==='channel'){
+    allSizes.forEach(v=>F.size.add(v));
+    const ddlS=$('ddl-size');
+    if(ddlS) ddlS.querySelectorAll('input').forEach(c=>c.checked=true);
+    onUpdateDDLabel('size');
+  } else if(tab==='weekly'){
+    F.size.clear(); F.size.add('256 GB');
+    const ddlS=$('ddl-size');
+    if(ddlS) ddlS.querySelectorAll('input').forEach(c=>{ c.checked=(c.value==='256 GB'); });
+    onUpdateDDLabel('size');
+  }
+  onRender();
+}
 function onRender(){
   onRefreshKpis();
   // Memory badge
@@ -765,27 +835,72 @@ function onRender(){
     badge.style.display='none'; badge.innerHTML='';
   }
   if(onActiveTab==='evolution')onRenderEvolution();
+  if(onActiveTab==='weekly')onRenderWeekly();
   if(onActiveTab==='heatmap')onRenderHeatmap();
   if(onActiveTab==='channel')chRender();
 }
 
 function onRenderEvolution(){
-  // insights — always from full dataset, rendered in stats bar
-  const allMoves=ON_RAW.filter(r=>r.W10!=null&&r.W11!=null).map(r=>({r,pct:(r.W11-r.W10)/r.W10*100}));
-  if(allMoves.length){
-    const rise=allMoves.reduce((a,b)=>b.pct>a.pct?b:a);
-    const drop=allMoves.reduce((a,b)=>b.pct<a.pct?b:a);
-    const top=ON_RAW.filter(r=>r.W11!=null).reduce((a,b)=>b.W11>a.W11?b:a);
-    $('kpi-rise-val').textContent=`+${rise.pct.toFixed(1)}%`;
-    $('kpi-rise-sub').textContent=`${rise.r.competitor} · ${rise.r.size}`;
-    $('kpi-drop-val').textContent=`${drop.pct.toFixed(1)}%`;
-    $('kpi-drop-sub').textContent=`${drop.r.competitor} · ${drop.r.size}`;
-    $('kpi-top-val').textContent=K(top.W11);
-    $('kpi-top-sub').textContent=`${top.competitor} · ${top.size}`;
-  }
+  // Stats bar updated via onRefreshKpis()
   $('on-insights-row').innerHTML='';
+  const data=onRowsBase();
+  if(!data.length){$('on-evo-bar-chart').innerHTML='<div class="on-empty">No data.</div>';$('on-evo-brand-ranking').innerHTML='';return;}
+  // KPI cards
+  const _c=data.filter(r=>r.W10!=null&&r.W11!=null);
+  const _w11o=data.filter(r=>r.W10==null&&r.W11!=null);
+  const _w10o=data.filter(r=>r.W10!=null&&r.W11==null);
+  const _aW11=data.filter(r=>r.W11!=null);
+  const _mv=_c.map(r=>({r,pct:(r.W11-r.W10)/r.W10*100,abs:r.W11-r.W10}));
+  const _nU=_mv.filter(m=>m.pct>0.2).length, _nD=_mv.filter(m=>m.pct<-0.2).length, _nF=_mv.filter(m=>Math.abs(m.pct)<=0.2).length;
+  let _ins='';
+  if(_mv.length){
+    const _ri=_mv.reduce((a,b)=>b.pct>a.pct?b:a), _dr=_mv.reduce((a,b)=>b.pct<a.pct?b:a);
+    _ins+=`<div class="on-insight-card insight-rising"><div class="on-insight-lbl">🔺 Biggest Increase</div><div class="on-insight-model">${_ri.r.competitor}</div><div class="on-insight-meta">${_ri.r.brand} · ${_ri.r.size}</div><div class="on-insight-val red">+${_ri.pct.toFixed(1)}% (R$${Math.abs(_ri.abs).toLocaleString('pt-BR')})</div></div>`;
+    _ins+=`<div class="on-insight-card insight-falling"><div class="on-insight-lbl">🔻 Biggest Drop</div><div class="on-insight-model">${_dr.r.competitor}</div><div class="on-insight-meta">${_dr.r.brand} · ${_dr.r.size}</div><div class="on-insight-val green">${_dr.pct.toFixed(1)}% (R$-${Math.abs(_dr.abs).toLocaleString('pt-BR')})</div></div>`;
+  }
+  _ins+=`<div class="on-insight-card"><div class="on-insight-lbl">📊 Movement</div><div style="display:flex;gap:16px;margin-top:10px;align-items:baseline"><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#ef4444">${_nU}</div><div style="font-size:10px;color:var(--muted);margin-top:2px">increased</div></div><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#22c55e">${_nD}</div><div style="font-size:10px;color:var(--muted);margin-top:2px">decreased</div></div><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#9ca3af">${_nF}</div><div style="font-size:10px;color:var(--muted);margin-top:2px">stable</div></div></div></div>`;
+  _ins+=`<div class="on-insight-card insight-leader"><div class="on-insight-lbl">📋 Coverage</div><div class="on-insight-model">${_c.length} compared</div><div class="on-insight-meta">${_w11o.length} new W11 · ${_w10o.length} W10 only</div><div class="on-insight-val blue">${_aW11.length} total W11</div></div>`;
+  $('on-insights-row').innerHTML='<div class="on-insight-strip">'+_ins+'</div>';
+  // Bar chart
+  const sorted=[..._mv].sort((a,b)=>b.pct-a.pct);
+  const maxAbs=Math.max(...sorted.map(m=>Math.abs(m.pct)),1);
+  $('on-evo-bar-title').textContent=`Price Variation W10 → W11 · ${_c.length} SKUs`;
+  let chartHtml='<div style="display:flex;flex-direction:column;gap:7px">';
+  sorted.forEach(({r,pct,abs})=>{
+    const col=ON_BC[r.brand]||'#888', isPos=pct>0.2, isNeg=pct<-0.2;
+    const barColor=isPos?'#ef4444':isNeg?'#22c55e':'#9ca3af', sign=pct>0?'+':'';
+    const barW=Math.abs(pct)/maxAbs*48;
+    chartHtml+=`<div style="display:grid;grid-template-columns:190px 1fr 300px;align-items:center;gap:10px">
+      <div style="font-size:12px;font-weight:600;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${col};margin-right:5px"></span>${r.competitor} <span style="color:#9ca3af;font-weight:400">${r.size}</span></div>
+      <div style="background:#f1f2f7;border-radius:4px;height:18px;position:relative"><div style="position:absolute;${isPos?'left:50%':'right:50%'};width:${barW}%;height:100%;background:${barColor};border-radius:4px;opacity:.85"></div><div style="position:absolute;left:50%;top:0;width:1px;height:100%;background:#d1d5db"></div></div>
+      <div style="font-size:12px;font-weight:700;color:${barColor};font-family:'DM Mono',monospace;white-space:nowrap">${sign}${pct.toFixed(1)}% <span style="color:#6b7280;font-weight:500;font-size:11px">${K(r.W10)} → ${K(r.W11)}</span> <span style="color:#9ca3af;font-size:11px">(${sign}${K(abs)})</span></div>
+    </div>`;
+  });
+  chartHtml+='</div>';
+  $('on-evo-bar-chart').innerHTML=_mv.length?chartHtml:'<div class="on-empty">No W10→W11 data.</div>';
+  // Brand ranking
+  const byBrand={};
+  _mv.forEach(m=>{const b=m.r.brand;if(!byBrand[b])byBrand[b]={moves:[],up:[],dn:[],fl:[]};byBrand[b].moves.push(m);if(m.pct>0.2)byBrand[b].up.push(m);else if(m.pct<-0.2)byBrand[b].dn.push(m);else byBrand[b].fl.push(m);});
+  const bSorted=Object.entries(byBrand).sort((a,b)=>{const aA=a[1].moves.reduce((s,m)=>s+m.pct,0)/a[1].moves.length,bA=b[1].moves.reduce((s,m)=>s+m.pct,0)/b[1].moves.length;return bA-aA;});
+  let rankHtml='<div style="display:flex;flex-direction:column;gap:14px">';
+  bSorted.forEach(([brand,s])=>{
+    const c=ON_BC[brand]||'#888', avg=s.moves.reduce((a,m)=>a+m.pct,0)/s.moves.length;
+    const aC=avg>0.2?'#ef4444':avg<-0.2?'#22c55e':'#9ca3af', aS=avg>0?'+':'';
+    const tU=s.up.length?s.up.reduce((a,b)=>b.pct>a.pct?b:a):null;
+    const tD=s.dn.length?s.dn.reduce((a,b)=>b.pct<a.pct?b:a):null;
+    rankHtml+=`<div style="border:1px solid var(--border);border-radius:10px;overflow:hidden"><div style="display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--surface2);border-bottom:1px solid var(--border)"><span style="font-size:12px;font-weight:700;color:${c};border-left:3px solid ${c};padding-left:7px">${brand}</span><span style="font-size:11px;font-family:'DM Mono',monospace;font-weight:700;color:${aC}">avg ${aS}${avg.toFixed(1)}%</span></div><div style="padding:8px 12px;display:flex;gap:16px;font-size:11px;border-bottom:1px solid var(--border)"><span style="color:#ef4444;font-weight:700">${s.up.length} <span style="font-weight:400;color:var(--muted)">up</span></span><span style="color:#22c55e;font-weight:700">${s.dn.length} <span style="font-weight:400;color:var(--muted)">down</span></span><span style="color:#9ca3af;font-weight:700">${s.fl.length} <span style="font-weight:400;color:var(--muted)">stable</span></span><span style="margin-left:auto;color:var(--muted)">${s.moves.length} SKU${s.moves.length!==1?'s':''}</span></div>`;
+    if(tU) rankHtml+=`<div style="padding:6px 12px;display:flex;justify-content:space-between;align-items:center;font-size:11px;border-bottom:1px solid var(--border)"><span>📈 ${tU.r.competitor} <span style="color:#9ca3af">${tU.r.size}</span></span><span style="color:#ef4444;font-family:'DM Mono',monospace;font-weight:700">+${tU.pct.toFixed(1)}%</span></div>`;
+    if(tD) rankHtml+=`<div style="padding:6px 12px;display:flex;justify-content:space-between;align-items:center;font-size:11px"><span>📉 ${tD.r.competitor} <span style="color:#9ca3af">${tD.r.size}</span></span><span style="color:#22c55e;font-family:'DM Mono',monospace;font-weight:700">${tD.pct.toFixed(1)}%</span></div>`;
+    if(!tU&&!tD) rankHtml+=`<div style="padding:6px 12px;font-size:11px;color:#9ca3af;font-style:italic">No movement</div>`;
+    rankHtml+='</div>';
+  });
+  rankHtml+='</div>';
+  $('on-evo-brand-ranking').innerHTML=bSorted.length?rankHtml:'<div class="on-empty">—</div>';
+}
 
-  const data=onRows();if(!data.length){$('on-evo-svg').innerHTML='';$('on-evo-table').innerHTML='<div class="on-empty">No data.</div>';return;}
+function onRenderWeekly(){
+  const data=onRows();
+  if(!data.length){$('on-evo-svg').innerHTML='';$('on-evo-table').innerHTML='<div class="on-empty">No data.</div>';return;}
   const comps=[...new Set(data.map(r=>r.competitor))];
   const compAvg={};comps.forEach(comp=>{compAvg[comp]={};WW.forEach(w=>{const vals=data.filter(r=>r.competitor===comp&&r[w]!=null).map(r=>r[w]);compAvg[comp][w]=vals.length?vals.reduce((a,b)=>a+b)/vals.length:null;});});
   const allV=comps.flatMap(c=>WW.map(w=>compAvg[c][w]).filter(v=>v!=null));
@@ -811,13 +926,24 @@ function onRenderEvolution(){
   const svg=$('on-evo-svg');svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.setAttribute('height',H);svg.innerHTML=`${grid}${yL}${xL}${paths}${dots}${labels}`;
   const compColors={};comps.forEach(c=>{compColors[c]=onModelColor(c,data);});
   $('on-evo-legend').innerHTML=comps.map(c=>`<div class="on-leg-item"><div class="on-leg-swatch" style="background:${compColors[c]}"></div>${c}</div>`).join('');
-  // table
-  let tbody='';comps.forEach(comp=>{const cr=data.filter(r=>r.competitor===comp);const brand=cr[0].brand;tbody+=`<tr class="on-grp-hd"><td colspan="${2+WW.length+1}"><span class="on-stripe" style="background:${ON_BC[brand]}"></span>${comp}<span class="on-badge on-b-${brand}" style="margin-left:6px">${brand}</span></td></tr>`;cr.forEach(r=>{const t=onTrend(r);tbody+=`<tr><td style="padding-left:20px"><span class="on-sz">${r.size}</span></td>${WW.map(w=>`<td class="r">${r[w]!=null?`<span class="on-pv">${K(r[w])}</span>`:'<span class="on-nv">—</span>'}</td>`).join('')}<td class="r">${onTCell(t)}</td></tr>`;});});
+  // table — grouped by brand
+  let tbody='';
+  const brands=[...new Set(comps.map(c=>data.find(r=>r.competitor===c)?.brand))];
+  brands.forEach(brand=>{
+    const brandComps=comps.filter(c=>data.find(r=>r.competitor===c)?.brand===brand);
+    if(brands.length>1) tbody+=`<tr style="background:${ON_BC[brand]}18"><td colspan="${2+WW.length}" style="padding:8px 14px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:${ON_BC[brand]};font-family:'DM Mono',monospace">${brand}</td></tr>`;
+    brandComps.forEach(comp=>{
+      const cr=data.filter(r=>r.competitor===comp);
+      tbody+=`<tr class="on-grp-hd"><td colspan="${2+WW.length+1}"><span class="on-stripe" style="background:${ON_BC[brand]}"></span>${comp}</td></tr>`;
+      cr.forEach(r=>{const t=onTrend(r);tbody+=`<tr><td style="padding-left:20px"><span class="on-sz">${r.size}</span></td>${WW.map(w=>`<td class="r">${r[w]!=null?`<span class="on-pv">${K(r[w])}</span>`:'<span class="on-nv">—</span>'}</td>`).join('')}<td class="r">${onTCell(t)}</td></tr>`;});
+    });
+  });
   $('on-evo-table').innerHTML=`<table class="on-t"><thead><tr><th>Storage</th>${WW.map(w=>`<th class="r">${w}</th>`).join('')}<th class="r">W-1→W</th></tr></thead><tbody>${tbody}</tbody></table>`;
+
 }
 
 function onRenderHeatmap(){
-  const data=onRows().filter(r=>r.W11!=null).sort((a,b)=>b.W11-a.W11);
+  const data=onRowsBase().filter(r=>r.W11!=null).sort((a,b)=>b.W11-a.W11);
   if(!data.length){$('on-hm-content').innerHTML='<div class="on-empty">No W11 data.</div>';return;}
   const mn=Math.min(...data.map(r=>r.W11)),mx=Math.max(...data.map(r=>r.W11));
   function hcol(v){const t=(v-mn)/(mx-mn||1);if(t<.5){const tt=t*2;return`rgb(${Math.round(22+tt*233)},${Math.round(163-tt*75)},${Math.round(74-tt*62)})`;}const tt=(t-.5)*2;return`rgb(${Math.round(255-tt*35)},${Math.round(88-tt*50)},${Math.round(12+tt*26)})`;}
@@ -907,69 +1033,50 @@ function chRenderBarChart(model, size) {
   $('ch-bar-chart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" height="${H}" style="width:100%;overflow:visible">${grid}${yL}${bars}${xL}</svg>`;
 }
 
-/* ── Chart 2: W10 vs W11 avg per channel across all filtered SKUs ── */
+/* ── Chart 2: W10 vs W11 per channel for selected SKU ── */
 function chRenderWeekChart() {
-  // Filter CH_DATA by the same model/brand/size filters as online
-  const filtered = CH_DATA.filter(r => F.brand.has(r.brand) && F.model.has(r.model) && F.size.has(r.size));
-
-  const W=820, H=260, PL=80, PR=24, PT=20, PB=52;
+  const model = $('ch-model-sel').value;
+  const size  = $('ch-size-sel').value;
+  const brand = CH_DATA.find(r=>r.model===model)?.brand || 'Samsung';
+  const col   = ON_BC[brand] || '#7c3aed';
+  const w10 = CH_DATA.find(r=>r.model===model&&r.size===size&&r.week==='W10');
+  const w11 = CH_DATA.find(r=>r.model===model&&r.size===size&&r.week==='W11');
+  const W=820, H=260, PL=80, PR=24, PT=20, PB=44;
   const cW=W-PL-PR, cH=H-PT-PB;
-
-  // Compute avg per channel per week
-  const avgs = {};
-  ['W10','W11'].forEach(wk=>{
-    avgs[wk]={};
-    CH_CHANNELS.forEach(ch=>{
-      const vals=filtered.filter(r=>r.week===wk&&r[ch]!=null).map(r=>r[ch]);
-      avgs[wk][ch]=vals.length ? vals.reduce((a,b)=>a+b)/vals.length : null;
-    });
-  });
-
-  const allVals=Object.values(avgs).flatMap(o=>Object.values(o)).filter(v=>v!=null);
-  if(!allVals.length){$('ch-week-chart').innerHTML='<div class="on-empty">No data.</div>';return;}
-  const yMax=Math.ceil(Math.max(...allVals)*1.12/1000)*1000;
-  const ys=v=>PT+cH-(v/yMax)*cH;
-  const nCh=CH_CHANNELS.length;
-  const grpW=cW/nCh;
-  const barW=grpW*0.32;
-  const gap=grpW*0.06;
-
-  let grid='',yL='',bars='',xL='',legend='';
-
+  const allVals = CH_CHANNELS.flatMap(ch=>[w10?.[ch], w11?.[ch]]).filter(v=>v!=null);
+  if(!allVals.length){$('ch-week-chart').innerHTML='<div class="on-empty">No channel data for this SKU.</div>';return;}
+  const yMax = Math.ceil(Math.max(...allVals)*1.18/1000)*1000;
+  const ys = v => PT+cH-(v/yMax)*cH;
+  const nCh = CH_CHANNELS.length;
+  const grpW = cW/nCh, barW = grpW*0.3, gap = grpW*0.06;
+  let grid='', yL='', bars='', xL='';
   for(let i=0;i<=5;i++){
-    const v=(i/5)*yMax,y=ys(v);
+    const v=(i/5)*yMax, y=ys(v);
     grid+=`<line x1="${PL}" x2="${W-PR}" y1="${y}" y2="${y}" stroke="#e2e5f0" stroke-width="1"/>`;
     yL+=`<text x="${PL-8}" y="${y+4}" text-anchor="end" font-size="12" fill="#9ca3af" font-family="DM Mono">${Math.round(v/1000)}k</text>`;
   }
-
   CH_CHANNELS.forEach((ch,i)=>{
-    const cx=PL+i*grpW+grpW/2;
-    const v10=avgs.W10[ch], v11=avgs.W11[ch];
+    const cx = PL+i*grpW+grpW/2;
+    const v10 = w10?.[ch], v11 = w11?.[ch];
     if(v10!=null){
       const bx=cx-barW-gap/2, by=ys(v10), bh=PT+cH-by;
-      bars+=`<rect x="${bx}" y="${by}" width="${barW}" height="${bh}" fill="#94a3b8" rx="3"/>`;
-      bars+=`<text x="${bx+barW/2}" y="${by-5}" text-anchor="middle" font-size="12" fill="#64748b" font-family="DM Mono">${K(Math.round(v10))}</text>`;
+      bars+=`<rect x="${bx}" y="${by}" width="${barW}" height="${bh}" fill="${col}" rx="4" opacity=".4"/>`;
+      bars+=`<text x="${bx+barW/2}" y="${by-6}" text-anchor="middle" font-size="11" fill="#6b7280" font-family="DM Mono">${K(v10)}</text>`;
     }
     if(v11!=null){
       const bx=cx+gap/2, by=ys(v11), bh=PT+cH-by;
-      bars+=`<rect x="${bx}" y="${by}" width="${barW}" height="${bh}" fill="#1a56db" rx="3"/>`;
-      bars+=`<text x="${bx+barW/2}" y="${by-5}" text-anchor="middle" font-size="12" font-weight="700" fill="#1a56db" font-family="DM Mono">${K(Math.round(v11))}</text>`;
+      bars+=`<rect x="${bx}" y="${by}" width="${barW}" height="${bh}" fill="${col}" rx="4"/>`;
+      bars+=`<text x="${bx+barW/2}" y="${by-6}" text-anchor="middle" font-size="12" font-weight="700" fill="${col}" font-family="DM Mono">${K(v11)}</text>`;
       if(v10!=null){
-        const diff=((v11-v10)/v10*100);
-        const arrow=diff>0.1?'▲':diff<-0.1?'▼':'';
-        const col=diff>0.1?'#dc2626':diff<-0.1?'#059669':'#9ca3af';
-        if(arrow) bars+=`<text x="${cx}" y="${by-18}" text-anchor="middle" font-size="11" font-weight="700" fill="${col}" font-family="DM Mono">${arrow}${Math.abs(diff).toFixed(1)}%</text>`;
+        const diff=(v11-v10)/v10*100, arrow=diff>0.1?'▲':diff<-0.1?'▼':'';
+        const dcol=diff>0.1?'#dc2626':diff<-0.1?'#059669':'#9ca3af';
+        if(arrow) bars+=`<text x="${cx}" y="${ys(v11)-20}" text-anchor="middle" font-size="11" font-weight="700" fill="${dcol}" font-family="DM Mono">${arrow}${Math.abs(diff).toFixed(1)}%</text>`;
       }
     }
-    xL+=`<text x="${cx}" y="${H-6}" text-anchor="middle" font-size="13" font-weight="700" fill="#374151" font-family="DM Sans">${CH_LABELS[ch]}</text>`;
+    if(v10==null&&v11==null) bars+=`<text x="${cx}" y="${PT+cH/2}" text-anchor="middle" font-size="12" fill="#d1d5db" font-family="DM Mono">—</text>`;
+    xL+=`<text x="${cx}" y="${H-8}" text-anchor="middle" font-size="13" font-weight="700" fill="#374151" font-family="DM Sans">${CH_LABELS[ch]}</text>`;
   });
-
-  legend=`<rect x="${PL}" y="${H-22}" width="10" height="10" fill="#94a3b8" rx="2"/>
-  <text x="${PL+14}" y="${H-14}" font-size="12" fill="#6b7280" font-family="DM Sans">W10 avg</text>
-  <rect x="${PL+76}" y="${H-22}" width="10" height="10" fill="#1a56db" rx="2"/>
-  <text x="${PL+90}" y="${H-14}" font-size="12" fill="#6b7280" font-family="DM Sans">W11 avg</text>`;
-
-  $('ch-week-chart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" height="${H}" style="width:100%;overflow:visible">${grid}${yL}${bars}${xL}${legend}</svg>`;
+  $('ch-week-chart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" height="${H}" style="width:100%;overflow:visible">${grid}${yL}${bars}${xL}</svg>`;
 }
 
 
@@ -1702,47 +1809,64 @@ function specsRender(){
   const d = SPECS[key];
   if(!d){ $('specs-content').innerHTML=''; return; }
 
-  const isJoviCol = d.cols[0].cls === 'col-jovi';
-  let thead = '<tr><th style="background:var(--surface2);border:1px solid var(--border);width:110px"></th>';
-  d.cols.forEach((c,i) => {
-    const extra = (i===0 && isJoviCol) ? ' style="min-width:150px"' : '';
-    thead += `<th class="${c.cls}"${extra}>${c.label}</th>`;
-  });
-  thead += '</tr>';
+  const ROW_META = {
+    '📅 Launch':   {icon:'📅', label:'Launch'},
+    '💰 Price':    {icon:'💰', label:'Price'},
+    '🤳 Selfie':   {icon:'🤳', label:'Selfie'},
+    '📷 Camera':   {icon:'📷', label:'Camera'},
+    '⚙️ Chipset':  {icon:'⚙️', label:'Chipset'},
+    '📱 Screen':   {icon:'📱', label:'Screen'},
+    '🔋 Battery':  {icon:'🔋', label:'Battery'},
+    '🛡 Rating':   {icon:'🛡', label:'IP Rating'},
+    '🛡️ Warranty': {icon:'🛡️', label:'Warranty'},
+    '📝 Additional':{icon:'📝',label:'Extra'},
+  };
 
-  let tbody = '';
-  Object.entries(d.rows).forEach(([label, vals]) => {
-    const isPriceRow = label.includes('Price');
-    const rowCls = isPriceRow ? ' class="price-row"' : '';
-    tbody += `<tr${rowCls}><td class="spec-label">${label}</td>`;
-    vals.forEach((v, i) => {
-      const cellCls = (i===0 && isJoviCol) ? ' col-jovi-cell' : '';
-      tbody += `<td class="${cellCls}">${v}</td>`;
-    });
-    tbody += '</tr>';
-  });
+  const ncols = d.cols.length;
+  const cols = ncols <= 2 ? 'repeat(2,1fr)' : ncols === 3 ? 'repeat(3,1fr)' : ncols === 4 ? 'repeat(4,1fr)' : ncols <= 6 ? 'repeat(3,1fr)' : 'repeat(3,1fr)';
 
-  // Build price variation chart using priceRaw data
+  const cards = d.cols.map((col, ci) => {
+    const brandLabel = col.cls.replace('col-','').replace('jovi','JOVI').replace('samsung','Samsung').replace('apple','Apple').replace('oppo','OPPO').replace('moto','Motorola');
+    const rows = Object.entries(d.rows).map(([label, vals]) => {
+      const meta = ROW_META[label] || {icon:'·', label: label.replace(/^[^\w]*/,'')};
+      const isPriceRow = label.includes('Price');
+      const val = vals[ci] || '—';
+      return `<div class="spec-row${isPriceRow?' price-row':''}">
+        <span class="spec-row-icon">${meta.icon}</span>
+        <span class="spec-row-label">${meta.label}</span>
+        <span class="spec-row-val">${val}</span>
+      </div>`;
+    }).join('');
+
+    return `<div class="spec-card ${col.cls}">
+      <div class="spec-card-head">
+        <div class="spec-card-brand">${brandLabel}</div>
+        <div class="spec-card-name">${col.label}</div>
+      </div>
+      ${rows}
+    </div>`;
+  }).join('');
+
+  // Price variation chart
   const priceRaw = d.priceRaw;
-  const chartItems = priceRaw ? priceRaw.filter(r=>r.W10&&r.W11).map(r=>({...r, pct:(r.W11-r.W10)/r.W10*100})) : [];
-
+  const chartItems = priceRaw ? priceRaw.filter(r=>r.W10&&r.W11).map(r=>({...r,pct:(r.W11-r.W10)/r.W10*100})) : [];
   let chartHtml = '';
   if(chartItems.length > 0){
     const maxAbs = Math.max(...chartItems.map(m=>Math.abs(m.pct)), 1);
     chartHtml = `<div class="off-specs-group-title" style="margin-top:24px">📈 Price Variation W10 → W11</div>
     <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">`;
     chartItems.forEach(({col,W10,W11,pct}) => {
-      const isPos=pct>0, isFlat=pct===0;
-      const barCol=isPos?'#ef4444':isFlat?'#9ca3af':'#22c55e';
+      const isPos=pct>0.1, isNeg=pct<-0.1;
+      const barCol=isPos?'#ef4444':isNeg?'#22c55e':'#9ca3af';
       const sign=isPos?'+':'';
       const barW=Math.abs(pct)/maxAbs*45;
-      chartHtml+=`<div style="display:grid;grid-template-columns:160px 1fr 180px;align-items:center;gap:10px">
+      chartHtml+=`<div style="display:grid;grid-template-columns:160px 1fr 200px;align-items:center;gap:10px">
         <div style="font-size:12px;font-weight:600;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${col}</div>
         <div style="background:#f1f2f7;border-radius:4px;height:18px;position:relative">
           <div style="position:absolute;${isPos?'left:50%':'right:50%'};width:${barW}%;height:100%;background:${barCol};border-radius:4px;opacity:.8"></div>
           <div style="position:absolute;left:50%;top:0;width:1px;height:100%;background:#d1d5db"></div>
         </div>
-        <div style="font-size:12px;font-family:'JetBrains Mono',monospace;color:${barCol};font-weight:700">${sign}${pct.toFixed(1)}% &nbsp;<span style="color:#9ca3af;font-weight:400;font-size:11px">W10: R$${W10.toLocaleString('pt-BR')} → W11: R$${W11.toLocaleString('pt-BR')}</span></div>
+        <div style="font-size:12px;font-family:'JetBrains Mono',monospace;color:${barCol};font-weight:700">${sign}${pct.toFixed(1)}% &nbsp;<span style="color:#9ca3af;font-weight:400;font-size:11px">W10 R$${W10.toLocaleString('pt-BR')} → W11 R$${W11.toLocaleString('pt-BR')}</span></div>
       </div>`;
     });
     chartHtml += '</div>';
@@ -1750,12 +1874,7 @@ function specsRender(){
 
   $('specs-content').innerHTML = `
     <div class="off-specs-group-title">${d.title}</div>
-    <div style="overflow-x:auto">
-      <table class="off-specs-table">
-        <thead>${thead}</thead>
-        <tbody>${tbody}</tbody>
-      </table>
-    </div>
+    <div class="specs-grid" style="grid-template-columns:${cols}">${cards}</div>
     ${chartHtml}`;
 }
 
@@ -2082,7 +2201,8 @@ function exportOffline() {
   }
 }
 
-['brand','size','model'].forEach(k=>onUpdateDDLabel(k));
+['brand','size','model','tier'].forEach(k=>onUpdateDDLabel(k));
+onBuildDDs();
 onRender();
 chBuildSelectors();
 offBuildFilters();
