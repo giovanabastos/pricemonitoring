@@ -1100,7 +1100,7 @@ const offData = [
   { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S25 FE',   memory: '128 GB', W10: 3199,    W11: 2999 },
   { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S25 FE',   memory: '256 GB', W10: 3799,    W11: null },
   { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy A56',      memory: '128 GB', W10: 2199,    W11: 2369 },
-  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy A56',      memory: '256 GB', W10: 3428,    W11: 3427 },
+  { tier: 'R$2k-3k',   brand: 'Samsung',  model: 'Galaxy A56',      memory: '256 GB', W10: 2799,    W11: 2799 },
   { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S25',      memory: '256 GB', W10: 4799,    W11: null },
   { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S24',      memory: '128 GB', W10: 3099,    W11: 2889 },
   { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S24',      memory: '256 GB', W10: 5157,    W11: null },
@@ -1112,8 +1112,7 @@ const offData = [
   { tier: 'R$2.5k–6k', brand: 'Motorola', model: 'Edge 60 Pro',     memory: '256 GB', W10: 3499,    W11: 3499 },
   { tier: 'R$2k-3k',   brand: 'Motorola', model: 'Edge 60 Fusion',  memory: '256 GB', W10: 2399,    W11: 2399 },
   { tier: 'R$2k-3k',   brand: 'Motorola', model: 'Moto G77 5G',     memory: '256 GB', W10: 2499,    W11: 2499 },
-  { tier: 'R$2k-3k',   brand: 'Motorola', model: 'Moto G67 5G',     memory: '128 GB', W10: null,    W11: 2499 },
-  { tier: 'R$1.5k–2.5k', brand: 'Motorola', model: 'Moto G67 5G',   memory: '256 GB', W10: 1999,    W11: 1999 },
+  { tier: 'R$1.5k-2k',  brand: 'Motorola', model: 'Moto G67 5G',    memory: '256 GB', W10: 1999,    W11: 1999 },
   { tier: 'R$2k-3k',   brand: 'Motorola', model: 'Moto G86',        memory: '512 GB', W10: 3099,    W11: 3189 },
   // R$1.5k–2.5k
   { tier: 'R$1.5k–2.5k', brand: 'JOVI',     model: 'JOVI Y31',       memory: '256 GB', W10: 1999,    W11: 1999 },
@@ -1138,7 +1137,7 @@ const offData = [
   { tier: 'R$1k–1.5k', brand: 'JOVI',     model: 'JOVI Y21',       memory: '256 GB', W10: 1599,    W11: null },
   { tier: 'R$1k–1.5k', brand: 'JOVI',     model: 'JOVI Y19s',      memory: '256 GB', W10: 1099,    W11: 1199 },
   { tier: 'R$1k–1.5k', brand: 'Samsung',  model: 'Galaxy A07',     memory: '256 GB', W10: 1100,    W11: 1100 },
-  { tier: 'R$1k–1.5k', brand: 'OPPO',     model: 'A6X',            memory: '128 GB', W10: 1199,    W11: 1199 },
+  { tier: 'R$1.5k-2k', brand: 'OPPO',     model: 'OPPO A6x 5G',    memory: '256 GB', W10: null,    W11: null  },
   
   { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G06',       memory: '256 GB', W10: 799,     W11: null },
   { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G06',       memory: '128 GB', W10: null,    W11: 699 },
@@ -1304,7 +1303,7 @@ function offRender(){
 }
 
 function offRenderRangeChart(filtered){
-  const rc=$('off-range-chart');rc.innerHTML='';
+  const rc=$('off-range-chart'); if(!rc) return; rc.innerHTML='';
   const activeBrandList=offBrands.filter(b=>offActiveBrands.has(b));
   const globalMax=Math.max(...filtered.map(d=>d.price),1);
   const globalMin=Math.min(...filtered.map(d=>d.price),0);
@@ -1336,7 +1335,7 @@ function offRenderRangeChart(filtered){
 
 function offRenderStackedChart(filtered){
   const tierOrder=['R$8k+','R$6k-8k','R$3k-6k','R$2k-3k','R$1.5k-2k','R$1k-1.5k','Under R$1k'];
-  const tierShort={'R$6k+':'R$6k+','R$2.5k–6k':'R$2.5k–6k','R$1.5k–2.5k':'R$1.5k–2.5k','R$1k–1.5k':'R$1k–1.5k'};
+  const tierShort={'R$8k+':'R$8k+','R$6k-8k':'R$6k–8k','R$3k-6k':'R$3k–6k','R$2k-3k':'R$2k–3k','R$1.5k-2k':'R$1.5k–2k','R$1k-1.5k':'R$1k–1.5k','Under R$1k':'<R$1k'};
   const activeBrandList=offBrands.filter(b=>offActiveBrands.has(b)&&filtered.some(d=>d.brand===b));
   const activeTierOrder=tierOrder.filter(t=>offActiveTiers.has(t));
   const legendEl=$('off-tier-legend');legendEl.innerHTML='';
@@ -1375,6 +1374,7 @@ function offGoTo(tab){
   const sc=$('off-sort-controls');
   if(sc) sc.style.display = tab==='prices'?'flex':'none';
   if(tab==='evolution') offRenderEvolution();
+  if(tab==='prices') offRender();
   if(tab==='specs') specsRender();
 }
 
@@ -1643,7 +1643,7 @@ const SPECS = {
       {col:'Galaxy A36',  W10:2499, W11:2499},
       {col:'Galaxy A27',  W10:null,  W11:null},
       {col:'Oppo A5 5G',  W10:2299, W11:2299},
-      {col:'Oppo A6s',    W10:1999, W11:null},
+      {col:'Oppo A6s',    W10:null,  W11:null},
       {col:'Moto G77 5G', W10:2499, W11:2499},
       {col:'Moto G86',    W10:1899, W11:1999},
     ],
@@ -1654,13 +1654,13 @@ const SPECS = {
         specPriceCell([{cfg:'8GB+256GB',W10:2499,W11:2499}]),
         specPriceCell([{cfg:'TBC',W10:null,W11:null}]),
         specPriceCell([{cfg:'8GB+256GB',W10:2299,W11:2299}]),
-        specPriceCell([{cfg:'8GB+256GB',W10:1999,W11:null}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:null,W11:null}]),
         specPriceCell([{cfg:'8GB+256GB',W10:2499,W11:2499}]),
         specPriceCell([{cfg:'8GB+256GB',W10:1899,W11:1999}]),
       ],
       '🧠 Memory':   ['8+256GB / 8+512GB','8+256GB','8+256GB','8+256GB','8+256GB / 8+512GB','8+256GB','8+256GB / 12+512GB'],
       '🤳 Selfie':   ['32 MP','13 MP','13 MP','8 MP','16 MP','32 MP','32 MP'],
-      '📷 Camera':   ['50(W)/2(D) MP','50 OIS/8(UW)/5(M) MP','50MP/5MP/5MP','50(W)/2(D) MP','50(W)/2(D) MP','50(W)/8(UW) MP','50(W)/2(D) MP'],
+      '📷 Camera':   ['50(W)/2(D) MP','50 OIS/8(UW)/5(M) MP','50MP/5MP/5MP','50(W)/2(D) MP','50(W)/2(D) MP','108(W)/8(UW) MP','50(W)/2(D) MP'],
       '⚙️ Chipset':  ['6s 4G Gen2 (6nm) LTE','Snapdragon 6 Gen3 (4nm) 5G','Exynos 1380 5G','D7300 5G','Snapdragon 685 (6nm) LTE','D6400 (6nm) 5G','D7300 (4nm) 5G'],
       '📱 Screen':   ['6.75" HD LCD 120Hz','6.6" FHD AMOLED 120Hz','6.7" FHD GOLED 120Hz','6.7" HD IPS 120Hz','6.75" HD LCD','6.8" HD AMOLED 120Hz','6.7" FHD+ POLED 120Hz'],
       '🔋 Battery':  ['7200 mAh<br><small>44W inbox</small>','5000 mAh<br><small>15W inbox</small>','5000 mAh<br><small>15W inbox</small>','6000 mAh<br><small>45W inbox</small>','7000 mAh<br><small>80W inbox</small>','5200 mAh<br><small>33W inbox</small>','4800 mAh<br><small>68W inbox</small>'],
@@ -1680,7 +1680,7 @@ const SPECS = {
       {col:'JOVI Y29s',    W10:1999, W11:1999},
       {col:'Galaxy A36',  W10:2499, W11:2499},
       {col:'Oppo A5 5G',  W10:2299, W11:2299},
-      {col:'Moto G67 5G', W10:null, W11:2499},
+      {col:'Moto G67 5G', W10:1999, W11:1999},
     ],
     rows: {
       '📅 Launch':   ['Aug\'25','Mar\'25','May\'25','Mar\'26'],
@@ -1688,9 +1688,9 @@ const SPECS = {
         specPriceCell([{cfg:'8GB+256GB',W10:1999,W11:1999}]),
         specPriceCell([{cfg:'8GB+256GB',W10:2499,W11:2499}]),
         specPriceCell([{cfg:'8GB+256GB',W10:2299,W11:2299}]),
-        specPriceCell([{cfg:'8GB+128GB',W10:null,W11:2499}]),
+        specPriceCell([{cfg:'4GB+256GB',W10:1999,W11:1999}]),
       ],
-      '🧠 Memory':   ['8+256GB','8+256GB','8+256GB','8+256GB'],
+      '🧠 Memory':   ['8+256GB','8+256GB','8+256GB','4+256GB'],
       '🤳 Selfie':   ['8 MP','13 MP','8 MP','32 MP'],
       '📷 Camera':   ['50(W)/2(D) MP','50 OIS/8(UW)/5(M) MP','50(W)/2(D) MP','50(W)/8(UW) MP'],
       '⚙️ Chipset':  ['D6300 (6nm) 5G','Snapdragon 6 Gen3 (4nm) 5G','D6300 (6nm) 5G','D6300 (6nm) 5G'],
@@ -1744,7 +1744,7 @@ const SPECS = {
       {col:'JOVI Y21 5G',   W10:null, W11:1899},
       {col:'Galaxy A17 5G', W10:1599, W11:1599},
       {col:'Oppo A6x 5G',   W10:null, W11:null},
-      {col:'Moto G67 5G',   W10:null, W11:2499},
+      {col:'Moto G67 5G',   W10:1999, W11:1999},
     ],
     rows: {
       '📅 Launch':   ['Apr\'26','Oct\'25','Apr\'26 (TBC)','Mar\'26'],
@@ -1752,7 +1752,7 @@ const SPECS = {
         specPriceCell([{cfg:'4GB+256GB',W10:null,W11:1899}]),
         specPriceCell([{cfg:'8GB+256GB',W10:1599,W11:1599}]),
         specPriceCell([{cfg:'4GB+256GB',W10:null,W11:null}]),
-        specPriceCell([{cfg:'4GB+256GB',W10:null,W11:2499}]),
+        specPriceCell([{cfg:'4GB+256GB',W10:1999,W11:1999}]),
       ],
       '🧠 Memory':   ['4+256GB','8+256GB','4+256GB','4+256GB'],
       '🤳 Selfie':   ['5 MP','13 MP','5 MP','32 MP'],
