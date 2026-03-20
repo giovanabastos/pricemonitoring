@@ -208,7 +208,7 @@ table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700
 #offline {
   --bg: #f5f6fa; --surface: #ffffff; --surface2: #f0f1f5; --border: #e2e4ed;
   --accent: #0052cc; --accent2: #e8530a; --accent3: #7c3aed;
-  --text: #1a1a2e; --muted: #8a8fa8;
+  --text: #1a1a2e; --sub: #374151; --muted: #8a8fa8; --muted2: #9ca3af; --red: #dc2626; --green: #16a34a; --border2: #d1d5db;
   --apple: #e8a020; --samsung: #7c3aed; --motorola: #1a1a1a;
   --oppo: #1aaa55; --xiaomi: #ff6900; --honor: #e42125;
   font-size:16px;
@@ -370,7 +370,7 @@ table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700
 </style>
 </head>
 <body>
-<div id="auth-gate"><div id="auth-box"><img src="data:image/png;base64,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" style="width:120px;border-radius:10px;margin-bottom:6px"><div class="sub">Price Monitoring · Restricted Access</div><input type="password" id="auth-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')authCheck()"><button onclick="authCheck()">Access Dashboard</button><div id="auth-error"></div></div></div><script>function authCheck(){const v=document.getElementById('auth-input').value;if(v==='JOVI@2026!'){document.getElementById('auth-gate').style.display='none';sessionStorage.setItem('jovi_auth','1');}else{const e=document.getElementById('auth-error');e.textContent='Incorrect password';document.getElementById('auth-input').value='';}}if(sessionStorage.getItem('jovi_auth')==='1'){document.getElementById('auth-gate').style.display='none';}</script>
+<div id="auth-gate"><div id="auth-box"><img src="data:image/png;base64,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" style="width:120px;border-radius:10px;margin-bottom:6px"><div class="sub">Price Monitoring · Restricted Access</div><input type="password" id="auth-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')authCheck()"><button onclick="authCheck()">Access Dashboard</button><div id="auth-error"></div></div></div><script>function authCheck(){const v=document.getElementById('auth-input').value;if(v==='JOVI@2026!'){document.getElementById('auth-gate').style.display='none';sessionStorage.setItem('jovi_auth','1');setTimeout(()=>{offRenderEvolution();onRender();},50);}else{const e=document.getElementById('auth-error');e.textContent='Incorrect password';document.getElementById('auth-input').value='';}}if(sessionStorage.getItem('jovi_auth')==='1'){document.getElementById('auth-gate').style.display='none';setTimeout(()=>{if(typeof offRenderEvolution==='function'){offRenderEvolution();onRender();}},50);}</script>
 
 <!-- CHANNEL SWITCHER -->
 <div class="channel-bar">
@@ -403,22 +403,22 @@ table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700
       <div class="on-logo-label">Online ASP Price Monitoring</div>
       <div class="on-logo-title">Online Price <em>Monitoring</em></div>
     </div>
-    <div class="week-chip">W07 – W11 · 2025</div>
+    <div class="week-chip">W07 – W12 · 2026</div>
   </div>
 
   <div class="on-stats" style="display:grid;grid-template-columns:repeat(5,1fr);background:var(--surface);border-bottom:1px solid var(--border)">
     <div class="on-stat"><div class="on-stat-lbl">Competitors</div><div class="on-stat-val c-accent" id="kpi-comp">—</div></div>
     <div class="on-stat"><div class="on-stat-lbl">SKUs</div><div class="on-stat-val" id="kpi-skus">—</div></div>
-    <div class="on-stat"><div class="on-stat-lbl">Avg ASP · W11</div><div class="on-stat-val" style="color:var(--accent3)" id="kpi-avg">—</div></div>
-    <div class="on-stat"><div class="on-stat-lbl">Lowest Price · W11</div><div class="on-stat-val c-accent" id="kpi-low">—</div></div>
-    <div class="on-stat" style="border-right:none"><div class="on-stat-lbl">Highest Price · W11</div><div class="on-stat-val" style="color:var(--accent2)" id="kpi-high">—</div></div>
+    <div class="on-stat"><div class="on-stat-lbl">Avg ASP · W12</div><div class="on-stat-val" style="color:var(--accent3)" id="kpi-avg">—</div></div>
+    <div class="on-stat"><div class="on-stat-lbl">Lowest Price · W12</div><div class="on-stat-val c-accent" id="kpi-low">—</div></div>
+    <div class="on-stat" style="border-right:none"><div class="on-stat-lbl">Highest Price · W12</div><div class="on-stat-val" style="color:var(--accent2)" id="kpi-high">—</div></div>
   </div>
 
   <div class="on-filterbar">
     <div class="on-nav-tabs">
-      <button class="on-nav-tab on" onclick="onGoTo('evolution')" id="on-tab-evolution">📈 W10→W11</button>
+      <button class="on-nav-tab on" onclick="onGoTo('evolution')" id="on-tab-evolution">📈 W11→W12</button>
       <button class="on-nav-tab" onclick="onGoTo('weekly')" id="on-tab-weekly">📉 Weekly Price</button>
-      <button class="on-nav-tab"    onclick="onGoTo('heatmap')"   id="on-tab-heatmap">🌡 Heatmap W11</button>
+      <button class="on-nav-tab"    onclick="onGoTo('heatmap')"   id="on-tab-heatmap">🌡 Heatmap W12</button>
       <button class="on-nav-tab"    onclick="onGoTo('channel')"   id="on-tab-channel">🏪 By Channel</button>
     </div>
     <div class="on-filter-row">
@@ -472,14 +472,14 @@ table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700
   </div>
 
   <div class="on-main">
-    <!-- TAB W10→W11: bar chart + brand ranking -->
+    <!-- TAB W11→W12: bar chart + brand ranking -->
     <div class="on-section on" id="on-sec-evolution">
       <div id="on-insights-row"></div>
       <div style="display:grid;grid-template-columns:1fr 280px;gap:16px;align-items:start">
         <div class="on-card">
           <div class="on-card-hd">
             <div>
-              <div class="on-card-title" id="on-evo-bar-title">Price Variation W10 → W11</div>
+              <div class="on-card-title" id="on-evo-bar-title">Price Variation W11 → W12</div>
               <div class="on-card-hint">Sorted by % change · Brand + Storage + Price Range filters apply</div>
             </div>
           </div>
@@ -510,7 +510,7 @@ table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700
     <div class="on-section" id="on-sec-heatmap">
       <div class="on-card">
         <div class="on-card-hd">
-          <div><div class="on-card-title">ASP Heatmap · W11</div><div class="on-card-hint">Ranked high → low</div></div>
+          <div><div class="on-card-title">ASP Heatmap · W12</div><div class="on-card-hint">Ranked high → low</div></div>
           <div id="on-hm-gradient" style="display:flex;align-items:center;gap:8px;min-width:180px;"></div>
         </div>
         <div class="on-hm" id="on-hm-content"></div>
@@ -523,7 +523,7 @@ table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700
         <div class="on-card-hd" style="flex-wrap:wrap;gap:12px">
           <div>
             <div class="on-card-title">Price by Channel</div>
-            <div class="on-card-hint">Preço W11 por canal para o SKU selecionado</div>
+            <div class="on-card-hint">Preço W12 por canal para o SKU selecionado</div>
           </div>
           <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
             <select id="ch-model-sel" onchange="chRender()" style="padding:6px 10px;border:1px solid var(--border2);border-radius:7px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;background:var(--surface2);color:var(--text);cursor:pointer"></select>
@@ -533,12 +533,12 @@ table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700
         <div id="ch-bar-chart" style="margin-top:4px"></div>
       </div>
 
-      <!-- CHART 2: W10 vs W11 avg per channel -->
+      <!-- CHART 2: W11 vs W12 per channel -->
       <div class="on-card">
         <div class="on-card-hd">
           <div>
-            <div class="on-card-title">W10 vs W11 — Price by Channel</div>
-            <div class="on-card-hint">Comparação W10 (opaco) vs W11 (sólido) para o SKU selecionado</div>
+            <div class="on-card-title">W11 vs W12 — Price by Channel</div>
+            <div class="on-card-hint">Comparação W11 (opaco) vs W12 (sólido) para o SKU selecionado</div>
           </div>
 
         </div>
@@ -558,23 +558,23 @@ table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700
       <h2 class="off-h2">Casas <span>Bahia</span></h2>
     </div>
     <div class="off-meta">
-      <span class="off-date">W11 · 03/11/2025</span>
+      <span class="off-date">W12 · 03/18/2026</span>
     </div>
   </header>
 
   <div class="off-stats-bar">
     <div class="off-stat"><div class="off-stat-label">Models monitored</div><div class="off-stat-value cyan" id="off-stat-total">36</div></div>
     <div class="off-stat"><div class="off-stat-label">Brands</div><div class="off-stat-value" id="off-stat-brands">6</div></div>
-    <div class="off-stat"><div class="off-stat-label">Lowest price W11</div><div class="off-stat-value cyan" id="off-stat-min">—</div></div>
-    <div class="off-stat"><div class="off-stat-label">Highest price W11</div><div class="off-stat-value orange" id="off-stat-max">—</div></div>
-    <div class="off-stat"><div class="off-stat-label">Avg. ticket W11</div><div class="off-stat-value purple" id="off-stat-avg">—</div></div>
+    <div class="off-stat"><div class="off-stat-label">Lowest price W12</div><div class="off-stat-value cyan" id="off-stat-min">—</div></div>
+    <div class="off-stat"><div class="off-stat-label">Highest price W12</div><div class="off-stat-value orange" id="off-stat-max">—</div></div>
+    <div class="off-stat"><div class="off-stat-label">Avg. ticket W12</div><div class="off-stat-value purple" id="off-stat-avg">—</div></div>
   </div>
 
   <!-- Unified sticky bar: tabs + shared filters -->
   <div class="off-filterbar">
     <div class="on-nav-tabs" style="border-right:1px solid var(--border)">
-      <button class="on-nav-tab on" id="off-tab-evolution" onclick="offGoTo('evolution')" style="font-family:'Plus Jakarta Sans',sans-serif">📈 W10 → W11</button>
-      <button class="on-nav-tab"    id="off-tab-prices"    onclick="offGoTo('prices')"   style="font-family:'Plus Jakarta Sans',sans-serif">🏷 Prices</button>
+      <button class="on-nav-tab on" id="off-tab-evolution" onclick="offGoTo('evolution')" style="font-family:'Plus Jakarta Sans',sans-serif">📈 W11 → W12</button>
+      <button class="on-nav-tab"    id="off-tab-prices"    onclick="offGoTo('prices')"   style="font-family:'Plus Jakarta Sans',sans-serif">📉 Weekly Evolution</button>
       <button class="on-nav-tab"    id="off-tab-specs"     onclick="offGoTo('specs')"    style="font-family:'Plus Jakarta Sans',sans-serif">📋 Specs</button>
     </div>
     <div class="on-filter-row">
@@ -598,37 +598,62 @@ table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700
           <div class="ddf"><button class="ddf-btn" onclick="offDdAll('tier')">All</button><button class="ddf-btn" onclick="offDdNone('tier')">Clear</button></div>
         </div>
       </div>
+      <div class="dd" id="off-dd-size" style="display:none">
+        <div class="ddt" id="off-ddt-size" onclick="offDdToggle('size')">
+          <span id="off-ddlbl-size">Storage</span>
+          <svg class="cv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="ddm" id="off-ddm-size" style="display:none">
+          <div class="ddl" id="off-ddl-size"></div>
+          <div class="ddf"><button class="ddf-btn" onclick="offDdAll('size')">All</button><button class="ddf-btn" onclick="offDdNone('size')">Clear</button></div>
+        </div>
+      </div>
+      <div class="dd" id="off-dd-model" style="display:none">
+        <div class="ddt" id="off-ddt-model" onclick="offDdToggle('model')">
+          <span id="off-ddlbl-model">Model</span>
+          <svg class="cv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="ddm" id="off-ddm-model" style="display:none;min-width:220px;">
+          <div class="dds"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input id="off-mq" type="text" placeholder="Search…" oninput="offDdSearch()"></div>
+          <div class="ddl" id="off-ddl-model"></div>
+          <div class="ddf"><button class="ddf-btn" onclick="offDdAll('model')">All</button><button class="ddf-btn" onclick="offDdNone('model')">Clear</button></div>
+        </div>
+      </div>
       <button class="reset-btn" onclick="offDdReset()">↺ Reset</button>
       <button class="export-btn" onclick="exportOffline()" title="Export to Excel">⬇ Excel</button>
     </div>
     <!-- Sort controls: only shown in Prices tab -->
     <div class="on-filter-row" id="off-sort-controls" style="margin-left:auto;padding-left:0">
       <span id="off-results-count" style="font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace"></span>
-      <button class="off-view-btn active" id="off-btn-price" onclick="offSetSort('price')">↑ Price</button>
-      <button class="off-view-btn" id="off-btn-brand" onclick="offSetSort('brand')">By brand</button>
+      <button class="off-view-btn" id="off-btn-price" onclick="offSetSort('price')">↑ Price</button>
+      <button class="off-view-btn active" id="off-btn-brand" onclick="offSetSort('brand')">By brand</button>
     </div>
   </div>
 
-  <!-- PRICES -->
+  <!-- WEEKLY EVOLUTION -->
   <div id="off-sec-prices" style="display:none">
-    <div style="padding:8px 36px 20px">
-      <div id="off-product-list"></div>
-      <div class="off-no-results" id="off-no-results">No products found</div>
-      <div class="off-chart-section" style="margin-top:20px;">
-        <div class="off-chart-title">Models per price tier, by brand</div>
-        <div class="off-brand-dist-legend" id="off-tier-legend"></div>
-        <div id="off-stacked-chart"></div>
+    <div style="padding:16px 36px 24px">
+      <div class="on-card" style="margin-bottom:16px">
+        <div class="on-card-hd">
+          <div><div class="on-card-title">Weekly Price Evolution · Casas Bahia</div><div class="on-card-hint">W10 · W11 · W12 — use filtros para isolar modelos</div></div>
+        </div>
+        <div id="off-weekly-legend" class="on-legend-grid" style="margin-bottom:12px"></div>
+        <svg id="off-weekly-svg" style="width:100%;overflow:visible;display:block;"></svg>
+      </div>
+      <div class="on-card">
+        <div class="on-card-hd"><div><div class="on-card-title">Weekly Detail</div><div class="on-card-hint">Trend = W-1 → W</div></div></div>
+        <div id="off-weekly-table"></div>
       </div>
     </div>
   </div>
 
-  <!-- EVOLUTION W10→W11 -->
+  <!-- EVOLUTION W11→W12 -->
   <div id="off-sec-evolution">
     <div style="padding:24px 36px">
       <div id="off-evo-insights" class="on-insight-strip" style="margin-bottom:28px"></div>
       <div style="display:grid;grid-template-columns:1fr 280px;gap:28px;align-items:start">
         <div class="off-chart-section">
-          <div class="off-chart-title" id="off-evo-chart-title">Price Variation W10 → W11</div>
+          <div class="off-chart-title" id="off-evo-chart-title">Price Variation W11 → W12</div>
           <div id="off-evo-chart"></div>
         </div>
         <div class="off-chart-section">
@@ -652,7 +677,7 @@ table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700
         <button class="specs-pill" data-key="y29s" onclick="specsSelect(this)">Y29s</button>
         <button class="specs-pill" data-key="y29" onclick="specsSelect(this)">Y29</button>
         <button class="specs-pill" data-key="y21_5g" onclick="specsSelect(this)">Y21 5G</button>
-        <button class="specs-pill" data-key="y21" onclick="specsSelect(this)">Y21</button>
+        <button class="specs-pill" data-key="y21" onclick="specsSelect(this)">Y21 4G</button>
         <button class="specs-pill" data-key="y19s" onclick="specsSelect(this)">Y19s</button>
       </div>
 
@@ -677,57 +702,57 @@ function switchChannel(ch) {
    ONLINE — DATA & LOGIC
 ══════════════════════════════════ */
 const ON_RAW = [
-  {brand:"Samsung",competitor:"Galaxy S26 Ultra", size:"256 GB",W07:null,    W08:null,     W09:null,     W10:11499,    W11:11499},
-  {brand:"Samsung",competitor:"Galaxy S26 Ultra", size:"512 GB",W07:null,    W08:null,     W09:null,     W10:11499,    W11:11499},
+  {brand:"Samsung",competitor:"Galaxy S26 Ultra", size:"256 GB",W07:null,    W08:null,     W09:null,     W10:11499,    W11:11499,W12:11499},
+  {brand:"Samsung",competitor:"Galaxy S26 Ultra", size:"512 GB",W07:null,    W08:null,     W09:null,     W10:11499,    W11:11499,W12:11499},
   {brand:"Samsung",competitor:"Galaxy S26 Ultra", size:"1 TB",  W07:null,    W08:null,     W09:null,     W10:13099,    W11:13099},
-  {brand:"Samsung",competitor:"Galaxy S25 Ultra", size:"256 GB",W07:7506.14, W08:7317.28,  W09:7481.5,   W10:7484.92,  W11:7304.25},
-  {brand:"Samsung",competitor:"Galaxy S25 Ultra", size:"512 GB",W07:7199,    W08:7167.82,  W09:7174,     W10:7399,     W11:7246.75},
+  {brand:"Samsung",competitor:"Galaxy S25 Ultra", size:"256 GB",W07:7506.14, W08:7317.28,  W09:7481.5,   W10:7484.92,  W11:7304.25,W12:7329.5},
+  {brand:"Samsung",competitor:"Galaxy S25 Ultra", size:"512 GB",W07:7199,    W08:7167.82,  W09:7174,     W10:7399,     W11:7246.75,W12:7465.67},
   {brand:"Samsung",competitor:"Galaxy S25 Ultra", size:"1 TB",  W07:12890,   W08:11444.5,  W09:11244.5,  W10:10299,    W11:9975},
-  {brand:"Apple",  competitor:"iPhone 17 Pro Max",size:"256 GB",W07:12499,   W08:12498.94, W09:12498.94, W10:11498.94, W11:11874},
-  {brand:"Apple",  competitor:"iPhone 17 Pro Max",size:"512 GB",W07:13998.84,W08:13498.92, W09:13998.21, W10:13065.26, W11:13159},
-  {brand:"Apple",  competitor:"iPhone 17 Pro Max",size:"1 TB",  W07:15498.84,W08:15498.84, W09:15498.84, W10:15498.84, W11:15498.23},
-  {brand:"Apple",  competitor:"iPhone 17 Pro Max",size:"2 TB",  W07:18499,   W08:18499,    W09:18499,    W10:17399,    W11:19061.5},
-  {brand:"Apple",  competitor:"iPhone 16 Pro Max",size:"256 GB",W07:11749,   W08:12499,    W09:12499,    W10:12499,    W11:12499},
-  {brand:"Apple",  competitor:"iPhone 16 Pro Max",size:"512 GB",W07:12999,   W08:12999,    W09:13499,    W10:12999,    W11:12999},
-  {brand:"Samsung",competitor:"Galaxy S26 Plus",  size:"256 GB",W07:null,    W08:null,     W09:null,     W10:9199,     W11:9199},
-  {brand:"Samsung",competitor:"Galaxy S26 Plus",  size:"512 GB",W07:null,    W08:null,     W09:null,     W10:9199,     W11:9199},
-  {brand:"Samsung",competitor:"Galaxy S25 Plus",  size:"256 GB",W07:5028.97, W08:5130.41,  W09:5097.56,  W10:4985.06,  W11:5016.78},
-  {brand:"Samsung",competitor:"Galaxy S25 Plus",  size:"512 GB",W07:5389.98, W08:5299,     W09:5299,     W10:5199,     W11:5199},
-  {brand:"Samsung",competitor:"Galaxy S26",       size:"256 GB",W07:null,    W08:null,     W09:null,     W10:7499,     W11:7499},
-  {brand:"Samsung",competitor:"Galaxy S26",       size:"512 GB",W07:null,    W08:7499,     W09:null,     W10:7499,     W11:7499},
-  {brand:"Samsung",competitor:"Galaxy S25",       size:"256 GB",W07:4331.31, W08:4330.67,  W09:4331,     W10:4165.25,  W11:4165.25},
-  {brand:"Apple",  competitor:"iPhone Air",       size:"256 GB",W07:8067.65, W08:8067.65,  W09:8067.65,  W10:7765.27,  W11:7754.5},
-  {brand:"Apple",  competitor:"iPhone Air",       size:"512 GB",W07:9498.8,  W08:9497.71,  W09:9497.71,  W10:9206.58,  W11:9130.83},
-  {brand:"Apple",  competitor:"iPhone Air",       size:"1 TB",  W07:10309.68,W08:11609.68, W09:11609.68, W10:10601.15, W11:9749},
-  {brand:"Apple",  competitor:"iPhone 17 Pro",    size:"256 GB",W07:10923.91,W08:10636.44, W09:10923.97, W10:10461.47, W11:9999},
-  {brand:"Apple",  competitor:"iPhone 17 Pro",    size:"512 GB",W07:12641.42,W08:12448.97, W09:12673.94, W10:11823.97, W11:12998.33},
-  {brand:"Apple",  competitor:"iPhone 17 Pro",    size:"1 TB",  W07:14182.1, W08:14348.43, W09:14015.43, W10:13761.32, W11:13515.43},
-  {brand:"Apple",  competitor:"iPhone 16 Pro",    size:"128 GB",W07:9499,    W08:9999,     W09:9131.72,  W10:9131.72,  W11:10499},
-  {brand:"Apple",  competitor:"iPhone 16 Pro",    size:"256 GB",W07:null,    W08:null,     W09:null,     W10:11299,    W11:11299},
-  {brand:"Apple",  competitor:"iPhone 16 Pro",    size:"512 GB",W07:11689,   W08:11689,    W09:11689,    W10:11689,    W11:11689},
-  {brand:"Apple",  competitor:"iPhone 16 Plus",   size:"128 GB",W07:8299,    W08:8299,     W09:8085.33,  W10:8332.33,  W11:7499},
-  {brand:"Apple",  competitor:"iPhone 16 Plus",   size:"256 GB",W07:9099,    W08:9099,     W09:8459.11,  W10:8815.61,  W11:8021},
-  {brand:"Apple",  competitor:"iPhone 17",        size:"256 GB",W07:7997.75, W08:7737.25,  W09:7373.42,  W10:7145.75,  W11:7123.25},
-  {brand:"Apple",  competitor:"iPhone 17",        size:"512 GB",W07:9496.97, W08:9131.57,  W09:9315.32,  W10:8823.25,  W11:8748.25},
-  {brand:"Apple",  competitor:"iPhone 16",        size:"128 GB",W07:5131.42, W08:5099.67,  W09:4939.36,  W10:5097.75,  W11:4953},
-  {brand:"Apple",  competitor:"iPhone 16",        size:"256 GB",W07:5998.39, W08:5965.69,  W09:5930.33,  W10:5582,     W11:5512.25},
-  {brand:"Apple",  competitor:"iPhone 15",        size:"128 GB",W07:4515.24, W08:4486.75,  W09:4482.92,  W10:4499.5,   W11:4454.75},
-  {brand:"Apple",  competitor:"iPhone 15",        size:"256 GB",W07:5229.47, W08:5098.69,  W09:5097.22,  W10:4991.97,  W11:4991.72},
-  {brand:"Samsung",competitor:"Galaxy A56",       size:"128 GB",W07:2202.92, W08:2147.11,  W09:2227.5,   W10:2239.75,  W11:2214.75},
-  {brand:"Samsung",competitor:"Galaxy A56",       size:"256 GB",W07:2608.43, W08:2581.3,   W09:2641.25,  W10:2563.5,   W11:2535},
-  {brand:"Samsung",competitor:"Galaxy S25 FE",    size:"128 GB",W07:3098.24, W08:3096.08,  W09:3090.75,  W10:2940.5,   W11:2887.25},
-  {brand:"Samsung",competitor:"Galaxy S25 FE",    size:"256 GB",W07:3986.75, W08:3912,     W09:4096,     W10:3710,     W11:3846.25},
-  {brand:"Apple",  competitor:"iPhone 16e",       size:"128 GB",W07:3898.74, W08:3887.41,  W09:3887.41,  W10:4089.89,  W11:4042.16},
-  {brand:"Apple",  competitor:"iPhone 16e",       size:"256 GB",W07:4774,    W08:4974,     W09:4749,     W10:4373,     W11:4992.33},
-  {brand:"Apple",  competitor:"iPhone 16e",       size:"512 GB",W07:6110,    W08:6443.16,  W09:6421,     W10:5949,     W11:6079},
-  {brand:"Apple",  competitor:"iPhone 17e",       size:"256 GB",W07:null,    W08:null,     W09:null,     W10:null,     W11:5799},
-  {brand:"Apple",  competitor:"iPhone 17e",       size:"512 GB",W07:null,    W08:null,     W09:null,     W10:null,     W11:7299},
-  {brand:"OPPO",   competitor:"Reno 14",          size:"512 GB",W07:4999,    W08:4999,     W09:5224.5,   W10:5133.5,   W11:4999},
-  {brand:"OPPO",   competitor:"Reno 14F",         size:"256 GB",W07:3548.97, W08:3498.94,  W09:3448.97,  W10:3373.97,  W11:3348.97},
-  {brand:"OPPO",   competitor:"Reno 13",          size:"512 GB",W07:4298.89, W08:4298.89,  W09:null,     W10:4298,     W11:4298},
-  {brand:"OPPO",   competitor:"Reno 13F",         size:"256 GB",W07:2999,    W08:2999,     W09:2999,     W10:2999,     W11:2999},
+  {brand:"Apple",  competitor:"iPhone 17 Pro Max",size:"256 GB",W07:12499,   W08:12498.94, W09:12498.94, W10:11498.94, W11:11874,W12:11248.5},
+  {brand:"Apple",  competitor:"iPhone 17 Pro Max",size:"512 GB",W07:13998.84,W08:13498.92, W09:13998.21, W10:13065.26, W11:13159,W12:13088.5},
+  {brand:"Apple",  competitor:"iPhone 17 Pro Max",size:"1 TB",  W07:15498.84,W08:15498.84, W09:15498.84, W10:15498.84, W11:15498.23,W12:15498.42},
+  {brand:"Apple",  competitor:"iPhone 17 Pro Max",size:"2 TB",  W07:18499,   W08:18499,    W09:18499,    W10:17399,    W11:19061.5,W12:null},
+  {brand:"Apple",  competitor:"iPhone 16 Pro Max",size:"256 GB",W07:11749,   W08:12499,    W09:12499,    W10:12499,    W11:12499,W12:12499},
+  {brand:"Apple",  competitor:"iPhone 16 Pro Max",size:"512 GB",W07:12999,   W08:12999,    W09:13499,    W10:12999,    W11:12999,W12:12999},
+  {brand:"Samsung",competitor:"Galaxy S26 Plus",  size:"256 GB",W07:null,    W08:null,     W09:null,     W10:9199,     W11:9199,W12:9199},
+  {brand:"Samsung",competitor:"Galaxy S26 Plus",  size:"512 GB",W07:null,    W08:null,     W09:null,     W10:9199,     W11:9199,W12:9199},
+  {brand:"Samsung",competitor:"Galaxy S25 Plus",  size:"256 GB",W07:5028.97, W08:5130.41,  W09:5097.56,  W10:4985.06,  W11:5016.78,W12:4929},
+  {brand:"Samsung",competitor:"Galaxy S25 Plus",  size:"512 GB",W07:5389.98, W08:5299,     W09:5299,     W10:5199,     W11:5199,W12:5717.25},
+  {brand:"Samsung",competitor:"Galaxy S26",       size:"256 GB",W07:null,    W08:null,     W09:null,     W10:7499,     W11:7499,W12:7499},
+  {brand:"Samsung",competitor:"Galaxy S26",       size:"512 GB",W07:null,    W08:7499,     W09:null,     W10:7499,     W11:7499,W12:7499},
+  {brand:"Samsung",competitor:"Galaxy S25",       size:"256 GB",W07:4331.31, W08:4330.67,  W09:4331,     W10:4165.25,  W11:4165.25,W12:4165.5},
+  {brand:"Apple",  competitor:"iPhone Air",       size:"256 GB",W07:8067.65, W08:8067.65,  W09:8067.65,  W10:7765.27,  W11:7754.5,W12:7858.25},
+  {brand:"Apple",  competitor:"iPhone Air",       size:"512 GB",W07:9498.8,  W08:9497.71,  W09:9497.71,  W10:9206.58,  W11:9130.83,W12:8613.78},
+  {brand:"Apple",  competitor:"iPhone Air",       size:"1 TB",  W07:10309.68,W08:11609.68, W09:11609.68, W10:10601.15, W11:9749,W12:9532.33},
+  {brand:"Apple",  competitor:"iPhone 17 Pro",    size:"256 GB",W07:10923.91,W08:10636.44, W09:10923.97, W10:10461.47, W11:9999,W12:10036.25},
+  {brand:"Apple",  competitor:"iPhone 17 Pro",    size:"512 GB",W07:12641.42,W08:12448.97, W09:12673.94, W10:11823.97, W11:12998.33,W12:12148.5},
+  {brand:"Apple",  competitor:"iPhone 17 Pro",    size:"1 TB",  W07:14182.1, W08:14348.43, W09:14015.43, W10:13761.32, W11:13515.43,W12:13515.43},
+  {brand:"Apple",  competitor:"iPhone 16 Pro",    size:"128 GB",W07:9499,    W08:9999,     W09:9131.72,  W10:9131.72,  W11:10499,W12:10499},
+  {brand:"Apple",  competitor:"iPhone 16 Pro",    size:"256 GB",W07:null,    W08:null,     W09:null,     W10:11299,    W11:11299,W12:11299},
+  {brand:"Apple",  competitor:"iPhone 16 Pro",    size:"512 GB",W07:11689,   W08:11689,    W09:11689,    W10:11689,    W11:11689,W12:11689},
+  {brand:"Apple",  competitor:"iPhone 16 Plus",   size:"128 GB",W07:8299,    W08:8299,     W09:8085.33,  W10:8332.33,  W11:7499,W12:7399},
+  {brand:"Apple",  competitor:"iPhone 16 Plus",   size:"256 GB",W07:9099,    W08:9099,     W09:8459.11,  W10:8815.61,  W11:8021,W12:9299},
+  {brand:"Apple",  competitor:"iPhone 17",        size:"256 GB",W07:7997.75, W08:7737.25,  W09:7373.42,  W10:7145.75,  W11:7123.25,W12:7121.75},
+  {brand:"Apple",  competitor:"iPhone 17",        size:"512 GB",W07:9496.97, W08:9131.57,  W09:9315.32,  W10:8823.25,  W11:8748.25,W12:8998.25},
+  {brand:"Apple",  competitor:"iPhone 16",        size:"128 GB",W07:5131.42, W08:5099.67,  W09:4939.36,  W10:5097.75,  W11:4953,W12:5050.75},
+  {brand:"Apple",  competitor:"iPhone 16",        size:"256 GB",W07:5998.39, W08:5965.69,  W09:5930.33,  W10:5582,     W11:5512.25,W12:5628.33},
+  {brand:"Apple",  competitor:"iPhone 15",        size:"128 GB",W07:4515.24, W08:4486.75,  W09:4482.92,  W10:4499.5,   W11:4454.75,W12:4458.75},
+  {brand:"Apple",  competitor:"iPhone 15",        size:"256 GB",W07:5229.47, W08:5098.69,  W09:5097.22,  W10:4991.97,  W11:4991.72,W12:5267},
+  {brand:"Samsung",competitor:"Galaxy A56",       size:"128 GB",W07:2202.92, W08:2147.11,  W09:2227.5,   W10:2239.75,  W11:2214.75,W12:2261.25},
+  {brand:"Samsung",competitor:"Galaxy A56",       size:"256 GB",W07:2608.43, W08:2581.3,   W09:2641.25,  W10:2563.5,   W11:2535,W12:2550.25},
+  {brand:"Samsung",competitor:"Galaxy S25 FE",    size:"128 GB",W07:3098.24, W08:3096.08,  W09:3090.75,  W10:2940.5,   W11:2887.25,W12:2924.33},
+  {brand:"Samsung",competitor:"Galaxy S25 FE",    size:"256 GB",W07:3986.75, W08:3912,     W09:4096,     W10:3710,     W11:3846.25,W12:3893},
+  {brand:"Apple",  competitor:"iPhone 16e",       size:"128 GB",W07:3898.74, W08:3887.41,  W09:3887.41,  W10:4089.89,  W11:4042.16,W12:3998.16},
+  {brand:"Apple",  competitor:"iPhone 16e",       size:"256 GB",W07:4774,    W08:4974,     W09:4749,     W10:4373,     W11:4992.33,W12:4627.67},
+  {brand:"Apple",  competitor:"iPhone 16e",       size:"512 GB",W07:6110,    W08:6443.16,  W09:6421,     W10:5949,     W11:6079,W12:5924},
+  {brand:"Apple",  competitor:"iPhone 17e",       size:"256 GB",W07:null,    W08:null,     W09:null,     W10:null,     W11:5799,W12:5799},
+  {brand:"Apple",  competitor:"iPhone 17e",       size:"512 GB",W07:null,    W08:null,     W09:null,     W10:null,     W11:7299,W12:7299},
+  {brand:"OPPO",   competitor:"Reno 14",          size:"512 GB",W07:4999,    W08:4999,     W09:5224.5,   W10:5133.5,   W11:4999,W12:4999},
+  {brand:"OPPO",   competitor:"Reno 14F",         size:"256 GB",W07:3548.97, W08:3498.94,  W09:3448.97,  W10:3373.97,  W11:3348.97,W12:3399},
+  {brand:"OPPO",   competitor:"Reno 13",          size:"512 GB",W07:4298.89, W08:4298.89,  W09:null,     W10:4298,     W11:4298,W12:4298},
+  {brand:"OPPO",   competitor:"Reno 13F",         size:"256 GB",W07:2999,    W08:2999,     W09:2999,     W10:2999,     W11:2999,W12:2699},
 ];
-const WW=['W07','W08','W09','W10','W11'];
+const WW=['W07','W08','W09','W10','W11','W12'];
 const SZO=['128 GB','256 GB','512 GB','1 TB','2 TB'];
 const ON_BRANDS=['Samsung','Apple','OPPO'];
 const ON_BC={Samsung:'#7c3aed',Apple:'#d97706',OPPO:'#059669'};
@@ -735,7 +760,7 @@ const allModels=[...new Set(ON_RAW.map(r=>r.competitor))].sort();
 const allSizes=[...new Set(ON_RAW.map(r=>r.size))].sort((a,b)=>SZO.indexOf(a)-SZO.indexOf(b));
 const ON_TIERS=['R$8k+','R$4k-8k','R$2k-4k','Under R$2k'];
 const ON_TIER_LABELS={'R$8k+':'🔴 Above R$8,000','R$4k-8k':'🟠 R$4.000 – R$8.000','R$2k-4k':'🟡 R$2.000 – R$4.000','Under R$2k':'🟢 Under R$2,000'};
-function onGetTier(r){const p=r.W11!=null?r.W11:r.W10!=null?r.W10:0;if(p>=8000)return 'R$8k+';if(p>=4000)return 'R$4k-8k';if(p>=2000)return 'R$2k-4k';return 'Under R$2k';}
+function onGetTier(r){const p=r.W12!=null?r.W12:r.W11!=null?r.W11:r.W10!=null?r.W10:0;if(p>=8000)return 'R$8k+';if(p>=4000)return 'R$4k-8k';if(p>=2000)return 'R$2k-4k';return 'Under R$2k';}
 const F={brand:new Set(ON_BRANDS),size:new Set(allSizes),model:new Set(['Galaxy S25 Ultra','iPhone 17 Pro Max']),tier:new Set(ON_TIERS)};
 let onActiveTab='evolution', onSortMode='model';
 const K=v=>v==null?'—':'R$\u202f'+Math.round(v).toLocaleString('pt-BR');
@@ -761,13 +786,14 @@ function onModelColor(comp,data){
 }
 
 function onRefreshKpis(){
-  const d=ON_RAW.filter(r=>r.W11!=null);
-  const w11=d.map(r=>r.W11);
+  const d=ON_RAW.filter(r=>r.W12!=null);
+  const w12=d.map(r=>r.W12);
   $('kpi-comp').textContent=[...new Set(d.map(r=>r.competitor))].length;
   $('kpi-skus').textContent=d.length;
-  $('kpi-avg').textContent=w11.length?K(w11.reduce((a,b)=>a+b)/w11.length):'—';
-  $('kpi-low').textContent=w11.length?K(Math.min(...w11)):'—';
-  $('kpi-high').textContent=w11.length?K(Math.max(...w11)):'—';
+  const _w12v=w12.filter(v=>v!=null);
+  $('kpi-avg').textContent=_w12v.length?K(_w12v.reduce((a,b)=>a+b,0)/_w12v.length):'—';
+  $('kpi-low').textContent=_w12v.length?K(Math.min(..._w12v)):'—';
+  $('kpi-high').textContent=_w12v.length?K(Math.max(..._w12v)):'—';
 }
 
 /* dropdowns */
@@ -844,11 +870,11 @@ function onRenderEvolution(){
   const data=onRowsBase();
   if(!data.length){$('on-evo-bar-chart').innerHTML='<div class="on-empty">No data.</div>';$('on-evo-brand-ranking').innerHTML='';return;}
   // KPI cards
-  const _c=data.filter(r=>r.W10!=null&&r.W11!=null);
-  const _w11o=data.filter(r=>r.W10==null&&r.W11!=null);
-  const _w10o=data.filter(r=>r.W10!=null&&r.W11==null);
-  const _aW11=data.filter(r=>r.W11!=null);
-  const _mv=_c.map(r=>({r,pct:(r.W11-r.W10)/r.W10*100,abs:r.W11-r.W10}));
+  const _c=data.filter(r=>r.W11!=null&&r.W12!=null);
+  const _w12o=data.filter(r=>r.W11==null&&r.W12!=null);
+  const _w11o=data.filter(r=>r.W11!=null&&r.W12==null);
+  const _aW12=data.filter(r=>r.W12!=null);
+  const _mv=_c.map(r=>({r,pct:(r.W12-r.W11)/r.W11*100,abs:r.W12-r.W11}));
   const _nU=_mv.filter(m=>m.pct>0.2).length, _nD=_mv.filter(m=>m.pct<-0.2).length, _nF=_mv.filter(m=>Math.abs(m.pct)<=0.2).length;
   let _ins='';
   if(_mv.length){
@@ -857,12 +883,12 @@ function onRenderEvolution(){
     _ins+=`<div class="on-insight-card insight-falling"><div class="on-insight-lbl">🔻 Biggest Drop</div><div class="on-insight-model">${_dr.r.competitor}</div><div class="on-insight-meta">${_dr.r.brand} · ${_dr.r.size}</div><div class="on-insight-val green">${_dr.pct.toFixed(1)}% (R$-${Math.abs(_dr.abs).toLocaleString('pt-BR')})</div></div>`;
   }
   _ins+=`<div class="on-insight-card"><div class="on-insight-lbl">📊 Movement</div><div style="display:flex;gap:16px;margin-top:10px;align-items:baseline"><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#ef4444">${_nU}</div><div style="font-size:10px;color:var(--muted);margin-top:2px">increased</div></div><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#22c55e">${_nD}</div><div style="font-size:10px;color:var(--muted);margin-top:2px">decreased</div></div><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#9ca3af">${_nF}</div><div style="font-size:10px;color:var(--muted);margin-top:2px">stable</div></div></div></div>`;
-  _ins+=`<div class="on-insight-card insight-leader"><div class="on-insight-lbl">📋 Coverage</div><div class="on-insight-model">${_c.length} compared</div><div class="on-insight-meta">${_w11o.length} new W11 · ${_w10o.length} W10 only</div><div class="on-insight-val blue">${_aW11.length} total W11</div></div>`;
+  _ins+=`<div class="on-insight-card insight-leader"><div class="on-insight-lbl">📋 Coverage</div><div class="on-insight-model">${_c.length} compared</div><div class="on-insight-meta">${_w12o.length} new W12 · ${_w11o.length} W11 only</div><div class="on-insight-val blue">${_aW12.length} total W12</div></div>`;
   $('on-insights-row').innerHTML='<div class="on-insight-strip">'+_ins+'</div>';
   // Bar chart
-  const sorted=[..._mv].sort((a,b)=>b.pct-a.pct);
+  const sorted=[..._mv].filter(m=>Math.abs(m.pct)>0.2).sort((a,b)=>b.pct-a.pct);
   const maxAbs=Math.max(...sorted.map(m=>Math.abs(m.pct)),1);
-  $('on-evo-bar-title').textContent=`Price Variation W10 → W11 · ${_c.length} SKUs`;
+  $('on-evo-bar-title').textContent=`Price Variation W11 → W12 · ${_c.length} SKUs`;
   let chartHtml='<div style="display:flex;flex-direction:column;gap:7px">';
   sorted.forEach(({r,pct,abs})=>{
     const col=ON_BC[r.brand]||'#888', isPos=pct>0.2, isNeg=pct<-0.2;
@@ -871,11 +897,11 @@ function onRenderEvolution(){
     chartHtml+=`<div style="display:grid;grid-template-columns:190px 1fr 300px;align-items:center;gap:10px">
       <div style="font-size:12px;font-weight:600;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${col};margin-right:5px"></span>${r.competitor} <span style="color:#9ca3af;font-weight:400">${r.size}</span></div>
       <div style="background:#f1f2f7;border-radius:4px;height:18px;position:relative"><div style="position:absolute;${isPos?'left:50%':'right:50%'};width:${barW}%;height:100%;background:${barColor};border-radius:4px;opacity:.85"></div><div style="position:absolute;left:50%;top:0;width:1px;height:100%;background:#d1d5db"></div></div>
-      <div style="font-size:12px;font-weight:700;color:${barColor};font-family:'DM Mono',monospace;white-space:nowrap">${sign}${pct.toFixed(1)}% <span style="color:#6b7280;font-weight:500;font-size:11px">${K(r.W10)} → ${K(r.W11)}</span> <span style="color:#9ca3af;font-size:11px">(${sign}${K(abs)})</span></div>
+      <div style="font-size:12px;font-weight:700;color:${barColor};font-family:'DM Mono',monospace;white-space:nowrap">${sign}${pct.toFixed(1)}% <span style="color:#6b7280;font-weight:500;font-size:11px">${K(r.W11)} → ${K(r.W12)}</span> <span style="color:#9ca3af;font-size:11px">(${sign}${K(abs)})</span></div>
     </div>`;
   });
   chartHtml+='</div>';
-  $('on-evo-bar-chart').innerHTML=_mv.length?chartHtml:'<div class="on-empty">No W10→W11 data.</div>';
+  $('on-evo-bar-chart').innerHTML=_mv.length?chartHtml:'<div class="on-empty">No W11→W12 data.</div>';
   // Brand ranking
   const byBrand={};
   _mv.forEach(m=>{const b=m.r.brand;if(!byBrand[b])byBrand[b]={moves:[],up:[],dn:[],fl:[]};byBrand[b].moves.push(m);if(m.pct>0.2)byBrand[b].up.push(m);else if(m.pct<-0.2)byBrand[b].dn.push(m);else byBrand[b].fl.push(m);});
@@ -941,20 +967,20 @@ function onRenderWeekly(){
 }
 
 function onRenderHeatmap(){
-  const data=onRowsBase().filter(r=>r.W11!=null).sort((a,b)=>b.W11-a.W11);
+  const data=onRowsBase().filter(r=>r.W12!=null).sort((a,b)=>b.W12-a.W12);
   if(!data.length){$('on-hm-content').innerHTML='<div class="on-empty">No W11 data.</div>';return;}
-  const mn=Math.min(...data.map(r=>r.W11)),mx=Math.max(...data.map(r=>r.W11));
+  const mn=Math.min(...data.map(r=>r.W12)),mx=Math.max(...data.map(r=>r.W12));
   function hcol(v){const t=(v-mn)/(mx-mn||1);if(t<.5){const tt=t*2;return`rgb(${Math.round(22+tt*233)},${Math.round(163-tt*75)},${Math.round(74-tt*62)})`;}const tt=(t-.5)*2;return`rgb(${Math.round(255-tt*35)},${Math.round(88-tt*50)},${Math.round(12+tt*26)})`;}
   $('on-hm-gradient').innerHTML=`<span style="font-size:12px;font-family:'DM Mono',monospace;color:#6b7280">${K(mn)}</span><div style="flex:1;height:6px;border-radius:3px;background:linear-gradient(to right,rgb(22,163,74),rgb(255,88,12),rgb(220,38,38))"></div><span style="font-size:12px;font-family:'DM Mono',monospace;color:#6b7280">${K(mx)}</span>`;
-  const rowsHtml=data.map(r=>{const norm=(r.W11-mn)/(mx-mn||1);const col=hcol(r.W11);const t=onTrend(r);return`<div class="on-hm-row"><div style="display:flex;align-items:center;gap:7px;font-size:14px;font-weight:600"><span style="display:inline-block;width:3px;height:18px;border-radius:2px;background:${ON_BC[r.brand]};flex-shrink:0"></span>${r.competitor}</div><div><span class="on-badge on-b-${r.brand}">${r.brand}</span></div><div><span class="on-sz">${r.size}</span></div><div style="display:flex;align-items:center;gap:10px"><div style="flex:1;height:6px;border-radius:3px;background:#eef0f8"><div style="width:${Math.round(norm*100)}%;height:100%;background:${col};border-radius:3px"></div></div><span style="font-family:'DM Mono',monospace;font-weight:600;font-size:14px;color:${col};min-width:96px;text-align:right">${K(r.W11)}</span></div><div style="text-align:right">${onTCell(t)}</div></div>`;}).join('');
-  $('on-hm-content').innerHTML=`<div class="on-hm-hd"><div>Model</div><div>Brand</div><div>Storage</div><div>ASP W11</div><div style="text-align:right">W10→W11</div></div>${rowsHtml}`;
+  const rowsHtml=data.map(r=>{const norm=(r.W11-mn)/(mx-mn||1);const col=hcol(r.W11);const t=onTrend(r);return`<div class="on-hm-row"><div style="display:flex;align-items:center;gap:7px;font-size:14px;font-weight:600"><span style="display:inline-block;width:3px;height:18px;border-radius:2px;background:${ON_BC[r.brand]};flex-shrink:0"></span>${r.competitor}</div><div><span class="on-badge on-b-${r.brand}">${r.brand}</span></div><div><span class="on-sz">${r.size}</span></div><div style="display:flex;align-items:center;gap:10px"><div style="flex:1;height:6px;border-radius:3px;background:#eef0f8"><div style="width:${Math.round(norm*100)}%;height:100%;background:${col};border-radius:3px"></div></div><span style="font-family:'DM Mono',monospace;font-weight:600;font-size:14px;color:${col};min-width:96px;text-align:right">${K(r.W12)}</span></div><div style="text-align:right">${onTCell(t)}</div></div>`;}).join('');
+  $('on-hm-content').innerHTML=`<div class="on-hm-hd"><div>Model</div><div>Brand</div><div>Storage</div><div>ASP W12</div><div style="text-align:right">W11→W12</div></div>${rowsHtml}`;
 }
 
 function onSetSort(s){onSortMode=s;document.querySelectorAll('.on-sb').forEach(b=>b.classList.remove('on'));$('on-sb-'+s).classList.add('on');onRender();}
 /* ══════════════════════════════════
    BY CHANNEL — DATA & LOGIC
 ══════════════════════════════════ */
-const CH_DATA = [{"brand":"Samsung","model":"Galaxy S26 Ultra","size":"256 GB","week":"W10","ML":null,"Amazon":11499,"CB":11499,"MagLu":null,"avg":11499},{"brand":"Samsung","model":"Galaxy S26 Ultra","size":"512 GB","week":"W10","ML":11499,"Amazon":11499,"CB":11499,"MagLu":11499,"avg":11499},{"brand":"Samsung","model":"Galaxy S26 Ultra","size":"1 TB","week":"W10","ML":null,"Amazon":13099,"CB":null,"MagLu":null,"avg":13099},{"brand":"Samsung","model":"Galaxy S25 Ultra","size":"256 GB","week":"W10","ML":7332,"Amazon":7332,"CB":7776.67,"MagLu":7499,"avg":7484.92},{"brand":"Samsung","model":"Galaxy S25 Ultra","size":"512 GB","week":"W10","ML":7399,"Amazon":7399,"CB":7399,"MagLu":null,"avg":7399},{"brand":"Apple","model":"Iphone 17 Pro Max","size":"256 GB","week":"W10","ML":10999,"Amazon":11249,"CB":12498.78,"MagLu":11249,"avg":11498.94},{"brand":"Apple","model":"Iphone 17 Pro Max","size":"512 GB","week":"W10","ML":12599,"Amazon":12599,"CB":13997.78,"MagLu":null,"avg":13065.26},{"brand":"Apple","model":"Iphone 17 Pro Max","size":"1 TB","week":"W10","ML":15498.84,"Amazon":15498.84,"CB":null,"MagLu":null,"avg":15498.84},{"brand":"Apple","model":"Iphone 17 Pro Max","size":"2 TB","week":"W10","ML":16299,"Amazon":18499,"CB":null,"MagLu":null,"avg":17399},{"brand":"Apple","model":"Iphone 16 Pro Max","size":"256 GB","week":"W10","ML":12499,"Amazon":12499,"CB":null,"MagLu":null,"avg":12499},{"brand":"Apple","model":"Iphone 16 Pro Max","size":"512 GB","week":"W10","ML":null,"Amazon":12999,"CB":null,"MagLu":null,"avg":12999},{"brand":"Samsung","model":"Galaxy S26 Plus","size":"256 GB","week":"W10","ML":null,"Amazon":9199,"CB":9199,"MagLu":9199,"avg":9199},{"brand":"Samsung","model":"Galaxy S26 Plus","size":"512 GB","week":"W10","ML":9199,"Amazon":9199,"CB":9199,"MagLu":null,"avg":9199},{"brand":"Samsung","model":"Galaxy S25 Plus","size":"256 GB","week":"W10","ML":5221.11,"Amazon":4599,"CB":5221.11,"MagLu":4899,"avg":4985.06},{"brand":"Samsung","model":"Galaxy S25 Plus","size":"512 GB","week":"W10","ML":5299,"Amazon":4999,"CB":5299,"MagLu":null,"avg":5199},{"brand":"Samsung","model":"Galaxy S26","size":"256 GB","week":"W10","ML":null,"Amazon":7499,"CB":7499,"MagLu":7499,"avg":7499},{"brand":"Samsung","model":"Galaxy S26","size":"512 GB","week":"W10","ML":7499,"Amazon":7499,"CB":7499,"MagLu":null,"avg":7499},{"brand":"Samsung","model":"Galaxy S25","size":"256 GB","week":"W10","ML":4331,"Amazon":3999,"CB":4332,"MagLu":3999,"avg":4165.25},{"brand":"Apple","model":"Iphone Air","size":"256 GB","week":"W10","ML":7099,"Amazon":7799,"CB":8053.1,"MagLu":8110,"avg":7765.27},{"brand":"Apple","model":"Iphone Air","size":"512 GB","week":"W10","ML":8499,"Amazon":9443,"CB":9441,"MagLu":9443.33,"avg":9206.58},{"brand":"Apple","model":"Iphone Air","size":"1 TB","week":"W10","ML":10740,"Amazon":10399,"CB":10664.44,"MagLu":null,"avg":10601.15},{"brand":"Apple","model":"Iphone 17 Pro","size":"256 GB","week":"W10","ML":10348.89,"Amazon":9999,"CB":11499,"MagLu":9999,"avg":10461.47},{"brand":"Apple","model":"Iphone 17 Pro","size":"512 GB","week":"W10","ML":11299,"Amazon":11299,"CB":11698.89,"MagLu":12999,"avg":11823.97},{"brand":"Apple","model":"Iphone 17 Pro","size":"1 TB","week":"W10","ML":12999,"Amazon":14499,"CB":13048.29,"MagLu":14499,"avg":13761.32},{"brand":"Apple","model":"Iphone 16 Pro","size":"128 GB","week":"W10","ML":null,"Amazon":10499,"CB":7764.44,"MagLu":null,"avg":9131.72},{"brand":"Apple","model":"Iphone 16 Pro","size":"256 GB","week":"W10","ML":null,"Amazon":11299,"CB":null,"MagLu":null,"avg":11299},{"brand":"Apple","model":"Iphone 16 Pro","size":"512 GB","week":"W10","ML":null,"Amazon":11689,"CB":null,"MagLu":null,"avg":11689},{"brand":"Apple","model":"Iphone 16 Pro","size":"1 TB","week":"W10","ML":14299,"Amazon":null,"CB":null,"MagLu":null,"avg":14299},{"brand":"Apple","model":"Iphone 16 Plus","size":"128 GB","week":"W10","ML":7499,"Amazon":8499,"CB":null,"MagLu":8999,"avg":8332.33},{"brand":"Apple","model":"Iphone 16 Plus","size":"256 GB","week":"W10","ML":null,"Amazon":9299,"CB":8332.22,"MagLu":null,"avg":8815.61},{"brand":"Apple","model":"Iphone 17","size":"256 GB","week":"W10","ML":7099,"Amazon":7187,"CB":7098,"MagLu":7199,"avg":7145.75},{"brand":"Apple","model":"Iphone 17","size":"512 GB","week":"W10","ML":8599,"Amazon":8598,"CB":8597,"MagLu":9499,"avg":8823.25},{"brand":"Apple","model":"Iphone 16","size":"128 GB","week":"W10","ML":5176,"Amazon":5053,"CB":5052,"MagLu":5110,"avg":5097.75},{"brand":"Apple","model":"Iphone 16","size":"256 GB","week":"W10","ML":5499,"Amazon":5499,"CB":5776,"MagLu":5554,"avg":5582},{"brand":"Apple","model":"Iphone 15","size":"128 GB","week":"W10","ML":4567,"Amazon":4497,"CB":4436,"MagLu":4498,"avg":4499.5},{"brand":"Apple","model":"Iphone 15","size":"256 GB","week":"W10","ML":4886,"Amazon":4887,"CB":5096,"MagLu":5098.89,"avg":4991.97},{"brand":"Samsung","model":"Galaxy A56","size":"128 GB","week":"W10","ML":2219,"Amazon":2299,"CB":2220,"MagLu":2221,"avg":2239.75},{"brand":"Samsung","model":"Galaxy A56","size":"256 GB","week":"W10","ML":2553,"Amazon":2549,"CB":2553,"MagLu":2599,"avg":2563.5},{"brand":"Samsung","model":"Galaxy S25 FE","size":"128 GB","week":"W10","ML":2888,"Amazon":2888,"CB":3099,"MagLu":2887,"avg":2940.5},{"brand":"Samsung","model":"Galaxy S25 FE","size":"256 GB","week":"W10","ML":3443,"Amazon":3799,"CB":3799,"MagLu":3799,"avg":3710},{"brand":"Apple","model":"Iphone 16e","size":"128 GB","week":"W10","ML":4475,"Amazon":3898.66,"CB":3896,"MagLu":null,"avg":4089.89},{"brand":"Apple","model":"Iphone 16e","size":"256 GB","week":"W10","ML":4499,"Amazon":4247,"CB":null,"MagLu":null,"avg":4373},{"brand":"Apple","model":"Iphone 16e","size":"512 GB","week":"W10","ML":5949,"Amazon":5949,"CB":null,"MagLu":null,"avg":5949},{"brand":"OPPO","model":"Reno 14","size":"512 GB","week":"W10","ML":5268,"Amazon":null,"CB":null,"MagLu":4999,"avg":5133.5},{"brand":"OPPO","model":"Reno 14F","size":"256 GB","week":"W10","ML":3299,"Amazon":3299,"CB":3498.89,"MagLu":3399,"avg":3373.97},{"brand":"OPPO","model":"Reno 13","size":"512 GB","week":"W10","ML":null,"Amazon":null,"CB":4298,"MagLu":null,"avg":4298},{"brand":"OPPO","model":"Reno 13F","size":"256 GB","week":"W10","ML":null,"Amazon":null,"CB":2999,"MagLu":null,"avg":2999},{"brand":"Samsung","model":"Galaxy S26 Ultra","size":"256 GB","week":"W11","ML":null,"Amazon":11499,"CB":11499,"MagLu":null,"avg":11499},{"brand":"Samsung","model":"Galaxy S26 Ultra","size":"512 GB","week":"W11","ML":11499,"Amazon":11499,"CB":11499,"MagLu":11499,"avg":11499},{"brand":"Samsung","model":"Galaxy S26 Ultra","size":"1 TB","week":"W11","ML":null,"Amazon":13099,"CB":null,"MagLu":null,"avg":13099},{"brand":"Samsung","model":"Galaxy S25 Ultra","size":"256 GB","week":"W11","ML":7332,"Amazon":7332,"CB":7332,"MagLu":7221,"avg":7304.25},{"brand":"Samsung","model":"Galaxy S25 Ultra","size":"512 GB","week":"W11","ML":7490,"Amazon":6899,"CB":7299,"MagLu":7299,"avg":7246.75},{"brand":"Samsung","model":"Galaxy S25 Ultra","size":"1 TB","week":"W11","ML":9975,"Amazon":null,"CB":null,"MagLu":null,"avg":9975},{"brand":"Apple","model":"Iphone 17 Pro Max","size":"256 GB","week":"W11","ML":12499,"Amazon":11249,"CB":null,"MagLu":null,"avg":11874},{"brand":"Apple","model":"Iphone 17 Pro Max","size":"512 GB","week":"W11","ML":13159,"Amazon":13159,"CB":null,"MagLu":null,"avg":13159},{"brand":"Apple","model":"Iphone 17 Pro Max","size":"1 TB","week":"W11","ML":15498.84,"Amazon":15498.84,"CB":15497,"MagLu":null,"avg":15498.23},{"brand":"Apple","model":"Iphone 17 Pro Max","size":"2 TB","week":"W11","ML":18499,"Amazon":19624,"CB":null,"MagLu":null,"avg":19061.5},{"brand":"Apple","model":"Iphone 16 Pro Max","size":"256 GB","week":"W11","ML":12499,"Amazon":12499,"CB":null,"MagLu":null,"avg":12499},{"brand":"Apple","model":"Iphone 16 Pro Max","size":"512 GB","week":"W11","ML":null,"Amazon":12999,"CB":null,"MagLu":null,"avg":12999},{"brand":"Samsung","model":"Galaxy S26 Plus","size":"256 GB","week":"W11","ML":null,"Amazon":9199,"CB":9199,"MagLu":9199,"avg":9199},{"brand":"Samsung","model":"Galaxy S26 Plus","size":"512 GB","week":"W11","ML":9199,"Amazon":9199,"CB":9199,"MagLu":null,"avg":9199},{"brand":"Samsung","model":"Galaxy S25 Plus","size":"256 GB","week":"W11","ML":5348,"Amazon":4599,"CB":5221.11,"MagLu":4899,"avg":5016.78},{"brand":"Samsung","model":"Galaxy S25 Plus","size":"512 GB","week":"W11","ML":5299,"Amazon":4999,"CB":5299,"MagLu":5199,"avg":5199},{"brand":"Samsung","model":"Galaxy S26","size":"256 GB","week":"W11","ML":null,"Amazon":7499,"CB":7499,"MagLu":7499,"avg":7499},{"brand":"Samsung","model":"Galaxy S26","size":"512 GB","week":"W11","ML":7499,"Amazon":7499,"CB":7499,"MagLu":null,"avg":7499},{"brand":"Samsung","model":"Galaxy S25","size":"256 GB","week":"W11","ML":4331,"Amazon":3999,"CB":4332,"MagLu":3999,"avg":4165.25},{"brand":"Apple","model":"Iphone Air","size":"256 GB","week":"W11","ML":6999,"Amazon":7799,"CB":8110,"MagLu":8110,"avg":7754.5},{"brand":"Apple","model":"Iphone Air","size":"512 GB","week":"W11","ML":8199,"Amazon":9443,"CB":9438,"MagLu":9443.33,"avg":9130.83},{"brand":"Apple","model":"Iphone Air","size":"1 TB","week":"W11","ML":9099,"Amazon":10399,"CB":null,"MagLu":null,"avg":9749},{"brand":"Apple","model":"Iphone 17 Pro","size":"256 GB","week":"W11","ML":9999,"Amazon":9999,"CB":null,"MagLu":null,"avg":9999},{"brand":"Apple","model":"Iphone 17 Pro","size":"512 GB","week":"W11","ML":12998,"Amazon":12998,"CB":null,"MagLu":12999,"avg":12998.33},{"brand":"Apple","model":"Iphone 17 Pro","size":"1 TB","week":"W11","ML":14499,"Amazon":12999,"CB":13048.29,"MagLu":null,"avg":13515.43},{"brand":"Apple","model":"Iphone 16 Pro","size":"128 GB","week":"W11","ML":null,"Amazon":10499,"CB":null,"MagLu":null,"avg":10499},{"brand":"Apple","model":"Iphone 16 Pro","size":"256 GB","week":"W11","ML":null,"Amazon":11299,"CB":null,"MagLu":null,"avg":11299},{"brand":"Apple","model":"Iphone 16 Pro","size":"512 GB","week":"W11","ML":null,"Amazon":11689,"CB":null,"MagLu":null,"avg":11689},{"brand":"Apple","model":"Iphone 16 Plus","size":"128 GB","week":"W11","ML":6999,"Amazon":7999,"CB":null,"MagLu":null,"avg":7499},{"brand":"Apple","model":"Iphone 16 Plus","size":"256 GB","week":"W11","ML":7599,"Amazon":8443,"CB":null,"MagLu":null,"avg":8021},{"brand":"Apple","model":"Iphone 17","size":"256 GB","week":"W11","ML":7099,"Amazon":7097,"CB":7098,"MagLu":7199,"avg":7123.25},{"brand":"Apple","model":"Iphone 17","size":"512 GB","week":"W11","ML":8499,"Amazon":8498,"CB":8497,"MagLu":9499,"avg":8748.25},{"brand":"Apple","model":"Iphone 16","size":"128 GB","week":"W11","ML":4817,"Amazon":4775,"CB":5110,"MagLu":5110,"avg":4953},{"brand":"Apple","model":"Iphone 16","size":"256 GB","week":"W11","ML":5499,"Amazon":5499,"CB":5497,"MagLu":5554,"avg":5512.25},{"brand":"Apple","model":"Iphone 15","size":"128 GB","week":"W11","ML":4554,"Amazon":4435,"CB":4276,"MagLu":4554,"avg":4454.75},{"brand":"Apple","model":"Iphone 15","size":"256 GB","week":"W11","ML":4886,"Amazon":4887,"CB":5095,"MagLu":5098.89,"avg":4991.72},{"brand":"Samsung","model":"Galaxy A56","size":"128 GB","week":"W11","ML":2219,"Amazon":2222,"CB":2197,"MagLu":2221,"avg":2214.75},{"brand":"Samsung","model":"Galaxy A56","size":"256 GB","week":"W11","ML":2553,"Amazon":2499,"CB":2553,"MagLu":null,"avg":2535},{"brand":"Samsung","model":"Galaxy S25 FE","size":"128 GB","week":"W11","ML":2888,"Amazon":2888,"CB":2886,"MagLu":2887,"avg":2887.25},{"brand":"Samsung","model":"Galaxy S25 FE","size":"256 GB","week":"W11","ML":3988,"Amazon":3799,"CB":3799,"MagLu":3799,"avg":3846.25},{"brand":"Apple","model":"Iphone 16e","size":"128 GB","week":"W11","ML":4475,"Amazon":3898.66,"CB":3896,"MagLu":3899,"avg":4042.16},{"brand":"Apple","model":"Iphone 16e","size":"256 GB","week":"W11","ML":5647,"Amazon":4665,"CB":null,"MagLu":4665,"avg":4992.33},{"brand":"Apple","model":"Iphone 16e","size":"512 GB","week":"W11","ML":6209,"Amazon":5949,"CB":null,"MagLu":null,"avg":6079},{"brand":"Apple","model":"Iphone 17e","size":"256 GB","week":"W11","ML":null,"Amazon":5799,"CB":5799,"MagLu":5799,"avg":5799},{"brand":"Apple","model":"Iphone 17e","size":"512 GB","week":"W11","ML":7299,"Amazon":7299,"CB":null,"MagLu":7299,"avg":7299},{"brand":"OPPO","model":"Reno 14","size":"512 GB","week":"W11","ML":4999,"Amazon":null,"CB":null,"MagLu":4999,"avg":4999},{"brand":"OPPO","model":"Reno 14F","size":"256 GB","week":"W11","ML":3199,"Amazon":3299,"CB":3498.89,"MagLu":3399,"avg":3348.97},{"brand":"OPPO","model":"Reno 13","size":"512 GB","week":"W11","ML":null,"Amazon":null,"CB":4298,"MagLu":null,"avg":4298},{"brand":"OPPO","model":"Reno 13F","size":"256 GB","week":"W11","ML":null,"Amazon":null,"CB":2999,"MagLu":null,"avg":2999}];
+const CH_DATA = [{"brand":"Samsung","model":"Galaxy S26 Ultra","size":"256 GB","week":"W10","ML":null,"Amazon":11499,"CB":11499,"MagLu":null,"avg":11499},{"brand":"Samsung","model":"Galaxy S26 Ultra","size":"512 GB","week":"W10","ML":11499,"Amazon":11499,"CB":11499,"MagLu":11499,"avg":11499},{"brand":"Samsung","model":"Galaxy S26 Ultra","size":"1 TB","week":"W10","ML":null,"Amazon":13099,"CB":null,"MagLu":null,"avg":13099},{"brand":"Samsung","model":"Galaxy S25 Ultra","size":"256 GB","week":"W10","ML":7332,"Amazon":7332,"CB":7776.67,"MagLu":7499,"avg":7484.92},{"brand":"Samsung","model":"Galaxy S25 Ultra","size":"512 GB","week":"W10","ML":7399,"Amazon":7399,"CB":7399,"MagLu":null,"avg":7399},{"brand":"Apple","model":"Iphone 17 Pro Max","size":"256 GB","week":"W10","ML":10999,"Amazon":11249,"CB":12498.78,"MagLu":11249,"avg":11498.94},{"brand":"Apple","model":"Iphone 17 Pro Max","size":"512 GB","week":"W10","ML":12599,"Amazon":12599,"CB":13997.78,"MagLu":null,"avg":13065.26},{"brand":"Apple","model":"Iphone 17 Pro Max","size":"1 TB","week":"W10","ML":15498.84,"Amazon":15498.84,"CB":null,"MagLu":null,"avg":15498.84},{"brand":"Apple","model":"Iphone 17 Pro Max","size":"2 TB","week":"W10","ML":16299,"Amazon":18499,"CB":null,"MagLu":null,"avg":17399},{"brand":"Apple","model":"Iphone 16 Pro Max","size":"256 GB","week":"W10","ML":12499,"Amazon":12499,"CB":null,"MagLu":null,"avg":12499},{"brand":"Apple","model":"Iphone 16 Pro Max","size":"512 GB","week":"W10","ML":null,"Amazon":12999,"CB":null,"MagLu":null,"avg":12999},{"brand":"Samsung","model":"Galaxy S26 Plus","size":"256 GB","week":"W10","ML":null,"Amazon":9199,"CB":9199,"MagLu":9199,"avg":9199},{"brand":"Samsung","model":"Galaxy S26 Plus","size":"512 GB","week":"W10","ML":9199,"Amazon":9199,"CB":9199,"MagLu":null,"avg":9199},{"brand":"Samsung","model":"Galaxy S25 Plus","size":"256 GB","week":"W10","ML":5221.11,"Amazon":4599,"CB":5221.11,"MagLu":4899,"avg":4985.06},{"brand":"Samsung","model":"Galaxy S25 Plus","size":"512 GB","week":"W10","ML":5299,"Amazon":4999,"CB":5299,"MagLu":null,"avg":5199},{"brand":"Samsung","model":"Galaxy S26","size":"256 GB","week":"W10","ML":null,"Amazon":7499,"CB":7499,"MagLu":7499,"avg":7499},{"brand":"Samsung","model":"Galaxy S26","size":"512 GB","week":"W10","ML":7499,"Amazon":7499,"CB":7499,"MagLu":null,"avg":7499},{"brand":"Samsung","model":"Galaxy S25","size":"256 GB","week":"W10","ML":4331,"Amazon":3999,"CB":4332,"MagLu":3999,"avg":4165.25},{"brand":"Apple","model":"Iphone Air","size":"256 GB","week":"W10","ML":7099,"Amazon":7799,"CB":8053.1,"MagLu":8110,"avg":7765.27},{"brand":"Apple","model":"Iphone Air","size":"512 GB","week":"W10","ML":8499,"Amazon":9443,"CB":9441,"MagLu":9443.33,"avg":9206.58},{"brand":"Apple","model":"Iphone Air","size":"1 TB","week":"W10","ML":10740,"Amazon":10399,"CB":10664.44,"MagLu":null,"avg":10601.15},{"brand":"Apple","model":"Iphone 17 Pro","size":"256 GB","week":"W10","ML":10348.89,"Amazon":9999,"CB":11499,"MagLu":9999,"avg":10461.47},{"brand":"Apple","model":"Iphone 17 Pro","size":"512 GB","week":"W10","ML":11299,"Amazon":11299,"CB":11698.89,"MagLu":12999,"avg":11823.97},{"brand":"Apple","model":"Iphone 17 Pro","size":"1 TB","week":"W10","ML":12999,"Amazon":14499,"CB":13048.29,"MagLu":14499,"avg":13761.32},{"brand":"Apple","model":"Iphone 16 Pro","size":"128 GB","week":"W10","ML":null,"Amazon":10499,"CB":7764.44,"MagLu":null,"avg":9131.72},{"brand":"Apple","model":"Iphone 16 Pro","size":"256 GB","week":"W10","ML":null,"Amazon":11299,"CB":null,"MagLu":null,"avg":11299},{"brand":"Apple","model":"Iphone 16 Pro","size":"512 GB","week":"W10","ML":null,"Amazon":11689,"CB":null,"MagLu":null,"avg":11689},{"brand":"Apple","model":"Iphone 16 Pro","size":"1 TB","week":"W10","ML":14299,"Amazon":null,"CB":null,"MagLu":null,"avg":14299},{"brand":"Apple","model":"Iphone 16 Plus","size":"128 GB","week":"W10","ML":7499,"Amazon":8499,"CB":null,"MagLu":8999,"avg":8332.33},{"brand":"Apple","model":"Iphone 16 Plus","size":"256 GB","week":"W10","ML":null,"Amazon":9299,"CB":8332.22,"MagLu":null,"avg":8815.61},{"brand":"Apple","model":"Iphone 17","size":"256 GB","week":"W10","ML":7099,"Amazon":7187,"CB":7098,"MagLu":7199,"avg":7145.75},{"brand":"Apple","model":"Iphone 17","size":"512 GB","week":"W10","ML":8599,"Amazon":8598,"CB":8597,"MagLu":9499,"avg":8823.25},{"brand":"Apple","model":"Iphone 16","size":"128 GB","week":"W10","ML":5176,"Amazon":5053,"CB":5052,"MagLu":5110,"avg":5097.75},{"brand":"Apple","model":"Iphone 16","size":"256 GB","week":"W10","ML":5499,"Amazon":5499,"CB":5776,"MagLu":5554,"avg":5582},{"brand":"Apple","model":"Iphone 15","size":"128 GB","week":"W10","ML":4567,"Amazon":4497,"CB":4436,"MagLu":4498,"avg":4499.5},{"brand":"Apple","model":"Iphone 15","size":"256 GB","week":"W10","ML":4886,"Amazon":4887,"CB":5096,"MagLu":5098.89,"avg":4991.97},{"brand":"Samsung","model":"Galaxy A56","size":"128 GB","week":"W10","ML":2219,"Amazon":2299,"CB":2220,"MagLu":2221,"avg":2239.75},{"brand":"Samsung","model":"Galaxy A56","size":"256 GB","week":"W10","ML":2553,"Amazon":2549,"CB":2553,"MagLu":2599,"avg":2563.5},{"brand":"Samsung","model":"Galaxy S25 FE","size":"128 GB","week":"W10","ML":2888,"Amazon":2888,"CB":3099,"MagLu":2887,"avg":2940.5},{"brand":"Samsung","model":"Galaxy S25 FE","size":"256 GB","week":"W10","ML":3443,"Amazon":3799,"CB":3799,"MagLu":3799,"avg":3710},{"brand":"Apple","model":"Iphone 16e","size":"128 GB","week":"W10","ML":4475,"Amazon":3898.66,"CB":3896,"MagLu":null,"avg":4089.89},{"brand":"Apple","model":"Iphone 16e","size":"256 GB","week":"W10","ML":4499,"Amazon":4247,"CB":null,"MagLu":null,"avg":4373},{"brand":"Apple","model":"Iphone 16e","size":"512 GB","week":"W10","ML":5949,"Amazon":5949,"CB":null,"MagLu":null,"avg":5949},{"brand":"OPPO","model":"Reno 14","size":"512 GB","week":"W10","ML":5268,"Amazon":null,"CB":null,"MagLu":4999,"avg":5133.5},{"brand":"OPPO","model":"Reno 14F","size":"256 GB","week":"W10","ML":3299,"Amazon":3299,"CB":3498.89,"MagLu":3399,"avg":3373.97},{"brand":"OPPO","model":"Reno 13","size":"512 GB","week":"W10","ML":null,"Amazon":null,"CB":4298,"MagLu":null,"avg":4298},{"brand":"OPPO","model":"Reno 13F","size":"256 GB","week":"W10","ML":null,"Amazon":null,"CB":2999,"MagLu":null,"avg":2999},{"brand":"Samsung","model":"Galaxy S26 Ultra","size":"256 GB","week":"W11","ML":null,"Amazon":11499,"CB":11499,"MagLu":null,"avg":11499},{"brand":"Samsung","model":"Galaxy S26 Ultra","size":"512 GB","week":"W11","ML":11499,"Amazon":11499,"CB":11499,"MagLu":11499,"avg":11499},{"brand":"Samsung","model":"Galaxy S26 Ultra","size":"1 TB","week":"W11","ML":null,"Amazon":13099,"CB":null,"MagLu":null,"avg":13099},{"brand":"Samsung","model":"Galaxy S25 Ultra","size":"256 GB","week":"W11","ML":7332,"Amazon":7332,"CB":7332,"MagLu":7221,"avg":7304.25},{"brand":"Samsung","model":"Galaxy S25 Ultra","size":"512 GB","week":"W11","ML":7490,"Amazon":6899,"CB":7299,"MagLu":7299,"avg":7246.75},{"brand":"Samsung","model":"Galaxy S25 Ultra","size":"1 TB","week":"W11","ML":9975,"Amazon":null,"CB":null,"MagLu":null,"avg":9975},{"brand":"Apple","model":"Iphone 17 Pro Max","size":"256 GB","week":"W11","ML":12499,"Amazon":11249,"CB":null,"MagLu":null,"avg":11874},{"brand":"Apple","model":"Iphone 17 Pro Max","size":"512 GB","week":"W11","ML":13159,"Amazon":13159,"CB":null,"MagLu":null,"avg":13159},{"brand":"Apple","model":"Iphone 17 Pro Max","size":"1 TB","week":"W11","ML":15498.84,"Amazon":15498.84,"CB":15497,"MagLu":null,"avg":15498.23},{"brand":"Apple","model":"Iphone 17 Pro Max","size":"2 TB","week":"W11","ML":18499,"Amazon":19624,"CB":null,"MagLu":null,"avg":19061.5},{"brand":"Apple","model":"Iphone 16 Pro Max","size":"256 GB","week":"W11","ML":12499,"Amazon":12499,"CB":null,"MagLu":null,"avg":12499},{"brand":"Apple","model":"Iphone 16 Pro Max","size":"512 GB","week":"W11","ML":null,"Amazon":12999,"CB":null,"MagLu":null,"avg":12999},{"brand":"Samsung","model":"Galaxy S26 Plus","size":"256 GB","week":"W11","ML":null,"Amazon":9199,"CB":9199,"MagLu":9199,"avg":9199},{"brand":"Samsung","model":"Galaxy S26 Plus","size":"512 GB","week":"W11","ML":9199,"Amazon":9199,"CB":9199,"MagLu":null,"avg":9199},{"brand":"Samsung","model":"Galaxy S25 Plus","size":"256 GB","week":"W11","ML":5348,"Amazon":4599,"CB":5221.11,"MagLu":4899,"avg":5016.78},{"brand":"Samsung","model":"Galaxy S25 Plus","size":"512 GB","week":"W11","ML":5299,"Amazon":4999,"CB":5299,"MagLu":5199,"avg":5199},{"brand":"Samsung","model":"Galaxy S26","size":"256 GB","week":"W11","ML":null,"Amazon":7499,"CB":7499,"MagLu":7499,"avg":7499},{"brand":"Samsung","model":"Galaxy S26","size":"512 GB","week":"W11","ML":7499,"Amazon":7499,"CB":7499,"MagLu":null,"avg":7499},{"brand":"Samsung","model":"Galaxy S25","size":"256 GB","week":"W11","ML":4331,"Amazon":3999,"CB":4332,"MagLu":3999,"avg":4165.25},{"brand":"Apple","model":"Iphone Air","size":"256 GB","week":"W11","ML":6999,"Amazon":7799,"CB":8110,"MagLu":8110,"avg":7754.5},{"brand":"Apple","model":"Iphone Air","size":"512 GB","week":"W11","ML":8199,"Amazon":9443,"CB":9438,"MagLu":9443.33,"avg":9130.83},{"brand":"Apple","model":"Iphone Air","size":"1 TB","week":"W11","ML":9099,"Amazon":10399,"CB":null,"MagLu":null,"avg":9749},{"brand":"Apple","model":"Iphone 17 Pro","size":"256 GB","week":"W11","ML":9999,"Amazon":9999,"CB":null,"MagLu":null,"avg":9999},{"brand":"Apple","model":"Iphone 17 Pro","size":"512 GB","week":"W11","ML":12998,"Amazon":12998,"CB":null,"MagLu":12999,"avg":12998.33},{"brand":"Apple","model":"Iphone 17 Pro","size":"1 TB","week":"W11","ML":14499,"Amazon":12999,"CB":13048.29,"MagLu":null,"avg":13515.43},{"brand":"Apple","model":"Iphone 16 Pro","size":"128 GB","week":"W11","ML":null,"Amazon":10499,"CB":null,"MagLu":null,"avg":10499},{"brand":"Apple","model":"Iphone 16 Pro","size":"256 GB","week":"W11","ML":null,"Amazon":11299,"CB":null,"MagLu":null,"avg":11299},{"brand":"Apple","model":"Iphone 16 Pro","size":"512 GB","week":"W11","ML":null,"Amazon":11689,"CB":null,"MagLu":null,"avg":11689},{"brand":"Apple","model":"Iphone 16 Plus","size":"128 GB","week":"W11","ML":6999,"Amazon":7999,"CB":null,"MagLu":null,"avg":7499},{"brand":"Apple","model":"Iphone 16 Plus","size":"256 GB","week":"W11","ML":7599,"Amazon":8443,"CB":null,"MagLu":null,"avg":8021},{"brand":"Apple","model":"Iphone 17","size":"256 GB","week":"W11","ML":7099,"Amazon":7097,"CB":7098,"MagLu":7199,"avg":7123.25},{"brand":"Apple","model":"Iphone 17","size":"512 GB","week":"W11","ML":8499,"Amazon":8498,"CB":8497,"MagLu":9499,"avg":8748.25},{"brand":"Apple","model":"Iphone 16","size":"128 GB","week":"W11","ML":4817,"Amazon":4775,"CB":5110,"MagLu":5110,"avg":4953},{"brand":"Apple","model":"Iphone 16","size":"256 GB","week":"W11","ML":5499,"Amazon":5499,"CB":5497,"MagLu":5554,"avg":5512.25},{"brand":"Apple","model":"Iphone 15","size":"128 GB","week":"W11","ML":4554,"Amazon":4435,"CB":4276,"MagLu":4554,"avg":4454.75},{"brand":"Apple","model":"Iphone 15","size":"256 GB","week":"W11","ML":4886,"Amazon":4887,"CB":5095,"MagLu":5098.89,"avg":4991.72},{"brand":"Samsung","model":"Galaxy A56","size":"128 GB","week":"W11","ML":2219,"Amazon":2222,"CB":2197,"MagLu":2221,"avg":2214.75},{"brand":"Samsung","model":"Galaxy A56","size":"256 GB","week":"W11","ML":2553,"Amazon":2499,"CB":2553,"MagLu":null,"avg":2535},{"brand":"Samsung","model":"Galaxy S25 FE","size":"128 GB","week":"W11","ML":2888,"Amazon":2888,"CB":2886,"MagLu":2887,"avg":2887.25},{"brand":"Samsung","model":"Galaxy S25 FE","size":"256 GB","week":"W11","ML":3988,"Amazon":3799,"CB":3799,"MagLu":3799,"avg":3846.25},{"brand":"Apple","model":"Iphone 16e","size":"128 GB","week":"W11","ML":4475,"Amazon":3898.66,"CB":3896,"MagLu":3899,"avg":4042.16},{"brand":"Apple","model":"Iphone 16e","size":"256 GB","week":"W11","ML":5647,"Amazon":4665,"CB":null,"MagLu":4665,"avg":4992.33},{"brand":"Apple","model":"Iphone 16e","size":"512 GB","week":"W11","ML":6209,"Amazon":5949,"CB":null,"MagLu":null,"avg":6079},{"brand":"Apple","model":"Iphone 17e","size":"256 GB","week":"W11","ML":null,"Amazon":5799,"CB":5799,"MagLu":5799,"avg":5799},{"brand":"Apple","model":"Iphone 17e","size":"512 GB","week":"W11","ML":7299,"Amazon":7299,"CB":null,"MagLu":7299,"avg":7299},{"brand":"OPPO","model":"Reno 14","size":"512 GB","week":"W11","ML":4999,"Amazon":null,"CB":null,"MagLu":4999,"avg":4999},{"brand":"OPPO","model":"Reno 14F","size":"256 GB","week":"W11","ML":3199,"Amazon":3299,"CB":3498.89,"MagLu":3399,"avg":3348.97},{"brand":"OPPO","model":"Reno 13","size":"512 GB","week":"W11","ML":null,"Amazon":null,"CB":4298,"MagLu":null,"avg":4298},{"brand":"OPPO","model":"Reno 13F","size":"256 GB","week":"W11","ML":null,"Amazon":null,"CB":2999,"MagLu":null,"avg":2999},{"brand": "Samsung", "model": "Galaxy S26 Ultra", "size": "256 GB", "week": "W12", "ML": 11499, "Amazon": 11499, "CB": 11499, "MagLu": 11499, "avg": 11499},{"brand": "Samsung", "model": "Galaxy S26 Ultra", "size": "512 GB", "week": "W12", "ML": 11499, "Amazon": 11499, "CB": 11499, "MagLu": 11499, "avg": 11499},{"brand": "Samsung", "model": "Galaxy S26 Ultra", "size": "1 TB", "week": "W12", "ML": 13899, "Amazon": 13099, "CB": 13899, "MagLu": 13899, "avg": 13699},{"brand": "Samsung", "model": "Galaxy S25 Ultra", "size": "256 GB", "week": "W12", "ML": 7327, "Amazon": 7332, "CB": 7327, "MagLu": 7332, "avg": 7329.5},{"brand": "Samsung", "model": "Galaxy S25 Ultra", "size": "512 GB", "week": "W12", "ML": null, "Amazon": 6999, "CB": 7999, "MagLu": 7399, "avg": 7465.67},{"brand": "Samsung", "model": "Galaxy S25 Ultra", "size": "1 TB", "week": "W12", "ML": null, "Amazon": null, "CB": null, "MagLu": null, "avg": null},{"brand": "Apple", "model": "Iphone 17 Pro Max", "size": "256 GB", "week": "W12", "ML": 11249, "Amazon": 11249, "CB": 11247, "MagLu": 11249, "avg": 11248.5},{"brand": "Apple", "model": "Iphone 17 Pro Max", "size": "512 GB", "week": "W12", "ML": 12599, "Amazon": 12599, "CB": 13157, "MagLu": 13999, "avg": 13088.5},{"brand": "Apple", "model": "Iphone 17 Pro Max", "size": "1 TB", "week": "W12", "ML": 15498.84, "Amazon": 15498.84, "CB": 15497, "MagLu": 15499, "avg": 15498.42},{"brand": "Apple", "model": "Iphone 17 Pro Max", "size": "2 TB", "week": "W12", "ML": 15999, "Amazon": 15999, "CB": null, "MagLu": 18499, "avg": 16832.33},{"brand": "Apple", "model": "Iphone 16 Pro Max", "size": "256 GB", "week": "W12", "ML": null, "Amazon": 12499, "CB": null, "MagLu": null, "avg": 12499},{"brand": "Apple", "model": "Iphone 16 Pro Max", "size": "512 GB", "week": "W12", "ML": null, "Amazon": 12999, "CB": null, "MagLu": null, "avg": 12999},{"brand": "Apple", "model": "Iphone 16 Pro Max", "size": "1 TB", "week": "W12", "ML": null, "Amazon": null, "CB": null, "MagLu": null, "avg": null},{"brand": "OPPO", "model": "Find X9 Pro", "size": "512 GB", "week": "W12", "ML": 11999, "Amazon": 11999, "CB": null, "MagLu": 11999, "avg": 11999},{"brand": "Samsung", "model": "Galaxy S26 Plus", "size": "256 GB", "week": "W12", "ML": 9199, "Amazon": 9199, "CB": 9199, "MagLu": 9199, "avg": 9199},{"brand": "Samsung", "model": "Galaxy S26 Plus", "size": "512 GB", "week": "W12", "ML": 9199, "Amazon": 9199, "CB": 9199, "MagLu": 9199, "avg": 9199},{"brand": "Samsung", "model": "Galaxy S25 Plus", "size": "256 GB", "week": "W12", "ML": 4798, "Amazon": 4798, "CB": 5221, "MagLu": 4899, "avg": 4929},{"brand": "Samsung", "model": "Galaxy S25 Plus", "size": "512 GB", "week": "W12", "ML": 6684, "Amazon": 5099, "CB": 5887, "MagLu": 5199, "avg": 5717.25},{"brand": "Samsung", "model": "Galaxy S26", "size": "256 GB", "week": "W12", "ML": 7499, "Amazon": 7499, "CB": 7499, "MagLu": 7499, "avg": 7499},{"brand": "Samsung", "model": "Galaxy S26", "size": "512 GB", "week": "W12", "ML": 7499, "Amazon": 7499, "CB": 7499, "MagLu": null, "avg": 7499},{"brand": "Samsung", "model": "Galaxy S25", "size": "256 GB", "week": "W12", "ML": 3999, "Amazon": 3999, "CB": 4332, "MagLu": 4332, "avg": 4165.5},{"brand": "Apple", "model": "Iphone Air ", "size": "256 GB", "week": "W12", "ML": 7774, "Amazon": 7775, "CB": 7774, "MagLu": 8110, "avg": 7858.25},{"brand": "Apple", "model": "Iphone Air ", "size": "512 GB", "week": "W12", "ML": 8199, "Amazon": 8199, "CB": null, "MagLu": 9443.33, "avg": 8613.78},{"brand": "Apple", "model": "Iphone Air ", "size": "1 TB", "week": "W12", "ML": 9099, "Amazon": 9099, "CB": 10399, "MagLu": null, "avg": 9532.33},{"brand": "Apple", "model": "Iphone 17 Pro", "size": "256 GB", "week": "W12", "ML": 9799, "Amazon": 9999, "CB": 10348, "MagLu": 9999, "avg": 10036.25},{"brand": "Apple", "model": "Iphone 17 Pro", "size": "512 GB", "week": "W12", "ML": 11299, "Amazon": 12998, "CB": null, "MagLu": null, "avg": 12148.5},{"brand": "Apple", "model": "Iphone 17 Pro", "size": "1 TB", "week": "W12", "ML": 12999, "Amazon": 14499, "CB": 13048.29, "MagLu": null, "avg": 13515.43},{"brand": "Apple", "model": "Iphone 16 Pro", "size": "128 GB", "week": "W12", "ML": null, "Amazon": 10499, "CB": null, "MagLu": null, "avg": 10499},{"brand": "Apple", "model": "Iphone 16 Pro", "size": "256 GB", "week": "W12", "ML": null, "Amazon": 11299, "CB": null, "MagLu": null, "avg": 11299},{"brand": "Apple", "model": "Iphone 16 Pro", "size": "512 GB", "week": "W12", "ML": null, "Amazon": 11689, "CB": null, "MagLu": null, "avg": 11689},{"brand": "Apple", "model": "Iphone 16 Pro", "size": "1 TB", "week": "W12", "ML": null, "Amazon": null, "CB": null, "MagLu": null, "avg": null},{"brand": "Apple", "model": "Iphone 16 Plus", "size": "128 GB", "week": "W12", "ML": null, "Amazon": 7399, "CB": null, "MagLu": null, "avg": 7399},{"brand": "Apple", "model": "Iphone 16 Plus", "size": "256 GB", "week": "W12", "ML": null, "Amazon": 9299, "CB": null, "MagLu": null, "avg": 9299},{"brand": "Apple", "model": "Iphone 17", "size": "256 GB", "week": "W12", "ML": 7096, "Amazon": 7097, "CB": 7095, "MagLu": 7199, "avg": 7121.75},{"brand": "Apple", "model": "Iphone 17", "size": "512 GB", "week": "W12", "ML": 9499, "Amazon": 8498, "CB": 8497, "MagLu": 9499, "avg": 8998.25},{"brand": "Apple", "model": "Iphone 16", "size": "128 GB", "week": "W12", "ML": 4999, "Amazon": 5047, "CB": 5047, "MagLu": 5110, "avg": 5050.75},{"brand": "Apple", "model": "Iphone 16", "size": "256 GB", "week": "W12", "ML": 5499, "Amazon": 5499, "CB": 5887, "MagLu": null, "avg": 5628.33},{"brand": "Apple", "model": "Iphone 15", "size": "128 GB", "week": "W12", "ML": 4427, "Amazon": 4427, "CB": 4427, "MagLu": 4554, "avg": 4458.75},{"brand": "Apple", "model": "Iphone 15", "size": "256 GB", "week": "W12", "ML": 5665, "Amazon": 5091, "CB": 5091, "MagLu": 5221, "avg": 5267},{"brand": "Samsung", "model": "Galaxy A56", "size": "128 GB", "week": "W12", "ML": 2246, "Amazon": 2221, "CB": 2246, "MagLu": 2332, "avg": 2261.25},{"brand": "Samsung", "model": "Galaxy A56", "size": "256 GB", "week": "W12", "ML": 2599, "Amazon": 2299, "CB": 2654, "MagLu": 2649, "avg": 2550.25},{"brand": "Samsung", "model": "Galaxy S25 FE", "size": "128 GB", "week": "W12", "ML": null, "Amazon": 2888, "CB": 2886, "MagLu": 2999, "avg": 2924.33},{"brand": "Samsung", "model": "Galaxy S25 FE", "size": "256 GB", "week": "W12", "ML": 3927, "Amazon": 3753, "CB": 3999, "MagLu": null, "avg": 3893},{"brand": "Apple", "model": "Iphone 16e", "size": "128 GB", "week": "W12", "ML": 4199, "Amazon": 3898.66, "CB": 3896, "MagLu": 3999, "avg": 3998.16},{"brand": "Apple", "model": "Iphone 16e", "size": "256 GB", "week": "W12", "ML": 4664, "Amazon": 4665, "CB": null, "MagLu": 4554, "avg": 4627.67},{"brand": "Apple", "model": "Iphone 16e", "size": "512 GB", "week": "W12", "ML": 5949, "Amazon": 5899, "CB": null, "MagLu": null, "avg": 5924},{"brand": "Apple", "model": "Iphone 17e", "size": "256 GB", "week": "W12", "ML": 5799, "Amazon": 5799, "CB": 5799, "MagLu": 5799, "avg": 5799},{"brand": "Apple", "model": "Iphone 17e", "size": "512 GB", "week": "W12", "ML": 7299, "Amazon": 7299, "CB": null, "MagLu": null, "avg": 7299},{"brand": "OPPO", "model": "Reno 14", "size": "512 GB", "week": "W12", "ML": 4999, "Amazon": null, "CB": null, "MagLu": 4999, "avg": 4999},{"brand": "OPPO", "model": "Reno 14F", "size": "256 GB", "week": "W12", "ML": 3399, "Amazon": 3399, "CB": 3399, "MagLu": 3399, "avg": 3399},{"brand": "OPPO", "model": "Reno 13", "size": "512 GB", "week": "W12", "ML": null, "Amazon": null, "CB": 4298, "MagLu": null, "avg": 4298},{"brand": "OPPO", "model": "Reno 13F", "size": "256 GB", "week": "W12", "ML": null, "Amazon": null, "CB": 2699, "MagLu": null, "avg": 2699}];
 
 const CH_CHANNELS = ['ML','Amazon','CB','MagLu'];
 const CH_LABELS   = {ML:'Mercado Livre', Amazon:'Amazon', CB:'Casas Bahia', MagLu:'Mag. Luiza'};
@@ -993,7 +1019,7 @@ function chRender() {
 /* ── Chart 1: bars per channel for selected SKU — W11 only ── */
 function chRenderBarChart(model, size) {
   const brand = CH_DATA.find(r=>r.model===model)?.brand || 'Samsung';
-  const w11 = CH_DATA.find(r=>r.model===model&&r.size===size&&r.week==='W11');
+  const w11 = CH_DATA.find(r=>r.model===model&&r.size===size&&r.week==='W12');
 
   const W=820, H=260, PL=80, PR=24, PT=20, PB=44;
   const cW=W-PL-PR, cH=H-PT-PB;
@@ -1031,14 +1057,14 @@ function chRenderBarChart(model, size) {
   $('ch-bar-chart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" height="${H}" style="width:100%;overflow:visible">${grid}${yL}${bars}${xL}</svg>`;
 }
 
-/* ── Chart 2: W10 vs W11 per channel for selected SKU ── */
+/* ── Chart 2: W11 vs W12 per channel for selected SKU ── */
 function chRenderWeekChart() {
   const model = $('ch-model-sel').value;
   const size  = $('ch-size-sel').value;
   const brand = CH_DATA.find(r=>r.model===model)?.brand || 'Samsung';
   const col   = ON_BC[brand] || '#7c3aed';
-  const w10 = CH_DATA.find(r=>r.model===model&&r.size===size&&r.week==='W10');
-  const w11 = CH_DATA.find(r=>r.model===model&&r.size===size&&r.week==='W11');
+  const w10 = CH_DATA.find(r=>r.model===model&&r.size===size&&r.week==='W11');
+  const w11 = CH_DATA.find(r=>r.model===model&&r.size===size&&r.week==='W12');
   const W=820, H=260, PL=80, PR=24, PT=20, PB=44;
   const cW=W-PL-PR, cH=H-PT-PB;
   const allVals = CH_CHANNELS.flatMap(ch=>[w10?.[ch], w11?.[ch]]).filter(v=>v!=null);
@@ -1083,72 +1109,84 @@ function chRenderWeekChart() {
 ══════════════════════════════════ */
 const offData = [
   // R$6k+ — W10 only (not found in W11)
-  { tier: 'R$6k+', brand: 'Apple',    model: 'iPhone 17 Pro',   memory: '256 GB', W10: 11499,   W11: null },
-  { tier: 'R$6k+', brand: 'Apple',    model: 'iPhone 17 Pro',   memory: '512 GB', W10: 13999,   W11: null },
-  { tier: 'R$6k+', brand: 'Apple',    model: 'iPhone 17',       memory: '256 GB', W10: 7999,    W11: null },
-  { tier: 'R$6k+', brand: 'Apple',    model: 'iPhone 17',       memory: '512 GB', W10: null,    W11: 9796 },
+  { tier: 'R$6k+', brand: 'Apple',    model: 'iPhone 17 Pro',   memory: '256 GB', W10: 11499,   W11: null,    W12: null },
+  { tier: 'R$6k+', brand: 'Apple',    model: 'iPhone 17 Pro',   memory: '512 GB', W10: 13999,   W11: null,    W12: null },
+  { tier: 'R$6k+', brand: 'Apple',    model: 'iPhone 17',       memory: '256 GB', W10: 7999,    W11: null,    W12: null },
+  { tier: 'R$6k+', brand: 'Apple',    model: 'iPhone 17',       memory: '512 GB', W10: null,    W11: 9796,    W12: null },
   // R$2.5k–6k
-  { tier: 'R$2.5k–6k', brand: 'JOVI',     model: 'JOVI V70',        memory: '256 GB', W10: 3499,    W11: 3499 },
-  { tier: 'R$2.5k–6k', brand: 'JOVI',     model: 'JOVI V70',        memory: '512 GB', W10: 3999,    W11: 3999 },
-  { tier: 'R$2.5k–6k', brand: 'JOVI',     model: 'JOVI V50',        memory: '512 GB', W10: null,    W11: 3999 },
-  { tier: 'R$2.5k–6k', brand: 'JOVI',     model: 'JOVI V50 Lite',   memory: '256 GB', W10: null,    W11: 2699 },
-  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 16e',      memory: '128 GB', W10: null,    W11: 3899 },
-  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 16e',      memory: '256 GB', W10: 4499,    W11: null },
-  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 16',       memory: '128 GB', W10: null,    W11: 5199 },
-  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 15',       memory: '128 GB', W10: 4899,    W11: null },
-  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 14',       memory: '128 GB', W10: null,    W11: 4639 },
-  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S25 FE',   memory: '128 GB', W10: 3199,    W11: 2999 },
-  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S25 FE',   memory: '256 GB', W10: 3799,    W11: null },
-  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy A56',      memory: '128 GB', W10: 2199,    W11: 2369 },
-  { tier: 'R$2k-3k',   brand: 'Samsung',  model: 'Galaxy A56',      memory: '256 GB', W10: 2799,    W11: 2799 },
-  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S25',      memory: '256 GB', W10: 4799,    W11: null },
-  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S24',      memory: '128 GB', W10: 3099,    W11: 2889 },
-  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S24',      memory: '256 GB', W10: 5157,    W11: null },
+  { tier: 'R$2.5k–6k', brand: 'JOVI',     model: 'JOVI V70',        memory: '256 GB', W10: 3499,    W11: 3499,    W12: 3499 },
+  { tier: 'R$2.5k–6k', brand: 'JOVI',     model: 'JOVI V70',        memory: '512 GB', W10: 3999,    W11: 3999,    W12: 3999 },
+  { tier: 'R$2.5k–6k', brand: 'JOVI',     model: 'JOVI V50',        memory: '512 GB', W10: null,    W11: 3999,    W12: 3999 },
+  { tier: 'R$2.5k–6k', brand: 'JOVI',     model: 'JOVI V50 Lite',   memory: '256 GB', W10: null,    W11: 2699,    W12: 2699 },
+  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 16e',      memory: '128 GB', W10: null,    W11: 3899,    W12: null },
+  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 16e',      memory: '256 GB', W10: 4499,    W11: null,    W12: null },
+  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 16',       memory: '128 GB', W10: null,    W11: 5199,    W12: 5499 },
+  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 15',       memory: '128 GB', W10: 4899,    W11: null,    W12: null },
+  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 14',       memory: '128 GB', W10: null,    W11: 4639,    W12: null },
+  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S25 FE',   memory: '128 GB', W10: 3199,    W11: 2999,    W12: 3221 },
+  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S25 FE',   memory: '256 GB', W10: 3799,    W11: null,    W12: null },
+  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy A56',      memory: '128 GB', W10: 2199,    W11: 2369,    W12: 2399 },
+  { tier: 'R$2k-3k',   brand: 'Samsung',  model: 'Galaxy A56',      memory: '256 GB', W10: 2799,    W11: 2799,    W12: 2599 },
+  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S25',      memory: '256 GB', W10: 4799,    W11: null,    W12: 4332 },
+  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S24',      memory: '128 GB', W10: 3099,    W11: 2889,    W12: 2999 },
+  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S24',      memory: '256 GB', W10: 5157,    W11: null,    W12: null },
   
-  { tier: 'R$2.5k–6k', brand: 'OPPO',     model: 'Reno 14F',        memory: '256 GB', W10: 3499,    W11: 3699 },
-  { tier: 'R$2.5k–6k', brand: 'OPPO',     model: 'Reno 13',         memory: '512 GB', W10: 4298,    W11: null },
-  { tier: 'R$2.5k–6k', brand: 'OPPO',     model: 'Reno 13F',        memory: '256 GB', W10: 2999,    W11: 2999 },
-  { tier: 'R$2.5k–6k', brand: 'OPPO',     model: 'A5 Pro',          memory: '256 GB', W10: 2899,    W11: 2899 },
-  { tier: 'R$2.5k–6k', brand: 'Motorola', model: 'Edge 60 Pro',     memory: '256 GB', W10: 3499,    W11: 3499 },
-  { tier: 'R$2k-3k',   brand: 'Motorola', model: 'Edge 60 Fusion',  memory: '256 GB', W10: 2399,    W11: 2399 },
-  { tier: 'R$2k-3k',   brand: 'Motorola', model: 'Moto G77 5G',     memory: '256 GB', W10: 2499,    W11: 2499 },
-  { tier: 'R$1.5k-2k',  brand: 'Motorola', model: 'Moto G67 5G',    memory: '256 GB', W10: 1999,    W11: 1999 },
-  { tier: 'R$2k-3k',   brand: 'Motorola', model: 'Moto G86',        memory: '512 GB', W10: 3099,    W11: 3189 },
+  { tier: 'R$2.5k–6k', brand: 'OPPO',     model: 'Reno 14F',        memory: '256 GB', W10: 3499,    W11: 3699,    W12: 3499 },
+  { tier: 'R$2.5k–6k', brand: 'OPPO',     model: 'Reno 13',         memory: '512 GB', W10: 4298,    W11: null,    W12: null },
+  { tier: 'R$2.5k–6k', brand: 'OPPO',     model: 'Reno 13F',        memory: '256 GB', W10: 2999,    W11: 2999,    W12: 2999 },
+  { tier: 'R$2.5k–6k', brand: 'OPPO',     model: 'A5 Pro',          memory: '256 GB', W10: 2899,    W11: 2899,    W12: 2699 },
+  { tier: 'R$2.5k–6k', brand: 'Motorola', model: 'Edge 60 Pro',     memory: '256 GB', W10: 3499,    W11: 3499,    W12: null },
+  { tier: 'R$2k-3k',   brand: 'Motorola', model: 'Edge 60 Fusion',  memory: '256 GB', W10: 2399,    W11: 2399,    W12: 2399 },
+  { tier: 'R$2k-3k',   brand: 'Motorola', model: 'Moto G77 5G',     memory: '256 GB', W10: 2499,    W11: 2499,    W12: null },
+  { tier: 'R$1.5k-2k',  brand: 'Motorola', model: 'Moto G67 5G',    memory: '256 GB', W10: 1999,    W11: 1999,    W12: null },
+  { tier: 'R$2k-3k',   brand: 'Motorola', model: 'Moto G86',        memory: '512 GB', W10: 3099,    W11: 3189,    W12: 2199 },
   // R$1.5k–2.5k
-  { tier: 'R$1.5k–2.5k', brand: 'JOVI',     model: 'JOVI Y31',       memory: '256 GB', W10: 1999,    W11: 1999 },
-  { tier: 'R$1.5k–2.5k', brand: 'JOVI',     model: 'JOVI Y31',       memory: '512 GB', W10: 2799,    W11: null },
-  { tier: 'R$1.5k–2.5k', brand: 'JOVI',     model: 'JOVI Y29s',      memory: '256 GB', W10: 1999,    W11: 1999 },
-  { tier: 'R$1.5k-2k',   brand: 'JOVI',     model: 'JOVI Y21 5G',    memory: '256 GB', W10: null,    W11: 1899 },
-  { tier: 'R$1.5k–2.5k', brand: 'Samsung',  model: 'Galaxy A17 5G',  memory: '128 GB', W10: 1599,    W11: 1599 },
-  { tier: 'R$1k–1.5k',   brand: 'Samsung',  model: 'Galaxy A17',     memory: '128 GB', W10: null,    W11: 1099 },
-  { tier: 'R$2k-3k',      brand: 'Samsung',  model: 'Galaxy A36',     memory: '256 GB', W10: 2499,    W11: 2499 },
-  { tier: 'R$2k-3k',      brand: 'Samsung',  model: 'Galaxy A26',     memory: '256 GB', W10: 2099,    W11: 2099 },
-  { tier: 'R$1.5k–2.5k', brand: 'OPPO',     model: 'OPPO A5 4G',     memory: '256 GB', W10: 1499,    W11: 1499 },
-  { tier: 'R$2k-3k',      brand: 'OPPO',     model: 'OPPO A5 5G',     memory: '256 GB', W10: 2299,    W11: 2299 },
-  { tier: 'R$1.5k–2.5k', brand: 'OPPO',     model: 'OPPO A60',       memory: '256 GB', W10: 1899,    W11: 1899 },
-  { tier: 'R$1.5k–2.5k', brand: 'Motorola', model: 'Moto G56',       memory: '256 GB', W10: 2080,    W11: 1749 },
-  { tier: 'R$1.5k–2.5k', brand: 'Motorola', model: 'Moto G75',       memory: '256 GB', W10: 2203,    W11: null },
-  { tier: 'R$1.5k–2.5k', brand: 'Motorola', model: 'Edge 50 Neo',    memory: '256 GB', W10: null,    W11: 1999 },
-  { tier: 'R$1.5k–2.5k', brand: 'Motorola', model: 'Moto G86',       memory: '256 GB', W10: null,    W11: 1999 },
+  { tier: 'R$1.5k–2.5k', brand: 'JOVI',     model: 'JOVI Y31',       memory: '256 GB', W10: 1999,    W11: 1999,    W12: 2099 },
+  { tier: 'R$2k-3k',     brand: 'JOVI',     model: 'JOVI Y31',       memory: '512 GB', W10: null,    W11: null,    W12: 2799 },
+  { tier: 'R$1.5k–2.5k', brand: 'JOVI',     model: 'JOVI Y29s',      memory: '256 GB', W10: 1999,    W11: 1999,    W12: 1999 },
+  { tier: 'R$1.5k-2k',   brand: 'JOVI',     model: 'JOVI Y21 5G',    memory: '256 GB', W10: null,    W11: 1899,    W12: null },
+  { tier: 'R$1.5k–2.5k', brand: 'Samsung',  model: 'Galaxy A17 5G',  memory: '128 GB', W10: 1599,    W11: 1599,    W12: 1599 },
+  { tier: 'R$1k–1.5k',   brand: 'Samsung',  model: 'Galaxy A17',     memory: '128 GB', W10: null,    W11: 1099,    W12: 1299 },
+  { tier: 'R$2k-3k',      brand: 'Samsung',  model: 'Galaxy A36',     memory: '256 GB', W10: 2499,    W11: 2499,    W12: 2099 },
+  { tier: 'R$2k-3k',      brand: 'Samsung',  model: 'Galaxy A26',     memory: '256 GB', W10: 2099,    W11: 2099,    W12: 1899 },
+  { tier: 'R$1.5k–2.5k', brand: 'OPPO',     model: 'OPPO A5 4G',     memory: '256 GB', W10: 1499,    W11: 1499,    W12: 1499 },
+  { tier: 'R$2k-3k',      brand: 'OPPO',     model: 'OPPO A5 5G',     memory: '256 GB', W10: 2299,    W11: 2299,    W12: 1999 },
+  { tier: 'R$1.5k–2.5k', brand: 'OPPO',     model: 'OPPO A60',       memory: '256 GB', W10: 1899,    W11: 1899,    W12: 1699 },
+  { tier: 'R$1.5k–2.5k', brand: 'Motorola', model: 'Moto G56',       memory: '256 GB', W10: 2080,    W11: 1749,    W12: 1699 },
+  { tier: 'R$1.5k–2.5k', brand: 'Motorola', model: 'Moto G75',       memory: '256 GB', W10: 2203,    W11: null,    W12: 1799 },
+  { tier: 'R$1.5k–2.5k', brand: 'Motorola', model: 'Edge 50 Neo',    memory: '256 GB', W10: null,    W11: 1999,    W12: 1999 },
+  { tier: 'R$1.5k–2.5k', brand: 'Motorola', model: 'Moto G86',       memory: '256 GB', W10: null,    W11: 1999,    W12: null },
   
   // R$1k–1.5k
-  { tier: 'R$1.5k–2.5k', brand: 'JOVI',   model: 'JOVI Y29',       memory: '256 GB', W10: 1599,    W11: 1599 },
-  { tier: 'R$1k–1.5k', brand: 'JOVI',     model: 'JOVI Y21',       memory: '128 GB', W10: 1299,    W11: null },
-  { tier: 'R$1k–1.5k', brand: 'JOVI',     model: 'JOVI Y21',       memory: '256 GB', W10: 1599,    W11: null },
-  { tier: 'R$1k–1.5k', brand: 'JOVI',     model: 'JOVI Y19s',      memory: '256 GB', W10: 1099,    W11: 1199 },
-  { tier: 'R$1k–1.5k', brand: 'Samsung',  model: 'Galaxy A07',     memory: '256 GB', W10: 1100,    W11: 1100 },
-  { tier: 'R$1.5k-2k', brand: 'OPPO',     model: 'OPPO A6x 5G',    memory: '256 GB', W10: null,    W11: null  },
+  { tier: 'R$1.5k–2.5k', brand: 'JOVI',   model: 'JOVI Y29',       memory: '256 GB', W10: 1599,    W11: 1599,    W12: 1599 },
+  { tier: 'R$1k–1.5k', brand: 'JOVI',     model: 'JOVI Y21',       memory: '128 GB', W10: 1299,    W11: null,    W12: null },
+  { tier: 'R$1.5k-2k', brand: 'JOVI',     model: 'JOVI Y21 4G',    memory: '256 GB', W10: null,    W11: null,    W12: 1599 },
+  { tier: 'R$1k–1.5k', brand: 'JOVI',     model: 'JOVI Y19s',      memory: '256 GB', W10: 1099,    W11: 1199,    W12: 1399 },
+  { tier: 'R$1k–1.5k', brand: 'Samsung',  model: 'Galaxy A07',     memory: '256 GB', W10: 1100,    W11: 1100,    W12: 1099 },
+  { tier: 'R$1k-1.5k', brand: 'OPPO',     model: 'OPPO A6x 4G',    memory: '128 GB', W10: null,    W11: null,    W12: 1199 },
+  { tier: 'R$1.5k-2k', brand: 'OPPO',     model: 'OPPO A6x 5G',    memory: '256 GB', W10: null,    W11: null,    W12: 1899 },
   
-  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G06',       memory: '256 GB', W10: 799,     W11: null },
-  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G06',       memory: '128 GB', W10: null,    W11: 699 },
-  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G15',       memory: '256 GB', W10: 1223,    W11: 999 },
-  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G17 4G',    memory: '128 GB', W10: 1299,    W11: 1299 },
-  { tier: 'R$1.5k-2k',  brand: 'Motorola', model: 'Moto G17 4G',    memory: '256 GB', W10: 1499,    W11: 1499 },
-  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G35',       memory: '256 GB', W10: 1199,    W11: 1199 },
-  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G55',       memory: '256 GB', W10: 1399,    W11: 1439 },
+  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G06',       memory: '256 GB', W10: 799,     W11: null,    W12: 899 },
+  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G06',       memory: '128 GB', W10: null,    W11: 699,     W12: 799 },
+  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G15',       memory: '256 GB', W10: 1223,    W11: 999,     W12: 999 },
+  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G17 4G',    memory: '128 GB', W10: 1299,    W11: 1299,    W12: 1299 },
+  { tier: 'R$1.5k-2k',  brand: 'Motorola', model: 'Moto G17 4G',    memory: '256 GB', W10: 1499,    W11: 1499,    W12: null },
+  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G35',       memory: '256 GB', W10: 1199,    W11: 1199,    W12: 1199 },
+  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G55',       memory: '256 GB', W10: 1399,    W11: 1439,    W12: 1399 },
+  // W12 new models
+  { tier: 'R$1k-1.5k',   brand: 'Samsung',  model: 'Galaxy A07',     memory: '128 GB', W10: null,    W11: null,    W12: 799 },
+  { tier: 'R$1k-1.5k',   brand: 'Samsung',  model: 'Galaxy A16 5G',  memory: '128 GB', W10: null,    W11: null,    W12: 1332 },
+  { tier: 'R$1.5k-2k',   brand: 'Samsung',  model: 'Galaxy A35',     memory: '128 GB', W10: null,    W11: null,    W12: 1899 },
+  { tier: 'R$1.5k-2k',   brand: 'Samsung',  model: 'Galaxy A36',     memory: '128 GB', W10: null,    W11: null,    W12: 1999 },
+  { tier: 'R$2k-3k',     brand: 'Samsung',  model: 'Galaxy A55',     memory: '128 GB', W10: null,    W11: null,    W12: 2399 },
+  { tier: 'R$2k-3k',     brand: 'Samsung',  model: 'Galaxy A55',     memory: '256 GB', W10: null,    W11: null,    W12: 2799 },
+  { tier: 'R$1k-1.5k',   brand: 'Motorola', model: 'Moto G05',       memory: '256 GB', W10: null,    W11: null,    W12: 899 },
+  { tier: 'R$1k-1.5k',   brand: 'Motorola', model: 'Moto G54',       memory: '256 GB', W10: null,    W11: null,    W12: 1049 },
+  { tier: 'R$1.5k-2k',   brand: 'Motorola', model: 'Edge 50 Fusion', memory: '256 GB', W10: null,    W11: null,    W12: 1799 },
+  { tier: 'R$3k-6k',     brand: 'Apple',    model: 'iPhone 16',      memory: '256 GB', W10: null,    W11: null,    W12: 5699 },
 ];
-// Add price field = W11 if available, else W10 (for price list view)
-offData.forEach(d => d.price = d.W11 ?? d.W10);
+// Add price field = W12 if available, else W11, else W10 (for price list view)
+offData.forEach(d => { d.price = d.W12 ?? d.W11 ?? d.W10; });
 const offBrandColors={Apple:'#e8a020',Samsung:'#7c3aed',Motorola:'#444444',OPPO:'#1aaa55',JOVI:'#1a3a6b'};
 const offBrands=[...new Set(offData.map(d=>d.brand))];
 // Recompute tiers from actual prices using new ranges
@@ -1165,7 +1203,12 @@ function getOffTier(p){
 offData.forEach(d=>{ const p=d.W11!=null?d.W11:d.W10!=null?d.W10:0; d.tier=getOffTier(p); });
 const offTiers=[...new Set(offData.map(d=>d.tier))];
 const offTierLabels={'R$8k+':'🔴 Above R$8,000','R$6k-8k':'🟠 R$6.000 – R$8.000','R$3k-6k':'🟡 R$3.000 – R$6.000','R$2k-3k':'🟢 R$2.000 – R$3.000','R$1.5k-2k':'🔵 R$1.500 – R$2.000','R$1k-1.5k':'🟣 R$1.000 – R$1.500','Under R$1k':'⚪ Under R$1,000'};
-let offActiveBrands=new Set(offBrands);let offActiveTiers=new Set(offTiers);let offSortMode='price';let offSortDir='asc';
+let offActiveBrands=new Set(offBrands);let offActiveTiers=new Set(offTiers);let offSortMode='brand';let offSortDir='asc';
+const offAllModels=[...new Set(offData.map(d=>d.model))].sort();
+const offAllSizes=[...new Set(offData.map(d=>d.memory))].sort((a,b)=>parseInt(a)-parseInt(b));
+const weeklyDefModels=new Set(['JOVI Y31','JOVI V70']);
+let offActiveSizes=new Set(offAllSizes);
+let offActiveModels=new Set(offAllModels);
 const offFmt=n=>'R$'+n.toLocaleString('pt-BR');
 
 function offBuildFilters(){
@@ -1195,36 +1238,77 @@ function offBuildFilters(){
     cb.addEventListener('change',()=>{ offActiveTiers[cb.checked?'add':'delete'](tier); offRenderActive(); offDdUpdateLabel('tier'); });
     tl.appendChild(item);
   });
+  // Size dropdown (weekly only)
+  const sl=$('off-ddl-size'); if(sl){
+    offAllSizes.forEach(size=>{
+      const lbl=document.createElement('label'); lbl.className='ddi';
+      const cb=document.createElement('input'); cb.type='checkbox'; cb.value=size; cb.checked=(size==='256 GB');
+      if(cb.checked) offActiveSizes.delete(size); // will be re-added below
+      lbl.appendChild(cb); lbl.append(' '+size); sl.appendChild(lbl);
+      cb.addEventListener('change',()=>{ offActiveSizes[cb.checked?'add':'delete'](size); offRenderWeeklyIfVisible(); offDdUpdateLabel('size'); });
+    });
+    // Init: only 256 GB selected
+    offActiveSizes=new Set(['256 GB']);
+    sl.querySelectorAll('input').forEach(cb=>{ cb.checked=(cb.value==='256 GB'); });
+  }
+  // Model dropdown (weekly only)
+  const ml=$('off-ddl-model'); if(ml){
+    offAllModels.forEach(model=>{
+      const lbl=document.createElement('label'); lbl.className='ddi';
+      const cb=document.createElement('input'); cb.type='checkbox'; cb.value=model; cb.checked=weeklyDefModels.has(model);
+      lbl.appendChild(cb); lbl.append(' '+model); ml.appendChild(lbl);
+      cb.addEventListener('change',()=>{ offActiveModels[cb.checked?'add':'delete'](model); offRenderWeeklyIfVisible(); offDdUpdateLabel('model'); });
+    });
+    // Init: only default models selected
+    offActiveModels=new Set(weeklyDefModels);
+  }
   // close on outside click
-  document.addEventListener('click',e=>{ ['brand','tier'].forEach(k=>{ if(!$('off-dd-'+k)?.contains(e.target)){const m=$('off-ddm-'+k);if(m)m.style.display='none';$('off-ddt-'+k)?.classList.remove('open');} }); });
+  document.addEventListener('click',e=>{ ['brand','tier','size','model'].forEach(k=>{ if(!$('off-dd-'+k)?.contains(e.target)){const m=$('off-ddm-'+k);if(m)m.style.display='none';$('off-ddt-'+k)?.classList.remove('open');} }); });
 }
 
 function offDdToggle(key){
-  const m=$('off-ddm-'+key); const t=$('off-ddt-'+key);
+  const m=$('off-ddm-'+key); if(!m)return;
   const isOpen=m.style.display!=='none';
-  // close others
-  ['brand','tier'].forEach(k=>{ $('off-ddm-'+k).style.display='none'; $('off-ddt-'+k).classList.remove('open'); });
-  if(!isOpen){ m.style.display='block'; t.classList.add('open'); }
+  ['brand','tier','size','model'].forEach(k=>{ const mm=$('off-ddm-'+k);if(mm)mm.style.display='none';$('off-ddt-'+k)?.classList.remove('open'); });
+  if(!isOpen){ m.style.display='block'; $('off-ddt-'+key)?.classList.add('open'); }
 }
 function offDdAll(key){
-  $('off-ddl-'+key).querySelectorAll('input[type=checkbox]').forEach(cb=>{cb.checked=true;cb.dispatchEvent(new Event('change'));});
+  $('off-ddl-'+key)?.querySelectorAll('input[type=checkbox]').forEach(cb=>{cb.checked=true;cb.dispatchEvent(new Event('change'));});
 }
 function offDdNone(key){
-  $('off-ddl-'+key).querySelectorAll('input[type=checkbox]').forEach(cb=>{cb.checked=false;cb.dispatchEvent(new Event('change'));});
+  $('off-ddl-'+key)?.querySelectorAll('input[type=checkbox]').forEach(cb=>{cb.checked=false;cb.dispatchEvent(new Event('change'));});
+}
+function offDdSearch(){
+  const q=$('off-mq')?.value.toLowerCase()||'';
+  $('off-ddl-model')?.querySelectorAll('label.ddi').forEach(el=>{el.style.display=el.textContent.toLowerCase().includes(q)?'':'none';});
 }
 function offDdReset(){
-  offDdAll('brand'); offDdAll('tier');
+  // Reset brand + tier
+  offActiveBrands=new Set(offBrands);
+  offActiveTiers=new Set(offTiers);
+  $('off-ddl-brand')?.querySelectorAll('input').forEach(cb=>{cb.checked=true;});
+  $('off-ddl-tier')?.querySelectorAll('input').forEach(cb=>{cb.checked=true;});
   offDdUpdateLabel('brand'); offDdUpdateLabel('tier');
+  // Reset size/model if on weekly tab
+  const pricesSec=$('off-sec-prices');
+  if(pricesSec && pricesSec.style.display!=='none'){
+    offActiveSizes=new Set(['256 GB']);
+    offActiveModels=new Set(weeklyDefModels);
+    $('off-ddl-size')?.querySelectorAll('input').forEach(cb=>{cb.checked=(cb.value==='256 GB');});
+    $('off-ddl-model')?.querySelectorAll('input').forEach(cb=>{cb.checked=weeklyDefModels.has(cb.value);});
+    ['size','model'].forEach(k=>offDdUpdateLabel(k));
+  }
   offRenderActive();
 }
 function offDdUpdateLabel(key){
-  const checks=$('off-ddl-'+key).querySelectorAll('input[type=checkbox]');
+  const el=$('off-ddl-'+key); if(!el)return;
+  const checks=el.querySelectorAll('input[type=checkbox]');
   const total=checks.length, sel=[...checks].filter(c=>c.checked).length;
-  const labels={brand:'Brand',tier:'Price Range'};
-  const trig=$('off-ddt-'+key), span=$('off-ddlbl-'+key);
+  const labels={brand:'Brand',tier:'Price Range',size:'Storage',model:'Model'};
+  const trig=$('off-ddt-'+key), span=$('off-ddlbl-'+key); if(!trig||!span)return;
   trig.querySelectorAll('.dd-badge').forEach(b=>b.remove());
-  if(sel===total||sel===0){ span.textContent=labels[key]; trig.classList.remove('on'); }
-  else{ span.textContent=labels[key]+' '; const b=document.createElement('span'); b.className='dd-badge'; b.textContent=sel; trig.insertBefore(b,trig.querySelector('.cv')); trig.classList.add('on'); }
+  if(sel===total||sel===0){span.textContent=labels[key]||key;trig.classList.remove('on');}
+  else{span.textContent=(labels[key]||key)+' ';const b=document.createElement('span');b.className='dd-badge';b.textContent=sel;trig.insertBefore(b,trig.querySelector('.cv'));trig.classList.add('on');}
 }
 
 
@@ -1239,17 +1323,18 @@ function offSetSort(mode){
   $('off-btn-price').textContent=`${arrow} Price`;
   $('off-btn-price').classList.toggle('active',offSortMode==='price');
   $('off-btn-brand').classList.toggle('active',offSortMode==='brand');
+  if($('off-btn-model')) $('off-btn-model').classList.toggle('active',offSortMode==='model');
   offRenderList(offData.filter(d=>offActiveBrands.has(d.brand)&&offActiveTiers.has(d.tier)));
 }
 
 function offMakeRow(item){
   const c=offBrandColors[item.brand]||'#888';
-  const w10cell = item.W10 ? `<span style="font-family:'JetBrains Mono',monospace">${offFmt(item.W10)}</span>` : `<span style="color:var(--muted)">—</span>`;
-  const w11cell = item.W11 ? `<span style="font-family:'JetBrains Mono',monospace;font-weight:700">${offFmt(item.W11)}</span>` : `<span style="color:var(--muted)">—</span>`;
+  const w10cell = item.W11 ? `<span style="font-family:'JetBrains Mono',monospace">${offFmt(item.W11)}</span>` : `<span style="color:var(--muted)">—</span>`;
+  const w11cell = item.W12 ? `<span style="font-family:'JetBrains Mono',monospace;font-weight:700">${offFmt(item.W12)}</span>` : `<span style="color:var(--muted)">—</span>`;
   let changeCell='<span style="color:var(--muted)">—</span>';
   let pctCell='<span style="color:var(--muted)">—</span>';
-  if(item.W10&&item.W11){
-    const diff=item.W11-item.W10, pct=(diff/item.W10*100);
+  if(item.W11&&item.W12){
+    const diff=item.W12-item.W11, pct=(diff/item.W11*100);
     const isPos=diff>0, isFlat=diff===0;
     const col=isFlat?'#9ca3af':isPos?'#ef4444':'#22c55e';
     const arrow=isFlat?'→':isPos?'▲':'▼';
@@ -1257,7 +1342,7 @@ function offMakeRow(item){
     pctCell=`<span style="color:${col};font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px">${isPos?'+':''}${pct.toFixed(1)}%</span>`;
   }
   const tr=document.createElement('tr');
-  tr.innerHTML=`<td class="off-td-brand"><span class="off-brand-color-bar" style="background:${c}"></span></td><td class="off-td-model">${item.model}</td><td class="off-td-memory">${item.memory}</td><td class="off-td-tier">${item.tier}</td><td style="padding:8px 12px;text-align:right">${w10cell}</td><td style="padding:8px 12px;text-align:right">${w11cell}</td><td style="padding:8px 12px;text-align:right">${changeCell}</td><td style="padding:8px 14px;text-align:right">${pctCell}</td>`;
+  tr.innerHTML=`<td class="off-td-brand"><span class="off-brand-color-bar" style="background:${c}"></span></td><td class="off-td-model">${item.model}</td><td class="off-td-memory">${item.memory.replace(/\s*\/.*$/,'')}</td><td class="off-td-tier">${item.tier}</td><td style="padding:8px 12px;text-align:right">${w10cell}</td><td style="padding:8px 12px;text-align:right">${w11cell}</td><td style="padding:8px 12px;text-align:right">${changeCell}</td><td style="padding:8px 14px;text-align:right">${pctCell}</td>`;
   return tr;
 }
 
@@ -1267,7 +1352,12 @@ function offRenderList(filtered){
   if(offSortMode==='price'){
     const sorted=[...filtered].sort((a,b)=>offSortDir==='asc'?a.price-b.price:b.price-a.price);
     const table=document.createElement('table');table.className='off-product-table';
-    table.innerHTML=`<thead><tr><th></th><th>Model</th><th>Memory</th><th>Price range</th><th style="text-align:right">W10</th><th style="text-align:right">W11</th><th style="text-align:right">CHANGE</th><th style="text-align:right">%</th></tr></thead>`;
+    table.innerHTML=`<thead><tr><th></th><th>Model</th><th>Memory</th><th>Price range</th><th style="text-align:right">W11</th><th style="text-align:right">W12</th><th style="text-align:right">CHANGE</th><th style="text-align:right">%</th></tr></thead>`;
+    const tbody=document.createElement('tbody');sorted.forEach(item=>tbody.appendChild(offMakeRow(item)));table.appendChild(tbody);container.appendChild(table);
+  }else if(offSortMode==='model'){
+    const sorted=[...filtered].sort((a,b)=>a.model.localeCompare(b.model)||a.price-b.price);
+    const table=document.createElement('table');table.className='off-product-table';
+    table.innerHTML=`<thead><tr><th></th><th>Model</th><th>Memory</th><th>Price range</th><th style="text-align:right">W11</th><th style="text-align:right">W12</th><th style="text-align:right">CHANGE</th><th style="text-align:right">%</th></tr></thead>`;
     const tbody=document.createElement('tbody');sorted.forEach(item=>tbody.appendChild(offMakeRow(item)));table.appendChild(tbody);container.appendChild(table);
   }else{
     offBrands.filter(b=>offActiveBrands.has(b)&&filtered.some(d=>d.brand===b)).forEach(brand=>{
@@ -1275,15 +1365,21 @@ function offRenderList(filtered){
       const c=offBrandColors[brand];const hdr=document.createElement('div');hdr.className='off-brand-group-header';hdr.style.color=c;
       hdr.innerHTML=`${brand} <span class="bgh-count">${bd.length} model${bd.length>1?'s':''}</span>`;container.appendChild(hdr);
       const table=document.createElement('table');table.className='off-product-table';
-      table.innerHTML=`<thead><tr><th></th><th>Model</th><th>Memory</th><th>Price range</th><th style="text-align:right">W10</th><th style="text-align:right">W11</th><th style="text-align:right">CHANGE</th><th style="text-align:right">%</th></tr></thead>`;
+      table.innerHTML=`<thead><tr><th></th><th>Model</th><th>Memory</th><th>Price range</th><th style="text-align:right">W11</th><th style="text-align:right">W12</th><th style="text-align:right">CHANGE</th><th style="text-align:right">%</th></tr></thead>`;
       const tbody=document.createElement('tbody');bd.forEach(item=>tbody.appendChild(offMakeRow(item)));table.appendChild(tbody);container.appendChild(table);
     });
   }
 }
 
+function offRenderWeeklyIfVisible(){
+  if($('off-sec-prices')&&$('off-sec-prices').style.display!=='none') offRenderWeekly();
+}
 function offRenderActive(){
-  const evoVisible = $('off-sec-evolution') && $('off-sec-evolution').style.display !== 'none';
-  if(evoVisible) offRenderEvolution(); else offRender();
+  const evoVisible=$('off-sec-evolution')&&$('off-sec-evolution').style.display!=='none';
+  const weeklyVisible=$('off-sec-prices')&&$('off-sec-prices').style.display!=='none';
+  if(evoVisible) offRenderEvolution();
+  else if(weeklyVisible) offRenderWeekly();
+  else offRender();
 }
 
 function offRender(){
@@ -1291,11 +1387,11 @@ function offRender(){
   $('off-stat-total').textContent=filtered.length;
   $('off-stat-brands').textContent=new Set(filtered.map(d=>d.brand)).size;
   // Stats always based on W11 prices only
-  const w11prices=filtered.filter(d=>d.W11!=null).map(d=>d.W11);
-  if(w11prices.length){
-    $('off-stat-min').textContent=offFmt(Math.min(...w11prices));
-    $('off-stat-max').textContent=offFmt(Math.max(...w11prices));
-    $('off-stat-avg').textContent=offFmt(Math.round(w11prices.reduce((a,b)=>a+b,0)/w11prices.length));
+  const w12prices=filtered.filter(d=>d.W12!=null).map(d=>d.W12);
+  if(w12prices.length){
+    $('off-stat-min').textContent=offFmt(Math.min(...w12prices));
+    $('off-stat-max').textContent=offFmt(Math.max(...w12prices));
+    $('off-stat-avg').textContent=offFmt(Math.round(w12prices.reduce((a,b)=>a+b,0)/w12prices.length));
   }
   $('off-results-count').textContent=`${filtered.length} product${filtered.length!==1?'s':''}`;
   offRenderList(filtered);
@@ -1321,7 +1417,7 @@ function offRenderRangeChart(filtered){
     const placedX=[];bd.forEach(item=>{const xPct=parseFloat(toX(item.price));const tooClose=placedX.some(px=>Math.abs(px-xPct)<2.2);placedX.push(xPct);
       const wrap=document.createElement('div');wrap.className='off-range-dot-wrap';wrap.style.left=toX(item.price);if(tooClose)wrap.style.top='30%';
       const dot=document.createElement('div');dot.className='off-range-dot';dot.style.background=color;dot.style.borderColor='#fff';
-      const tooltip=document.createElement('div');tooltip.className='off-range-tooltip';tooltip.innerHTML=`<strong>${item.model}</strong><br>${item.memory}<br>${offFmt(item.price)}`;
+      const tooltip=document.createElement('div');tooltip.className='off-range-tooltip';tooltip.innerHTML=`<strong>${item.model}</strong><br>${item.memory.replace(/\s*\/.*$/,'')}<br>${offFmt(item.price)}`;
       wrap.appendChild(dot);wrap.appendChild(tooltip);trackWrap.appendChild(wrap);});
     [minP,maxP].forEach(p=>{const tick=document.createElement('div');tick.style.cssText=`position:absolute;left:${toX(p)};bottom:2px;transform:translateX(-50%);font-size:9px;font-family:'JetBrains Mono',monospace;color:${color};white-space:nowrap;`;tick.textContent=offFmt(p);trackWrap.appendChild(tick);});
     const avgDot=document.createElement('div');avgDot.className='off-range-dot-avg';avgDot.style.left=toX(avgP);avgDot.style.background=color;avgDot.style.border='3px solid white';avgDot.title=`Avg: ${offFmt(avgP)}`;trackWrap.appendChild(avgDot);
@@ -1371,26 +1467,82 @@ function offGoTo(tab){
     if(sec) sec.style.display = t===tab?'block':'none';
     if(btn) btn.classList.toggle('on', t===tab);
   });
-  const sc=$('off-sort-controls');
-  if(sc) sc.style.display = tab==='prices'?'flex':'none';
+  // Sort controls never shown
+  const sc=$('off-sort-controls'); if(sc) sc.style.display='none';
+  // Size+Model filters only on weekly tab
+  const ddSize=$('off-dd-size'), ddModel=$('off-dd-model');
+  if(ddSize)  ddSize.style.display  = tab==='prices'?'':'none';
+  if(ddModel) ddModel.style.display = tab==='prices'?'':'none';
   if(tab==='evolution') offRenderEvolution();
-  if(tab==='prices') offRender();
+  if(tab==='prices'){
+    // Set Y31+256GB defaults when opening weekly tab
+    offActiveSizes=new Set(['256 GB']);
+    offActiveModels=new Set(weeklyDefModels);
+    $('off-ddl-size')?.querySelectorAll('input').forEach(cb=>{cb.checked=(cb.value==='256 GB');});
+    $('off-ddl-model')?.querySelectorAll('input').forEach(cb=>{cb.checked=weeklyDefModels.has(cb.value);});
+    ['size','model'].forEach(k=>offDdUpdateLabel(k));
+    offRenderWeekly();
+  }
   if(tab==='specs') specsRender();
 }
 
+function offRenderWeekly(){
+  const WW=['W10','W11','W12'];
+  const filtered=offData.filter(d=>offActiveBrands.has(d.brand)&&offActiveTiers.has(d.tier)&&offActiveSizes.has(d.memory)&&offActiveModels.has(d.model));
+  const svg=$('off-weekly-svg'), leg=$('off-weekly-legend'), tbl=$('off-weekly-table');
+  if(!filtered.length){if(svg)svg.innerHTML='';if(leg)leg.innerHTML='';if(tbl)tbl.innerHTML='<div class="on-empty">No data.</div>';return;}
+  // Chart
+  const W=900,H=400,PL=72,PR=210,PT=28,PB=32,cW=W-PL-PR,cH=H-PT-PB;
+  const allV=filtered.flatMap(r=>WW.map(w=>r[w]).filter(v=>v!=null));
+  if(allV.length&&svg){
+    const yMin=Math.floor(Math.min(...allV)*.88/1000)*1000;
+    const yMax=Math.ceil(Math.max(...allV)*1.12/1000)*1000;
+    const xs=i=>PL+(i/(WW.length-1))*cW, ys=v=>PT+cH-((v-yMin)/(yMax-yMin))*cH;
+    let grid='',yL='',xL='',paths='',dots='',labels='';
+    for(let i=0;i<=5;i++){const v=yMin+(i/5)*(yMax-yMin),y=ys(v);grid+=`<line x1="${PL}" x2="${W-PR}" y1="${y}" y2="${y}" stroke="#e2e5f0" stroke-width="1"/>`;yL+=`<text x="${PL-8}" y="${y+4}" text-anchor="end" font-size="12" fill="#9ca3af" font-family="DM Mono">${Math.round(v/1000)}k</text>`;}
+    xL=WW.map((w,i)=>`<text x="${xs(i)}" y="${H-4}" text-anchor="middle" font-size="12" fill="#9ca3af" font-family="DM Mono">${w}</text>`).join('');
+    filtered.forEach(r=>{
+      const col=offBrandColors[r.brand]||'#888';
+      const pts=WW.map((w,i)=>r[w]!=null?{x:xs(i),y:ys(r[w]),v:r[w]}:null);
+      let d2='';pts.forEach((p,i)=>{if(!p)return;if(!d2){d2=`M${p.x},${p.y}`;return;}let pv=null;for(let j=i-1;j>=0;j--){if(pts[j]){pv=pts[j];break;}}if(pv){const cx=(pv.x+p.x)/2;d2+=` C${cx},${pv.y} ${cx},${p.y} ${p.x},${p.y}`;}});
+      if(d2)paths+=`<path d="${d2}" fill="none" stroke="${col}" stroke-width="2" opacity=".9"/>`;
+      pts.forEach(p=>{if(!p)return;dots+=`<circle cx="${p.x}" cy="${p.y}" r="4" fill="${col}" stroke="#fff" stroke-width="1.5"/>`;dots+=`<text x="${p.x}" y="${p.y-9}" text-anchor="middle" font-size="12" font-weight="600" fill="${col}" font-family="DM Mono" opacity=".95">${offFmt(p.v)}</text>`;});
+      const lp=[...pts].reverse().find(p=>p!=null);if(lp)labels+=`<text x="${lp.x+10}" y="${lp.y+4}" font-size="12" font-weight="600" fill="${col}" font-family="DM Sans">${r.model} <tspan font-weight="400" opacity=".7">${r.memory}</tspan></text>`;
+    });
+    svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.setAttribute('height',H);
+    svg.innerHTML=`${grid}${yL}${xL}${paths}${dots}${labels}`;
+    if(leg)leg.innerHTML=filtered.map(r=>`<div class="on-leg-item"><div class="on-leg-swatch" style="background:${offBrandColors[r.brand]||'#888'}"></div>${r.model} ${r.memory}</div>`).join('');
+  }
+  // Table — identical layout to online
+  const pv=v=>v!=null?`<span class="on-pv">${offFmt(v)}</span>`:`<span class="on-nv">—</span>`;
+  const tCell=r=>{const av=WW.filter(w=>r[w]!=null);if(av.length<2)return'<span class="on-nv">—</span>';const cur=av[av.length-1],prev=av[av.length-2];const diff=r[cur]-r[prev],pct=diff/r[prev]*100;if(Math.abs(pct)<0.2)return`<span class="on-t-fl">→ 0.0%</span>`;return diff>0?`<span class="on-t-up">▲ +${pct.toFixed(1)}%</span>`:`<span class="on-t-dn">▼ ${pct.toFixed(1)}%</span>`;};
+  const brands=['JOVI','Apple','Samsung','OPPO','Motorola'].filter(b=>filtered.some(r=>r.brand===b));
+  let tbody='';
+  brands.forEach(brand=>{
+    const col=offBrandColors[brand]||'#888';
+    const bModels=[...new Set(filtered.filter(r=>r.brand===brand).map(r=>r.model))];
+    tbody+=`<tr style="background:${col}18"><td colspan="${WW.length+2}" style="padding:8px 14px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:${col};font-family:'DM Mono',monospace">${brand}</td></tr>`;
+    bModels.forEach(model=>{
+      const mRows=filtered.filter(r=>r.brand===brand&&r.model===model).sort((a,b)=>parseInt(a.memory)-parseInt(b.memory));
+      tbody+=`<tr class="on-grp-hd"><td colspan="${WW.length+2}"><span class="on-stripe" style="background:${col}"></span>${model}</td></tr>`;
+      mRows.forEach(r=>{tbody+=`<tr><td style="padding-left:20px"><span class="on-sz">${r.memory}</span></td>${WW.map(w=>`<td class="r">${pv(r[w])}</td>`).join('')}<td class="r">${tCell(r)}</td></tr>`;});
+    });
+  });
+  if(tbl)tbl.innerHTML=`<table class="on-t"><thead><tr><th>Storage</th>${WW.map(w=>`<th class="r">${w}</th>`).join('')}<th class="r">W-1→W</th></tr></thead><tbody>${tbody}</tbody></table>`;
+}
 function offRenderEvolution(){
   const filtered = offData.filter(d=>offActiveBrands.has(d.brand)&&offActiveTiers.has(d.tier));
-  const comparable = filtered.filter(d=>d.W10!=null&&d.W11!=null);
-  const allW11 = filtered.filter(d=>d.W11!=null);
-  const w11Only = filtered.filter(d=>d.W11!=null&&d.W10==null);
-  const w10Only = filtered.filter(d=>d.W10!=null&&d.W11==null);
+  const comparable = filtered.filter(d=>d.W11!=null&&d.W12!=null);
+  const allW12 = filtered.filter(d=>d.W12!=null);
+  const w12Only = filtered.filter(d=>d.W12!=null&&d.W11==null);
+  const w11Only = filtered.filter(d=>d.W11!=null&&d.W12==null);
 
   // KPI biggest rise/drop: always use FULL dataset regardless of filters
-  const allComparable = offData.filter(d=>d.W10!=null&&d.W11!=null);
-  const allMoves = allComparable.map(d=>({d, pct:(d.W11-d.W10)/d.W10*100, abs:d.W11-d.W10}));
+  const allComparable = offData.filter(d=>d.W11!=null&&d.W12!=null);
+  const allMoves = allComparable.map(d=>({d, pct:(d.W12-d.W11)/d.W11*100, abs:d.W12-d.W11}));
 
   // ── KPI cards ────────────────────────────────────────
-  const moves = comparable.map(d=>({d, pct:(d.W11-d.W10)/d.W10*100, abs:d.W11-d.W10}));
+  const moves = comparable.map(d=>({d, pct:(d.W12-d.W11)/d.W11*100, abs:d.W12-d.W11}));
   let insHtml='';
   if(allMoves.length){
     const rise=allMoves.reduce((a,b)=>b.pct>a.pct?b:a);
@@ -1401,15 +1553,15 @@ function offRenderEvolution(){
     insHtml+=`<div class="on-insight-card insight-rising"><div class="on-insight-lbl">🔺 Biggest Increase</div><div class="on-insight-model">${rise.d.model}</div><div class="on-insight-meta">${rise.d.brand} · ${rise.d.memory}</div><div class="on-insight-val red">+${rise.pct.toFixed(1)}% (${offFmt(rise.abs)})</div></div>`;
     insHtml+=`<div class="on-insight-card insight-falling"><div class="on-insight-lbl">🔻 Biggest Drop</div><div class="on-insight-model">${drop.d.model}</div><div class="on-insight-meta">${drop.d.brand} · ${drop.d.memory}</div><div class="on-insight-val green">${drop.pct.toFixed(1)}% (${offFmt(drop.abs)})</div></div>`;
     insHtml+=`<div class="on-insight-card"><div class="on-insight-lbl">📊 Movement</div><div style="display:flex;gap:16px;margin-top:10px;align-items:baseline"><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#ef4444">${nUp}</div><div style="font-size:10px;color:var(--muted);margin-top:2px">increased</div></div><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#22c55e">${nDn}</div><div style="font-size:10px;color:var(--muted);margin-top:2px">decreased</div></div><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#9ca3af">${nFl}</div><div style="font-size:10px;color:var(--muted);margin-top:2px">stable</div></div></div></div>`;
-    insHtml+=`<div class="on-insight-card insight-leader"><div class="on-insight-lbl">📋 Coverage</div><div class="on-insight-model">${comparable.length} compared</div><div class="on-insight-meta">${w11Only.length} new W11 · ${w10Only.length} W10 only</div><div class="on-insight-val blue">${allW11.length} total W11</div></div>`;
+    insHtml+=`<div class="on-insight-card insight-leader"><div class="on-insight-lbl">📋 Coverage</div><div class="on-insight-model">${comparable.length} compared</div><div class="on-insight-meta">${w12Only.length} new W12 · ${w11Only.length} W11 only</div><div class="on-insight-val blue">${allW12.length} total W12</div></div>`;
   } else {
     insHtml='<div style="grid-column:1/-1;color:var(--muted);font-size:13px;padding:12px 0">No comparable SKUs for selected filters.</div>';
   }
   $('off-evo-insights').innerHTML=insHtml;
 
   // ── % variation bar chart ─────────────────────────────
-  $('off-evo-chart-title').textContent=`Price Variation W10 → W11 · ${comparable.length} SKUs`;
-  const sorted=[...moves].sort((a,b)=>b.pct-a.pct);
+  $('off-evo-chart-title').textContent=`Price Variation W11 → W12 · ${comparable.length} SKUs`;
+  const sorted=[...moves].filter(m=>Math.abs(m.pct)>0.2).sort((a,b)=>b.pct-a.pct);
   const maxAbs=Math.max(...sorted.map(m=>Math.abs(m.pct)),1);
   let chartHtml='<div style="display:flex;flex-direction:column;gap:7px;margin-top:8px">';
   sorted.forEach(({d,pct,abs})=>{
@@ -1428,7 +1580,7 @@ function offRenderEvolution(){
       </div>
       <div style="font-size:12px;font-weight:700;color:${barColor};font-family:'JetBrains Mono',monospace;white-space:nowrap">
         ${sign}${pct.toFixed(1)}%
-        <span style="color:#6b7280;font-weight:500;font-size:11px">${offFmt(d.W10)} → ${offFmt(d.W11)}</span>
+        <span style="color:#6b7280;font-weight:500;font-size:11px">${offFmt(d.W11)} → ${offFmt(d.W12)}</span>
         <span style="color:#9ca3af;font-size:11px;font-weight:400">(${sign}${offFmt(abs)})</span>
       </div>
     </div>`;
@@ -1490,8 +1642,9 @@ function offRenderEvolution(){
 function specPriceCell(items){
   let html = '<div class="spec-prices">';
   items.forEach(({cfg, W10, W11}) => {
+    // W10 = W11 price (previous), W11 = W12 price (current)
     const fmt = v => v ? `R$\u202f${Number(v).toLocaleString('pt-BR')}` : null;
-    const w10s = fmt(W10), w11s = fmt(W11);
+    const w11s = fmt(W10), w12s = fmt(W11);
 
     html += `<div style="padding:4px 2px;margin-bottom:3px;text-align:center">`;
     if(cfg) html += `<div style="font-size:10px;color:#9ca3af;margin-bottom:2px">${cfg}</div>`;
@@ -1502,20 +1655,24 @@ function specPriceCell(items){
       const arrow=isPos?'▲':isNeg?'▼':'→';
       const sign=pct>0?'+':'';
       html += `<div style="display:flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap">`;
-      html += `<span style="font-size:11px;color:#9ca3af"><span style="font-size:9px;text-transform:uppercase;letter-spacing:.4px">W10</span> ${w10s}</span>`;
+      html += `<span style="font-size:11px;color:#9ca3af"><span style="font-size:9px;text-transform:uppercase;letter-spacing:.4px">W11</span> ${w11s}</span>`;
       html += `<span style="color:#d1d5db;font-size:10px">→</span>`;
-      html += `<span style="font-size:12px;font-weight:700;color:var(--text)"><span style="font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.4px;color:#6b7280">W11</span> ${w11s}</span>`;
+      html += `<span style="font-size:12px;font-weight:700;color:var(--text)"><span style="font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.4px;color:#6b7280">W12</span> ${w12s}</span>`;
       html += `<span style="color:${col};font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700">${arrow} ${sign}${pct.toFixed(1)}%</span>`;
       html += `</div>`;
-    } else if(W11 && !W10){
-      html += `<span style="font-size:12px;font-weight:700;color:var(--text)"><span style="font-size:9px;font-weight:400;color:#9ca3af">W11 </span>${w11s}</span>`;
+    } else if(!W10 && W11){
+      // Only W12 available
+      html += `<span style="font-size:12px;font-weight:700;color:var(--text)"><span style="font-size:9px;font-weight:400;color:#9ca3af">W12 </span>${w12s}</span>`;
     } else if(W10 && !W11){
-      html += `<div style="display:flex;align-items:center;justify-content:center;gap:5px">`;
-      html += `<span style="font-size:12px;font-weight:600;color:var(--text)"><span style="font-size:9px;font-weight:400;color:#9ca3af">W10 </span>${w10s}</span>`;
-      html += `<span style="font-size:10px;color:#fca5a5;font-style:italic">W11 n/a</span>`;
+      // W11 exists, no W12 → replicate W11 as W12
+      html += `<div style="display:flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap">`;
+      html += `<span style="font-size:11px;color:#9ca3af"><span style="font-size:9px;text-transform:uppercase;letter-spacing:.4px">W11</span> ${w11s}</span>`;
+      html += `<span style="color:#d1d5db;font-size:10px">→</span>`;
+      html += `<span style="font-size:12px;font-weight:700;color:var(--text)"><span style="font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.4px;color:#6b7280">W12</span> ${w11s}</span>`;
       html += `</div>`;
     } else {
-      html += `<span style="font-size:11px;color:#d1d5db">—</span>`;
+      // Neither W11 nor W12
+      html += `<span style="font-size:11px;color:#9ca3af;font-style:italic">n/d</span>`;
     }
     html += `</div>`;
   });
@@ -1639,26 +1796,27 @@ const SPECS = {
       { label:'Moto G86',     cls:'col-moto'    },
     ],
     priceRaw: [
-      {col:'JOVI Y31',    W10:1999, W11:1999},
-      {col:'Galaxy A36',  W10:2499, W11:2499},
+      {col:'JOVI Y31 256GB', W10:1999, W11:2099},
+      {col:'JOVI Y31 512GB', W10:null,  W11:2799},
+      {col:'Galaxy A36',  W10:2499, W11:2099},
       {col:'Galaxy A27',  W10:null,  W11:null},
-      {col:'Oppo A5 5G',  W10:2299, W11:2299},
+      {col:'Oppo A5 5G',  W10:2299, W11:1999},
       {col:'Oppo A6s',    W10:null,  W11:null},
-      {col:'Moto G77 5G', W10:2499, W11:2499},
-      {col:'Moto G86',    W10:1899, W11:1999},
+      {col:'Moto G77 5G', W10:2499, W11:null},
+      {col:'Moto G86',    W10:3189, W11:2199},
     ],
     rows: {
       '📅 Launch':   ['Feb\'26','Mar\'25','Mar\'26 (TBC)','May\'25','Apr\'26 (TBC)','Mar\'26','Sep\'25'],
       '💰 Price': [
-        specPriceCell([{cfg:'8GB+256GB',W10:1999,W11:1999},{cfg:'8GB+512GB',W10:2799,W11:null}]),
-        specPriceCell([{cfg:'8GB+256GB',W10:2499,W11:2499}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:1999,W11:2099},{cfg:'8GB+512GB',W10:null,W11:2799}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:2499,W11:2099}]),
         specPriceCell([{cfg:'TBC',W10:null,W11:null}]),
-        specPriceCell([{cfg:'8GB+256GB',W10:2299,W11:2299}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:2299,W11:1999}]),
         specPriceCell([{cfg:'8GB+256GB',W10:null,W11:null}]),
-        specPriceCell([{cfg:'8GB+256GB',W10:2499,W11:2499}]),
-        specPriceCell([{cfg:'8GB+256GB',W10:1899,W11:1999}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:2499,W11:null}]),
+        specPriceCell([{cfg:'8GB+512GB',W10:3189,W11:2199}]),
       ],
-      '🧠 Memory':   ['8+256GB / 8+512GB','8+256GB','8+256GB','8+256GB','8+256GB / 8+512GB','8+256GB','8+256GB / 12+512GB'],
+      '🧠 Memory':   ['8+256GB / 8+512GB','8+256GB','8+256GB','8+256GB','8+256GB / 8+512GB','8+256GB','12+512GB'],
       '🤳 Selfie':   ['32 MP','13 MP','13 MP','8 MP','16 MP','32 MP','32 MP'],
       '📷 Camera':   ['50(W)/2(D) MP','50 OIS/8(UW)/5(M) MP','50MP/5MP/5MP','50(W)/2(D) MP','50(W)/2(D) MP','108(W)/8(UW) MP','50(W)/2(D) MP'],
       '⚙️ Chipset':  ['6s 4G Gen2 (6nm) LTE','Snapdragon 6 Gen3 (4nm) 5G','Exynos 1380 5G','D7300 5G','Snapdragon 685 (6nm) LTE','D6400 (6nm) 5G','D7300 (4nm) 5G'],
@@ -1678,17 +1836,17 @@ const SPECS = {
     ],
     priceRaw: [
       {col:'JOVI Y29s',    W10:1999, W11:1999},
-      {col:'Galaxy A36',  W10:2499, W11:2499},
-      {col:'Oppo A5 5G',  W10:2299, W11:2299},
-      {col:'Moto G67 5G', W10:1999, W11:1999},
+      {col:'Galaxy A36',  W10:2499, W11:2099},
+      {col:'Oppo A5 5G',  W10:2299, W11:1999},
+      {col:'Moto G67 5G', W10:1999, W11:null},
     ],
     rows: {
       '📅 Launch':   ['Aug\'25','Mar\'25','May\'25','Mar\'26'],
       '💰 Price': [
         specPriceCell([{cfg:'8GB+256GB',W10:1999,W11:1999}]),
-        specPriceCell([{cfg:'8GB+256GB',W10:2499,W11:2499}]),
-        specPriceCell([{cfg:'8GB+256GB',W10:2299,W11:2299}]),
-        specPriceCell([{cfg:'4GB+256GB',W10:1999,W11:1999}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:2499,W11:2099}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:2299,W11:1999}]),
+        specPriceCell([{cfg:'4GB+256GB',W10:1999,W11:null}]),
       ],
       '🧠 Memory':   ['8+256GB','8+256GB','8+256GB','4+256GB'],
       '🤳 Selfie':   ['8 MP','13 MP','8 MP','32 MP'],
@@ -1710,17 +1868,17 @@ const SPECS = {
     ],
     priceRaw: [
       {col:'JOVI Y29',      W10:1399, W11:null},
-      {col:'Galaxy A26', W10:2099, W11:2099},
-      {col:'OPPO A60',      W10:1899, W11:1899},
-      {col:'MOTO G56 5G',   W10:2080, W11:1749},
+      {col:'Galaxy A26', W10:2099, W11:1899},
+      {col:'OPPO A60',      W10:1899, W11:1699},
+      {col:'MOTO G56 5G',   W10:1749, W11:1699},
     ],
     rows: {
       '📅 Launch':   ['Jun\'25','Mar\'25','Mar\'25','Aug\'25'],
       '💰 Price': [
         specPriceCell([{cfg:'8GB+256GB',W10:1399,W11:null}]),
-        specPriceCell([{cfg:'8GB+256GB',W10:2099,W11:2099}]),
-        specPriceCell([{cfg:'8GB+256GB',W10:null,W11:1899}]),
-        specPriceCell([{cfg:'8GB+256GB',W10:2080,W11:1749}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:2099,W11:1899}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:1899,W11:1699}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:1749,W11:1699}]),
       ],
       '🧠 Memory':   ['8+256GB','8+256GB','8+256GB','8+256GB'],
       '🤳 Selfie':   ['8 MP','13 MP','5 MP','32 MP'],
@@ -1743,15 +1901,15 @@ const SPECS = {
     priceRaw: [
       {col:'JOVI Y21 5G',   W10:null, W11:1899},
       {col:'Galaxy A17 5G', W10:1599, W11:1599},
-      {col:'Oppo A6x 5G',   W10:null, W11:null},
+      {col:'Oppo A6x 5G',   W10:null, W11:1899},
       {col:'Moto G67 5G',   W10:1999, W11:1999},
     ],
     rows: {
-      '📅 Launch':   ['Apr\'26','Oct\'25','Apr\'26 (TBC)','Mar\'26'],
+      '📅 Launch':   ['Apr\'26','Oct\'25','Mar\'26','Mar\'26'],
       '💰 Price': [
         specPriceCell([{cfg:'4GB+256GB',W10:null,W11:1899}]),
         specPriceCell([{cfg:'8GB+256GB',W10:1599,W11:1599}]),
-        specPriceCell([{cfg:'4GB+256GB',W10:null,W11:null}]),
+        specPriceCell([{cfg:'4GB+256GB',W10:null,W11:1899}]),
         specPriceCell([{cfg:'4GB+256GB',W10:1999,W11:1999}]),
       ],
       '🧠 Memory':   ['4+256GB','8+256GB','4+256GB','4+256GB'],
@@ -1765,15 +1923,15 @@ const SPECS = {
     }
   },
   y21: {
-    title: 'JOVI Y21 — Specs Comparison',
+    title: 'JOVI Y21 4G — Specs Comparison',
     cols: [
-      { label:'JOVI Y21',    cls:'col-jovi'    },
+      { label:'JOVI Y21 4G', cls:'col-jovi'    },
       { label:'Galaxy A17 4G', cls:'col-samsung' },
       { label:'Oppo A6 4G', cls:'col-oppo'    },
       { label:'Moto G17 4G',cls:'col-moto'    },
     ],
     priceRaw: [
-      {col:'JOVI Y21',    W10:1299, W11:null},
+      {col:'JOVI Y21 4G', W10:1299, W11:1599},
       {col:'Galaxy A17 4G',  W10:null, W11:1099},
       {col:'Oppo A6 4G',  W10:1499, W11:null},
       {col:'Moto G17 4G', W10:1299, W11:1299},
@@ -1781,7 +1939,7 @@ const SPECS = {
     rows: {
       '📅 Launch':   ['Mar\'26','Sep\'25','Apr\'26','Feb\'26'],
       '💰 Price': [
-        specPriceCell([{cfg:'4GB+128GB',W10:1299,W11:null},{cfg:'4GB+256GB',W10:1599,W11:null}]),
+        specPriceCell([{cfg:'4GB+128GB',W10:1299,W11:null},{cfg:'4GB+256GB',W10:1599,W11:1599}]),
         specPriceCell([{cfg:'4GB+128GB',W10:null,W11:1099}]),
         specPriceCell([{cfg:'6GB+256GB',W10:1499,W11:null}]),
         specPriceCell([{cfg:'4GB+128GB',W10:1299,W11:1299},{cfg:'4GB+256GB',W10:1499,W11:1499}]),
@@ -1901,7 +2059,7 @@ function specsRender(){
   let chartHtml = '';
   if(items.length){
     const mx = Math.max(...items.map(m=>Math.abs(m.pct)),1);
-    chartHtml = `<div class="off-specs-group-title" style="margin-top:20px">📈 Price Variation W10 → W11</div><div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">`;
+    chartHtml = `<div class="off-specs-group-title" style="margin-top:20px">📈 Price Variation W11 → W12</div><div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">`;
     items.forEach(({col,W10,W11,pct})=>{
       const pos=pct>0.1,neg=pct<-0.1,bc=pos?'#ef4444':neg?'#22c55e':'#9ca3af',sg=pos?'+':'';
       const bw=Math.abs(pct)/mx*45;
@@ -2033,10 +2191,10 @@ function sheetOfflinePrices() {
 
   let r = 1;
   xlRowH(ws, r, 6); r++;
-  xlSet(ws, r, 2, xlT('Offline Price Monitoring · Casas Bahia · W10 (03/06) & W11 (03/11/2025)'));
+  xlSet(ws, r, 2, xlT('Offline Price Monitoring · Casas Bahia · W10 (03/06/2026) & W11 (03/11/2026)'));
   xlMerge(ws, r, 2, r, 8); xlRowH(ws, r, 22); r++;
   xlRowH(ws, r, 6); r++;
-  xlRow(ws, r, ['Brand','Model','Memory','W10','W11','Δ (R$)','Δ (%)'].map(xlH), 2);
+  xlRow(ws, r, ['Brand','Model','Memory','W11','W12','Δ (R$)','Δ (%)'].map(xlH), 2);
   xlRowH(ws, r, 28); r++;
 
   TIERS.forEach(tier => {
@@ -2070,29 +2228,29 @@ function sheetOfflinePrices() {
 }
 
 /* ══════════════════════════════════════════════════════
-   SHEET: OFFLINE EVOLUTION W10→W11
+   SHEET: OFFLINE EVOLUTION W11→W12
 ══════════════════════════════════════════════════════ */
 function sheetOfflineEvolution() {
   const ws = {};
   ws['!cols'] = [{wch:2},{wch:14},{wch:30},{wch:12},{wch:16},{wch:13},{wch:13},{wch:14},{wch:12},{wch:14}];
   const BRANDS = ['JOVI','Apple','Samsung','OPPO','Motorola'];
   const filtered = offData.filter(d => offActiveBrands.has(d.brand) && offActiveTiers.has(d.tier));
-  const comparable = filtered.filter(d => d.W10!=null && d.W11!=null);
+  const comparable = filtered.filter(d => d.W11!=null && d.W12!=null);
 
   let r = 1;
   xlRowH(ws, r, 6); r++;
-  xlSet(ws, r, 2, xlT('Offline Price Evolution · W10 (03/06) → W11 (03/11/2025) · Casas Bahia'));
+  xlSet(ws, r, 2, xlT('Offline Price Evolution · W11 (03/11) → W12 (03/18/2026) · Casas Bahia'));
   xlMerge(ws, r, 2, r, 10); xlRowH(ws, r, 22); r++;
   xlRowH(ws, r, 6); r++;
-  xlRow(ws, r, ['Brand','Model','Memory','Tier','W10','W11','Δ (R$)','Δ (%)','Direction'].map(xlH), 2);
+  xlRow(ws, r, ['Brand','Model','Memory','Tier','W11','W12','Δ (R$)','Δ (%)','Direction'].map(xlH), 2);
   xlRowH(ws, r, 28); r++;
 
   let prevBrand = null;
   BRANDS.forEach(brand => {
-    const rows = comparable.filter(d => d.brand===brand).sort((a,b) => b.W10 - a.W10);
+    const rows = comparable.filter(d => d.brand===brand).sort((a,b) => b.W12 - a.W12);
     if (!rows.length) return;
     rows.forEach(d => {
-      const diff = d.W11 - d.W10, pct = diff/d.W10;
+      const diff = d.W12 - d.W11, pct = diff/d.W11;
       const {bg, dc} = diffStyle(diff);
       const dir = diff>0 ? '▲ Increase' : diff<0 ? '▼ Decrease' : '→ Stable';
       xlRow(ws, r, [
@@ -2100,8 +2258,8 @@ function sheetOfflineEvolution() {
         xlC(d.model,  bg, XL_COL_TEXT, false, 'left'),
         xlC(d.memory, bg),
         xlC(d.tier,   bg, XL_MUTED),
-        xlN(d.W10, bg),
-        xlN(d.W11, bg, XL_COL_TEXT, true),
+        xlN(d.W11, bg),
+        xlN(d.W12, bg, XL_COL_TEXT, true),
         xlN(diff, bg, dc, true),
         xlP(pct,  bg, dc),
         xlC(dir,  bg, dc, true),
@@ -2125,7 +2283,7 @@ function sheetOnlineEvolution() {
   xlSet(ws, r, 2, xlT('Online ASP Evolution · W07→W11 · Avg Selling Price (R$)'));
   xlMerge(ws, r, 2, r, 11); xlRowH(ws, r, 22); r++;
   xlRowH(ws, r, 6); r++;
-  xlRow(ws, r, ['Brand','Model','Memory','W07','W08','W09','W10','W11','Δ W10→W11','% Δ'].map(xlH), 2);
+  xlRow(ws, r, ['Brand','Model','Memory','W07','W08','W09','W10','W11','W12','Δ W11→W12','% Δ'].map(xlH), 2);
   xlRowH(ws, r, 28); r++;
 
   let prevBrand = null;
@@ -2213,7 +2371,7 @@ function exportOnline() {
     XLSX.utils.book_append_sheet(wb, sheetOnlineEvolution(), 'Weekly Evolution');
     XLSX.writeFile(wb, `online_evolution_${xlToday()}.xlsx`, {bookType:'xlsx',cellStyles:true});
   } else if (onActiveTab === 'heatmap') {
-    XLSX.utils.book_append_sheet(wb, sheetOnlineEvolution(), 'Heatmap W11');
+    XLSX.utils.book_append_sheet(wb, sheetOnlineEvolution(), 'Heatmap W12');
     XLSX.writeFile(wb, `online_heatmap_${xlToday()}.xlsx`, {bookType:'xlsx',cellStyles:true});
   } else if (onActiveTab === 'channel') {
     XLSX.utils.book_append_sheet(wb, sheetOnlineChannel(), 'By Channel');
@@ -2231,7 +2389,7 @@ function exportOffline() {
     XLSX.utils.book_append_sheet(wb, sheetOfflinePrices(), 'Prices');
     XLSX.writeFile(wb, `offline_prices_${xlToday()}.xlsx`, {bookType:'xlsx',cellStyles:true});
   } else if (activeTab === 'evolution') {
-    XLSX.utils.book_append_sheet(wb, sheetOfflineEvolution(), 'W10→W11 Evolution');
+    XLSX.utils.book_append_sheet(wb, sheetOfflineEvolution(), 'W11→W12 Evolution');
     XLSX.writeFile(wb, `offline_evolution_${xlToday()}.xlsx`, {bookType:'xlsx',cellStyles:true});
   } else if (activeTab === 'specs') {
     const tbl = document.querySelector('#specs-content table');
