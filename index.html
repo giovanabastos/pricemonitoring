@@ -1123,7 +1123,7 @@ const offData = [
   { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 16',       memory: '128 GB', W10: null,    W11: 5199,    W12: 5499,    W13: null, W14: null },
   { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 15',       memory: '128 GB', W10: 4899,    W11: null,    W12: null,    W13: null, W14: null },
   { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 14',       memory: '128 GB', W10: null,    W11: 4639,    W12: null,    W13: null, W14: null },
-  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S25 FE',   memory: '128 GB', W10: 3199,    W11: 2999,    W12: 3221,    W13: null, W14: null },
+  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S25 FE',   memory: '128 GB', W10: 3199,    W11: 2999,    W12: 3221,    W13: 3221, W14: 3221 },
   { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S25 FE',   memory: '256 GB', W10: 3799,    W11: null,    W12: null,    W13: null, W14: null },
   { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy A56',      memory: '128 GB', W10: 2199,    W11: 2369,    W12: 2399,    W13: null, W14: 2399 },
   { tier: 'R$2k-3k',   brand: 'Samsung',  model: 'Galaxy A56',      memory: '256 GB', W10: 2799,    W11: 2799,    W12: 2599,    W13: null, W14: 2399 },
@@ -1158,7 +1158,7 @@ const offData = [
   { tier: 'R$1.5k–2.5k', brand: 'Motorola', model: 'Moto G86',       memory: '256 GB', W10: null,    W11: 1999,    W12: null,    W13: 1999, W14: 2199 },
   
   // R$1k–1.5k
-  { tier: 'R$1.5k–2.5k', brand: 'JOVI',   model: 'JOVI Y29',         memory: '256 GB', W10: 1599,    W11: 1599,    W12: 1599,    W13: null, W14: 1599 },
+  { tier: 'R$1.5k–2.5k', brand: 'JOVI',   model: 'JOVI Y29',         memory: '256 GB', W10: 1599,    W11: 1599,    W12: 1599,    W13: 1399, W14: 1599 },
   { tier: 'R$1k–1.5k', brand: 'JOVI',     model: 'JOVI Y21',         memory: '128 GB', W10: 1299,    W11: null,    W12: null,    W13: null, W14: null },
   { tier: 'R$1.5k-2k', brand: 'JOVI',     model: 'JOVI Y21 4G',      memory: '256 GB', W10: null,    W11: null,    W12: 1599,    W13: null, W14: null },
   { tier: 'R$1k–1.5k', brand: 'JOVI',     model: 'JOVI Y19s',        memory: '256 GB', W10: 1099,    W11: 1199,    W12: 1399,    W13: null, W14: 1299 },
@@ -1774,7 +1774,7 @@ const SPECS = {
     ],
     priceRaw: [
       {col:'JOVI V70',      W10:3499, W11:3499},
-      {col:'Galaxy S25 FE', W10:3221, W11:2981},
+      {col:'Galaxy S25 FE', W10:3221, W11:3221},
       {col:'Oppo Reno 14F', W10:3699, W11:3699},
       {col:'Moto Edge 70',  W10:4499, W11:null},
     ],
@@ -1782,7 +1782,7 @@ const SPECS = {
       '📅 Launch':   ['Mar\'26','Sep\'25','Sep\'25','Mar\'26'],
       '💰 Price': [
         specPriceCell([{cfg:'8GB+256GB',W10:3499,W11:3499},{cfg:'8GB+512GB',W10:3999,W11:3999}]),
-        specPriceCell([{cfg:'8GB+128GB',W10:3221,W11:2981}]),
+        specPriceCell([{cfg:'8GB+128GB',W10:3221,W11:3221}]),
         specPriceCell([{cfg:'12GB+256GB',W10:3699,W11:3699}]),
         specPriceCell([{cfg:'8GB+256GB',W10:4499,W11:null},{cfg:'12GB+512GB',W10:4999,W11:null}]),
       ],
@@ -1879,7 +1879,7 @@ const SPECS = {
       { label:'MOTO G56 5G', cls:'col-moto'    },
     ],
     priceRaw: [
-      {col:'JOVI Y29',      W10:1599, W11:1599},
+      {col:'JOVI Y29',      W10:1399, W11:1599},
       {col:'Galaxy A26', W10:1899, W11:1899},
       {col:'OPPO A60',      W10:1699, W11:1609},
       {col:'MOTO G56 5G',   W10:1599, W11:1899},
@@ -1887,7 +1887,7 @@ const SPECS = {
     rows: {
       '📅 Launch':   ['Jun\'25','Mar\'25','Mar\'25','Aug\'25'],
       '💰 Price': [
-        specPriceCell([{cfg:'8GB+256GB',W10:1599,W11:1599}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:1399,W11:1599}]),
         specPriceCell([{cfg:'8GB+256GB',W10:1899,W11:1899}]),
         specPriceCell([{cfg:'8GB+256GB',W10:1699,W11:1609}]),
         specPriceCell([{cfg:'8GB+256GB',W10:1599,W11:1899}]),
