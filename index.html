@@ -403,7 +403,7 @@ table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700
       <div class="on-logo-label">Online ASP Price Monitoring</div>
       <div class="on-logo-title">Online Price <em>Monitoring</em></div>
     </div>
-    <div class="week-chip">W08 – W17 · 2026</div>
+    <div class="week-chip">W08 – W18 · 2026</div>
   </div>
 
   <div class="on-stats" style="display:grid;grid-template-columns:repeat(5,1fr);background:var(--surface);border-bottom:1px solid var(--border)">
@@ -558,22 +558,22 @@ table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700
       <h2 class="off-h2">Casas <span>Bahia</span></h2>
     </div>
     <div class="off-meta">
-      <span class="off-date">W17 · 04/27/2026</span>
+      <span class="off-date">W18 · 05/04/2026</span>
     </div>
   </header>
 
   <div class="off-stats-bar">
     <div class="off-stat"><div class="off-stat-label">Models monitored</div><div class="off-stat-value cyan" id="off-stat-total">36</div></div>
     <div class="off-stat"><div class="off-stat-label">Brands</div><div class="off-stat-value" id="off-stat-brands">6</div></div>
-    <div class="off-stat"><div class="off-stat-label">Lowest price W17</div><div class="off-stat-value cyan" id="off-stat-min">—</div></div>
-    <div class="off-stat"><div class="off-stat-label">Highest price W17</div><div class="off-stat-value orange" id="off-stat-max">—</div></div>
-    <div class="off-stat"><div class="off-stat-label">Avg. ticket W17</div><div class="off-stat-value purple" id="off-stat-avg">—</div></div>
+    <div class="off-stat"><div class="off-stat-label">Lowest price W18</div><div class="off-stat-value cyan" id="off-stat-min">—</div></div>
+    <div class="off-stat"><div class="off-stat-label">Highest price W18</div><div class="off-stat-value orange" id="off-stat-max">—</div></div>
+    <div class="off-stat"><div class="off-stat-label">Avg. ticket W18</div><div class="off-stat-value purple" id="off-stat-avg">—</div></div>
   </div>
 
   <!-- Unified sticky bar: tabs + shared filters -->
   <div class="off-filterbar">
     <div class="on-nav-tabs" style="border-right:1px solid var(--border)">
-      <button class="on-nav-tab on" id="off-tab-evolution" onclick="offGoTo('evolution')" style="font-family:'Plus Jakarta Sans',sans-serif">📈 W16 → W17</button>
+      <button class="on-nav-tab on" id="off-tab-evolution" onclick="offGoTo('evolution')" style="font-family:'Plus Jakarta Sans',sans-serif">📈 W17 → W18</button>
       <button class="on-nav-tab"    id="off-tab-prices"    onclick="offGoTo('prices')"   style="font-family:'Plus Jakarta Sans',sans-serif">📉 Weekly Evolution</button>
       <button class="on-nav-tab"    id="off-tab-specs"     onclick="offGoTo('specs')"    style="font-family:'Plus Jakarta Sans',sans-serif">📋 Specs</button>
     </div>
@@ -635,7 +635,7 @@ table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700
     <div style="padding:16px 36px 24px">
       <div class="on-card" style="margin-bottom:16px">
         <div class="on-card-hd">
-          <div><div class="on-card-title">Weekly Price Evolution · Casas Bahia</div><div class="on-card-hint">W14 · W15 · W16 · W17 — use filtros para isolar modelos</div></div>
+          <div><div class="on-card-title">Weekly Price Evolution · Casas Bahia</div><div class="on-card-hint">W15 · W16 · W17 · W18 — use filtros para isolar modelos</div></div>
         </div>
         <div id="off-weekly-legend" class="on-legend-grid" style="margin-bottom:12px"></div>
         <svg id="off-weekly-svg" style="width:100%;overflow:visible;display:block;"></svg>
@@ -647,13 +647,13 @@ table.on-t .on-grp-hd td { padding:14px 8px 7px; font-size:12px; font-weight:700
     </div>
   </div>
 
-  <!-- EVOLUTION W16→W17 -->
+  <!-- EVOLUTION W17→W18 -->
   <div id="off-sec-evolution">
     <div style="padding:24px 36px">
       <div id="off-evo-insights" class="on-insight-strip" style="margin-bottom:28px"></div>
       <div style="display:grid;grid-template-columns:1fr 280px;gap:28px;align-items:start">
         <div class="off-chart-section">
-          <div class="off-chart-title" id="off-evo-chart-title">Price Variation W16 → W17</div>
+          <div class="off-chart-title" id="off-evo-chart-title">Price Variation W17 → W18</div>
           <div id="off-evo-chart"></div>
         </div>
         <div class="off-chart-section">
@@ -1309,98 +1309,101 @@ function chRenderWeekChart() {
 ══════════════════════════════════ */
 const offData = [
   // R$6k+ — W10 only (not found in W11)
-  { tier: 'R$6k+', brand: 'Apple',    model: 'iPhone 17 Pro',   memory: '256 GB', W10: 11499,   W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$6k+', brand: 'Apple',    model: 'iPhone 17 Pro',   memory: '512 GB', W10: 13999,   W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$6k+',     brand: 'Apple',    model: 'iPhone 17',       memory: '128 GB', W10: null,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:7999},
-  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 17e',      memory: '256 GB', W10: null,    W11: null,    W12: 5899,    W13: null, W14: null , W15:5799, W16:5799, W17:5799},
-  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 17e',      memory: '512 GB', W10: null,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$6k+', brand: 'Apple',    model: 'iPhone 17',       memory: '256 GB', W10: 7999,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$6k+', brand: 'Apple',    model: 'iPhone 17',       memory: '512 GB', W10: null,    W11: 9796,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null},
+  { tier: 'R$6k+', brand: 'Apple',    model: 'iPhone 17 Pro',   memory: '256 GB', W10: 11499,   W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
+  { tier: 'R$6k+', brand: 'Apple',    model: 'iPhone 17 Pro',   memory: '512 GB', W10: 13999,   W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
+  { tier: 'R$6k+',     brand: 'Apple',    model: 'iPhone 17',       memory: '128 GB', W10: null,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:7999, W18:7999},
+  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 17e',      memory: '256 GB', W10: null,    W11: null,    W12: 5899,    W13: null, W14: null , W15:5799, W16:5799, W17:5799, W18:null},
+  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 17e',      memory: '512 GB', W10: null,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
+  { tier: 'R$6k+', brand: 'Apple',    model: 'iPhone 17',       memory: '256 GB', W10: 7999,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
+  { tier: 'R$6k+', brand: 'Apple',    model: 'iPhone 17',       memory: '512 GB', W10: null,    W11: 9796,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
   // R$2.5k–6k
-  { tier: 'R$2.5k–6k', brand: 'JOVI',     model: 'JOVI V70',        memory: '256 GB', W10: 3499,    W11: 3499,    W12: 3499,    W13: 3499, W14: 3499 , W15:3499, W16:3299, W17:3299},
-  { tier: 'R$2.5k–6k', brand: 'JOVI',     model: 'JOVI V70',        memory: '512 GB', W10: 3999,    W11: 3999,    W12: 3999,    W13: 3999, W14: 3999 , W15:3999, W16:3799, W17:3799},
-  { tier: 'R$2.5k–6k', brand: 'JOVI',     model: 'JOVI V50',        memory: '512 GB', W10: null,    W11: 3999,    W12: 3999,    W13: null, W14: 3999 , W15:3999, W16:3999, W17:3999},
-  { tier: 'R$2.5k–6k', brand: 'JOVI',     model: 'JOVI V50 Lite',   memory: '256 GB', W10: null,    W11: 2699,    W12: 2699,    W13: null, W14: 2699 , W15:2699, W16:2699, W17:2699},
-  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 16e',      memory: '128 GB', W10: null,    W11: 3899,    W12: null,    W13: null, W14: 4499 , W15:4499, W16:4499, W17:4499},
-  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 16e',      memory: '256 GB', W10: 4499,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 16',       memory: '128 GB', W10: null,    W11: 5199,    W12: 5499,    W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 15',       memory: '128 GB', W10: 4899,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 14',       memory: '128 GB', W10: null,    W11: 4639,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S25 FE',   memory: '128 GB', W10: 3199,    W11: 2999,    W12: 3221,    W13: 3221, W14: 3221 , W15:3221, W16:null, W17:3332},
-  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S25 FE',   memory: '256 GB', W10: 3799,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:4443},
-  { tier: 'R$6k+',     brand: 'Samsung',  model: 'Galaxy S26',       memory: '256 GB', W10: null,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:7499},
-  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy A56',      memory: '128 GB', W10: 2199,    W11: 2369,    W12: 2399,    W13: null, W14: 2399 , W15:2399, W16:null, W17:1999},
-  { tier: 'R$2k-3k',   brand: 'Samsung',  model: 'Galaxy A56',      memory: '256 GB', W10: 2799,    W11: 2799,    W12: 2599,    W13: null, W14: 2399 , W15:2399, W16:2399, W17:2299},
-  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S25',      memory: '256 GB', W10: 4799,    W11: null,    W12: 4332,    W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S24',      memory: '128 GB', W10: 3099,    W11: 2889,    W12: 2999,    W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S24',      memory: '256 GB', W10: 5157,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null},
+  { tier: 'R$2.5k–6k', brand: 'JOVI',     model: 'JOVI V70',        memory: '256 GB', W10: 3499,    W11: 3499,    W12: 3499,    W13: 3499, W14: 3499 , W15:3499, W16:3299, W17:3299, W18:3299},
+  { tier: 'R$2.5k–6k', brand: 'JOVI',     model: 'JOVI V70',        memory: '512 GB', W10: 3999,    W11: 3999,    W12: 3999,    W13: 3999, W14: 3999 , W15:3999, W16:3799, W17:3799, W18:3799},
+  { tier: 'R$2.5k–6k', brand: 'JOVI',     model: 'JOVI V50',        memory: '512 GB', W10: null,    W11: 3999,    W12: 3999,    W13: null, W14: 3999 , W15:3999, W16:3999, W17:3999, W18:3999},
+  { tier: 'R$2.5k–6k', brand: 'JOVI',     model: 'JOVI V50 Lite',   memory: '256 GB', W10: null,    W11: 2699,    W12: 2699,    W13: null, W14: 2699 , W15:2699, W16:2699, W17:2699, W18:2699},
+  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 16e',      memory: '128 GB', W10: null,    W11: 3899,    W12: null,    W13: null, W14: 4499 , W15:4499, W16:4499, W17:4499, W18:4499},
+  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 16e',      memory: '256 GB', W10: 4499,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
+  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 16',       memory: '128 GB', W10: null,    W11: 5199,    W12: 5499,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
+  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 15',       memory: '128 GB', W10: 4899,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
+  { tier: 'R$2.5k–6k', brand: 'Apple',    model: 'iPhone 14',       memory: '128 GB', W10: null,    W11: 4639,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
+  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S25 FE',   memory: '128 GB', W10: 3199,    W11: 2999,    W12: 3221,    W13: 3221, W14: 3221 , W15:3221, W16:null, W17:3332, W18:3332},
+  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S25 FE',   memory: '256 GB', W10: 3799,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:4443, W18:4443},
+  { tier: 'R$6k+',     brand: 'Samsung',  model: 'Galaxy S26',       memory: '256 GB', W10: null,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:7499, W18:7499},
+  { tier: 'R$6k+',     brand: 'Samsung',  model: 'Galaxy S26 Ultra', memory: '256 GB', W10: null,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:11499},
+  { tier: 'R$6k+',     brand: 'Samsung',  model: 'Galaxy S26+',      memory: '256 GB', W10: null,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:9199},
+  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy A56',      memory: '128 GB', W10: 2199,    W11: 2369,    W12: 2399,    W13: null, W14: 2399 , W15:2399, W16:null, W17:1999, W18:1999},
+  { tier: 'R$2k-3k',   brand: 'Samsung',  model: 'Galaxy A56',      memory: '256 GB', W10: 2799,    W11: 2799,    W12: 2599,    W13: null, W14: 2399 , W15:2399, W16:2399, W17:2299, W18:2299},
+  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S25',      memory: '256 GB', W10: 4799,    W11: null,    W12: 4332,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:4443},
+  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S24',      memory: '128 GB', W10: 3099,    W11: 2889,    W12: 2999,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
+  { tier: 'R$2.5k–6k', brand: 'Samsung',  model: 'Galaxy S24',      memory: '256 GB', W10: 5157,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
   
-  { tier: 'R$2.5k–6k', brand: 'OPPO',     model: 'Reno 14F',        memory: '256 GB', W10: 3499,    W11: 3699,    W12: 3499,    W13: 3699, W14: 3699 , W15:3699, W16:3699, W17:3299},
-  { tier: 'R$2.5k–6k', brand: 'OPPO',     model: 'Reno 13',         memory: '512 GB', W10: 4298,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$2.5k–6k', brand: 'OPPO',     model: 'Reno 13F',        memory: '256 GB', W10: 2999,    W11: 2999,    W12: 2999,    W13: 2999, W14: 2999 , W15:2999, W16:2999, W17:2999},
-  { tier: 'R$2.5k–6k', brand: 'OPPO',     model: 'A5 Pro',          memory: '256 GB', W10: 2899,    W11: 2699,    W12: 2499,    W13: null, W14: 2779 , W15:2779, W16:2779, W17:2699},
-  { tier: 'R$2.5k–6k', brand: 'Motorola', model: 'Edge 60 Pro',     memory: '256 GB', W10: 3499,    W11: 3499,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$2k-3k',   brand: 'Motorola', model: 'Edge 60 Fusion',  memory: '256 GB', W10: 2399,    W11: 2399,    W12: 2399,    W13: null, W14: null , W15:null, W16:2499, W17:null},
-  { tier: 'R$2k-3k',   brand: 'Motorola', model: 'Moto G77 5G',     memory: '256 GB', W10: 2499,    W11: 2499,    W12: null,    W13: null, W14: 2299 , W15:2299, W16:2299, W17:2299},
-  { tier: 'R$1.5k-2k',  brand: 'Motorola', model: 'Moto G67 5G',   memory: '256 GB', W10: 1999,    W11: 1999,    W12: null,    W13: null, W14: null , W15:null, W16:1899, W17:1899},
-  { tier: 'R$1.5k-2k',  brand: 'Motorola', model: 'Moto G67 5G',   memory: '128 GB', W10: null,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:1699},
-  { tier: 'R$2k-3k',   brand: 'Motorola', model: 'Moto G86',        memory: '512 GB', W10: 3099,    W11: 3189,    W12: null,    W13: 2199, W14: 2499 , W15:2499, W16:2499, W17:2599},
+  { tier: 'R$2.5k–6k', brand: 'OPPO',     model: 'Reno 14F',        memory: '256 GB', W10: 3499,    W11: 3699,    W12: 3499,    W13: 3699, W14: 3699 , W15:3699, W16:3699, W17:3299, W18:3699},
+  { tier: 'R$2.5k–6k', brand: 'OPPO',     model: 'Reno 13',         memory: '512 GB', W10: 4298,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
+  { tier: 'R$2.5k–6k', brand: 'OPPO',     model: 'Reno 13F',        memory: '256 GB', W10: 2999,    W11: 2999,    W12: 2999,    W13: 2999, W14: 2999 , W15:2999, W16:2999, W17:2999, W18:2999},
+  { tier: 'R$2.5k–6k', brand: 'OPPO',     model: 'A5 Pro',          memory: '256 GB', W10: 2899,    W11: 2699,    W12: 2499,    W13: null, W14: 2779 , W15:2779, W16:2779, W17:2699, W18:2699},
+  { tier: 'R$2.5k–6k', brand: 'Motorola', model: 'Edge 60 Pro',     memory: '256 GB', W10: 3499,    W11: 3499,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:3799},
+  { tier: 'R$2k-3k',   brand: 'Motorola', model: 'Edge 60 Fusion',  memory: '256 GB', W10: 2399,    W11: 2399,    W12: 2399,    W13: null, W14: null , W15:null, W16:2499, W17:null, W18:2499},
+  { tier: 'R$2k-3k',   brand: 'Motorola', model: 'Edge 70 Fusion',  memory: '256 GB', W10: null,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:2999},
+  { tier: 'R$2k-3k',   brand: 'Motorola', model: 'Moto G77 5G',     memory: '256 GB', W10: 2499,    W11: 2499,    W12: null,    W13: null, W14: 2299 , W15:2299, W16:2299, W17:2299, W18:2299},
+  { tier: 'R$1.5k-2k',  brand: 'Motorola', model: 'Moto G67 5G',   memory: '256 GB', W10: 1999,    W11: 1999,    W12: null,    W13: null, W14: null , W15:null, W16:1899, W17:1899, W18:1899},
+  { tier: 'R$1.5k-2k',  brand: 'Motorola', model: 'Moto G67 5G',   memory: '128 GB', W10: null,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:1699, W18:1699},
+  { tier: 'R$2k-3k',   brand: 'Motorola', model: 'Moto G86',        memory: '512 GB', W10: 3099,    W11: 3189,    W12: null,    W13: 2199, W14: 2499 , W15:2499, W16:2499, W17:2599, W18:2599},
   // R$1.5k–2.5k
-  { tier: 'R$1.5k–2.5k', brand: 'JOVI',     model: 'JOVI Y31',       memory: '256 GB', W10: 1999,    W11: 1999,    W12: 2099,    W13: 1999, W14: 2099 , W15:2099, W16:1999, W17:1999},
-  { tier: 'R$2k-3k',     brand: 'JOVI',     model: 'JOVI Y31',       memory: '512 GB', W10: null,    W11: null,    W12: 2799,    W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$1.5k–2.5k', brand: 'JOVI',     model: 'JOVI Y29s',      memory: '256 GB', W10: 1999,    W11: 1999,    W12: 1999,    W13: 1699, W14: 1699 , W15:1699, W16:1699, W17:1699},
-  { tier: 'R$1.5k-2k',   brand: 'JOVI',     model: 'JOVI Y21 5G',    memory: '256 GB', W10: null,    W11: 1899,    W12: null,    W13: null, W14: null , W15:null, W16:1899, W17:1899},
-  { tier: 'R$1.5k–2.5k', brand: 'Samsung',  model: 'Galaxy A17 5G',  memory: '128 GB', W10: 1599,    W11: 1599,    W12: 1599,    W13: 1599, W14: 1299 , W15:1299, W16:1299, W17:1332},
-  { tier: 'R$1k–1.5k',   brand: 'Samsung',  model: 'Galaxy A17',     memory: '128 GB', W10: null,    W11: 1099,    W12: 1299,    W13: 1399, W14: 999 , W15:999, W16:999, W17:999},
-  { tier: 'R$1k-1.5k',   brand: 'Samsung',  model: 'Galaxy A17',     memory: '256 GB', W10: null,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:1299},
-  { tier: 'R$2k-3k',      brand: 'Samsung',  model: 'Galaxy A36',    memory: '256 GB', W10: 2499,    W11: 2099,    W12: 2016,    W13: 1899, W14: 2099 , W15:2099, W16:2099, W17:1899},
-  { tier: 'R$2k-3k',      brand: 'Samsung',  model: 'Galaxy A26',    memory: '256 GB', W10: 2099,    W11: 2099,    W12: 1899,    W13: 1899, W14: 1899 , W15:1899, W16:1999, W17:1999},
-  { tier: 'R$1.5k–2.5k', brand: 'OPPO',     model: 'OPPO A5 4G',     memory: '256 GB', W10: 1499,    W11: 1499,    W12: 1499,    W13: 1499, W14: 1499 , W15:1499, W16:1499, W17:1499},
-  { tier: 'R$2k-3k',      brand: 'OPPO',     model: 'OPPO A5 5G',    memory: '256 GB',     W10: 2299,    W11: 2299,    W12: 1999,    W13: 1999, W14: 1999 , W15:1999, W16:1999, W17:1899},
-  { tier: 'R$1.5k–2.5k', brand: 'OPPO',     model: 'OPPO A60',       memory: '256 GB', W10: 1899,    W11: 1899,    W12: 1699,    W13: 1699, W14: 1699 , W15:1699, W16:1699, W17:1699},
-  { tier: 'R$1.5k–2.5k', brand: 'Motorola', model: 'Moto G56',       memory: '256 GB', W10: 2080,    W11: 1749,    W12: 1699,    W13: 1599, W14: 1899 , W15:1899, W16:1899, W17:1899},
-  { tier: 'R$1.5k–2.5k', brand: 'Motorola', model: 'Moto G75',       memory: '256 GB', W10: 2203,    W11: null,    W12: 1799,    W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$1.5k–2.5k', brand: 'Motorola', model: 'Edge 50 Neo',    memory: '256 GB', W10: null,    W11: 1999,    W12: 1999,    W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$1.5k–2.5k', brand: 'Motorola', model: 'Moto G86',       memory: '256 GB', W10: null,    W11: 1999,    W12: null,    W13: 1999, W14: 2199 , W15:2199, W16:2199, W17:2199},
+  { tier: 'R$1.5k–2.5k', brand: 'JOVI',     model: 'JOVI Y31',       memory: '256 GB', W10: 1999,    W11: 1999,    W12: 2099,    W13: 1999, W14: 2099 , W15:2099, W16:1999, W17:1999, W18:1999},
+  { tier: 'R$2k-3k',     brand: 'JOVI',     model: 'JOVI Y31',       memory: '512 GB', W10: null,    W11: null,    W12: 2799,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
+  { tier: 'R$1.5k–2.5k', brand: 'JOVI',     model: 'JOVI Y29s',      memory: '256 GB', W10: 1999,    W11: 1999,    W12: 1999,    W13: 1699, W14: 1699 , W15:1699, W16:1699, W17:1699, W18:1699},
+  { tier: 'R$1.5k-2k',   brand: 'JOVI',     model: 'JOVI Y21 5G',    memory: '256 GB', W10: null,    W11: 1899,    W12: null,    W13: null, W14: null , W15:null, W16:1899, W17:1899, W18:null},
+  { tier: 'R$1.5k–2.5k', brand: 'Samsung',  model: 'Galaxy A17 5G',  memory: '128 GB', W10: 1599,    W11: 1599,    W12: 1599,    W13: 1599, W14: 1299 , W15:1299, W16:1299, W17:1332, W18:1332},
+  { tier: 'R$1k–1.5k',   brand: 'Samsung',  model: 'Galaxy A17',     memory: '128 GB', W10: null,    W11: 1099,    W12: 1299,    W13: 1399, W14: 999 , W15:999, W16:999, W17:999, W18:999},
+  { tier: 'R$1k-1.5k',   brand: 'Samsung',  model: 'Galaxy A17',     memory: '256 GB', W10: null,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:1299, W18:1299},
+  { tier: 'R$2k-3k',      brand: 'Samsung',  model: 'Galaxy A36',    memory: '256 GB', W10: 2499,    W11: 2099,    W12: 2016,    W13: 1899, W14: 2099 , W15:2099, W16:2099, W17:1899, W18:1888},
+  { tier: 'R$2k-3k',      brand: 'Samsung',  model: 'Galaxy A26',    memory: '256 GB', W10: 2099,    W11: 2099,    W12: 1899,    W13: 1899, W14: 1899 , W15:1899, W16:1999, W17:1999, W18:1999},
+  { tier: 'R$1.5k–2.5k', brand: 'OPPO',     model: 'OPPO A5 4G',     memory: '256 GB', W10: 1499,    W11: 1499,    W12: 1499,    W13: 1499, W14: 1499 , W15:1499, W16:1499, W17:1499, W18:1499},
+  { tier: 'R$2k-3k',      brand: 'OPPO',     model: 'OPPO A5 5G',    memory: '256 GB',     W10: 2299,    W11: 2299,    W12: 1999,    W13: 1999, W14: 1999 , W15:1999, W16:1999, W17:1899, W18:null},
+  { tier: 'R$1.5k–2.5k', brand: 'OPPO',     model: 'OPPO A60',       memory: '256 GB', W10: 1899,    W11: 1899,    W12: 1699,    W13: 1699, W14: 1699 , W15:1699, W16:1699, W17:1699, W18:1699},
+  { tier: 'R$1.5k–2.5k', brand: 'Motorola', model: 'Moto G56',       memory: '256 GB', W10: 2080,    W11: 1749,    W12: 1699,    W13: 1599, W14: 1899 , W15:1899, W16:1899, W17:1899, W18:1899},
+  { tier: 'R$1.5k–2.5k', brand: 'Motorola', model: 'Moto G75',       memory: '256 GB', W10: 2203,    W11: null,    W12: 1799,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
+  { tier: 'R$1.5k–2.5k', brand: 'Motorola', model: 'Edge 50 Neo',    memory: '256 GB', W10: null,    W11: 1999,    W12: 1999,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
+  { tier: 'R$1.5k–2.5k', brand: 'Motorola', model: 'Moto G86',       memory: '256 GB', W10: null,    W11: 1999,    W12: null,    W13: 1999, W14: 2199 , W15:2199, W16:2199, W17:2199, W18:2199},
   
   // R$1k–1.5k
-  { tier: 'R$1.5k–2.5k', brand: 'JOVI',   model: 'JOVI Y29',         memory: '256 GB', W10: 1599,    W11: 1599,    W12: 1599,    W13: 1399, W14: 1599 , W15:1599, W16:1599, W17:1599},
-  { tier: 'R$1k–1.5k', brand: 'JOVI',     model: 'JOVI Y21',         memory: '128 GB', W10: 1299,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$1.5k-2k', brand: 'JOVI',     model: 'JOVI Y21 4G',      memory: '256 GB', W10: null,    W11: null,    W12: 1599,    W13: null, W14: null , W15:1599, W16:1499, W17:1499},
-  { tier: 'R$1k–1.5k', brand: 'JOVI',     model: 'JOVI Y19s',        memory: '256 GB', W10: 1099,    W11: 1199,    W12: 1399,    W13: null, W14: 1299 , W15:1299, W16:1299, W17:1299},
-  { tier: 'R$1k–1.5k', brand: 'Samsung',  model: 'Galaxy A07',       memory: '256 GB', W10: 1100,    W11: 1100,    W12: 1099,    W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$1k-1.5k', brand: 'OPPO',     model: 'OPPO A6x 4G',      memory: '128 GB', W10: null,    W11: null,    W12: 1199,    W13: 1199, W14: 1199 , W15:1199, W16:1199, W17:1199},
-  { tier: 'R$1k-1.5k', brand: 'OPPO',     model: 'OPPO A6s',         memory: '256 GB', W10: null,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:1999, W17:1999},
-  { tier: 'R$1.5k-2k', brand: 'OPPO',     model: 'OPPO A6x 5G',      memory: '256 GB', W10: null,    W11: null,    W12: 1899,    W13: null, W14: null , W15:null, W16:null, W17:null},
+  { tier: 'R$1.5k–2.5k', brand: 'JOVI',   model: 'JOVI Y29',         memory: '256 GB', W10: 1599,    W11: 1599,    W12: 1599,    W13: 1399, W14: 1599 , W15:1599, W16:1599, W17:1599, W18:1599},
+  { tier: 'R$1k–1.5k', brand: 'JOVI',     model: 'JOVI Y21',         memory: '128 GB', W10: 1299,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
+  { tier: 'R$1.5k-2k', brand: 'JOVI',     model: 'JOVI Y21 4G',      memory: '256 GB', W10: null,    W11: null,    W12: 1599,    W13: null, W14: null , W15:1599, W16:1499, W17:1499, W18:1499},
+  { tier: 'R$1k–1.5k', brand: 'JOVI',     model: 'JOVI Y19s',        memory: '256 GB', W10: 1099,    W11: 1199,    W12: 1399,    W13: null, W14: 1299 , W15:1299, W16:1299, W17:1299, W18:1299},
+  { tier: 'R$1k–1.5k', brand: 'Samsung',  model: 'Galaxy A07',       memory: '256 GB', W10: 1100,    W11: 1100,    W12: 1099,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:1099},
+  { tier: 'R$1k-1.5k', brand: 'OPPO',     model: 'OPPO A6x 4G',      memory: '128 GB', W10: null,    W11: null,    W12: 1199,    W13: 1199, W14: 1199 , W15:1199, W16:1199, W17:1199, W18:1199},
+  { tier: 'R$1k-1.5k', brand: 'OPPO',     model: 'OPPO A6s',         memory: '256 GB', W10: null,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:1999, W17:1999, W18:null},
+  { tier: 'R$1.5k-2k', brand: 'OPPO',     model: 'OPPO A6x 5G',      memory: '256 GB', W10: null,    W11: null,    W12: 1899,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
   
-  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G06',         memory: '256 GB', W10: 799,     W11: null,    W12: 899,     W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G06',         memory: '128 GB', W10: null,    W11: 699,     W12: 799,     W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G15',         memory: '256 GB', W10: 1223,    W11: 999,     W12: 999,     W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G17 4G',      memory: '128 GB', W10: 1299,    W11: 1299,    W12: 1299,    W13: 1299, W14: 1199 , W15:1199, W16:1099, W17:1099},
-  { tier: 'R$1.5k-2k',  brand: 'Motorola', model: 'Moto G17 4G',    memory: '256 GB', W10: 1499,    W11: 1499,    W12: null,    W13: 1499, W14: 1499 , W15:1499, W16:1499, W17:1099},
-  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G35',         memory: '256 GB', W10: 1199,    W11: 1199,    W12: 1199,    W13: 1199, W14: 1199 , W15:1199, W16:1499, W17:1499},
-  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G35',         memory: '128 GB', W10: null,    W11: null,    W12: null,    W13: 1099, W14: 1099 , W15:1099, W16:1099, W17:1099},
-  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G55',         memory: '256 GB', W10: 1399,    W11: 1439,    W12: 1399,    W13: null, W14: null , W15:null, W16:null, W17:null},
+  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G06',         memory: '256 GB', W10: 799,     W11: null,    W12: 899,     W13: null, W14: null , W15:null, W16:null, W17:null, W18:899},
+  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G06',         memory: '128 GB', W10: null,    W11: 699,     W12: 799,     W13: null, W14: null , W15:null, W16:null, W17:null, W18:799},
+  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G15',         memory: '256 GB', W10: 1223,    W11: 999,     W12: 999,     W13: null, W14: null , W15:null, W16:null, W17:null, W18:1099},
+  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G17 4G',      memory: '128 GB', W10: 1299,    W11: 1299,    W12: 1299,    W13: 1299, W14: 1199 , W15:1199, W16:1099, W17:1099, W18:1099},
+  { tier: 'R$1.5k-2k',  brand: 'Motorola', model: 'Moto G17 4G',    memory: '256 GB', W10: 1499,    W11: 1499,    W12: null,    W13: 1499, W14: 1499 , W15:1499, W16:1499, W17:1099, W18:1199},
+  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G35',         memory: '256 GB', W10: 1199,    W11: 1199,    W12: 1199,    W13: 1199, W14: 1199 , W15:1199, W16:1499, W17:1499, W18:1499},
+  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G35',         memory: '128 GB', W10: null,    W11: null,    W12: null,    W13: 1099, W14: 1099 , W15:1099, W16:1099, W17:1099, W18:1099},
+  { tier: 'R$1k–1.5k', brand: 'Motorola', model: 'Moto G55',         memory: '256 GB', W10: 1399,    W11: 1439,    W12: 1399,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
   // W12 new models
-  { tier: 'R$1k-1.5k',   brand: 'Samsung',  model: 'Galaxy A07',     memory: '128 GB', W10: null,    W11: null,    W12: 799,     W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$1k-1.5k',   brand: 'Samsung',  model: 'Galaxy A16 5G',  memory: '128 GB', W10: null,    W11: null,    W12: 1332,    W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$1.5k-2k',   brand: 'Samsung',  model: 'Galaxy A35',     memory: '128 GB', W10: null,    W11: null,    W12: 1899,    W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$1.5k-2k',   brand: 'Samsung',  model: 'Galaxy A36',     memory: '128 GB', W10: null,    W11: null,    W12: 1999,    W13: 1799, W14: 1799 , W15:1799, W16:1899, W17:1599},
-  { tier: 'R$2k-3k',     brand: 'Samsung',  model: 'Galaxy A55',     memory: '128 GB', W10: null,    W11: null,    W12: 2399,    W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$2k-3k',     brand: 'Samsung',  model: 'Galaxy A55',     memory: '256 GB', W10: null,    W11: null,    W12: 2799,    W13: null, W14: null , W15:null, W16:null, W17:null},
+  { tier: 'R$1k-1.5k',   brand: 'Samsung',  model: 'Galaxy A07',     memory: '128 GB', W10: null,    W11: null,    W12: 799,     W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
+  { tier: 'R$1k-1.5k',   brand: 'Samsung',  model: 'Galaxy A16 5G',  memory: '128 GB', W10: null,    W11: null,    W12: 1332,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:1199},
+  { tier: 'R$1.5k-2k',   brand: 'Samsung',  model: 'Galaxy A35',     memory: '128 GB', W10: null,    W11: null,    W12: 1899,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
+  { tier: 'R$1.5k-2k',   brand: 'Samsung',  model: 'Galaxy A36',     memory: '128 GB', W10: null,    W11: null,    W12: 1999,    W13: 1799, W14: 1799 , W15:1799, W16:1899, W17:1599, W18:1599},
+  { tier: 'R$2k-3k',     brand: 'Samsung',  model: 'Galaxy A55',     memory: '128 GB', W10: null,    W11: null,    W12: 2399,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
+  { tier: 'R$2k-3k',     brand: 'Samsung',  model: 'Galaxy A55',     memory: '256 GB', W10: null,    W11: null,    W12: 2799,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
   // W13 new Samsung
-  { tier: 'R$1k-1.5k',   brand: 'Samsung',  model: 'Galaxy A17 5G',  memory: '256 GB', W10: null,    W11: null,    W12: null,    W13: 1599, W14: 1599 , W15:1599, W16:1599, W17:1599},
-  { tier: 'R$1.5k-2k',   brand: 'Samsung',  model: 'Galaxy A17 4G',  memory: '256 GB', W10: null,    W11: null,    W12: null,    W13: 1399, W14: 1399 , W15:1399, W16:1399, W17:1299},
+  { tier: 'R$1k-1.5k',   brand: 'Samsung',  model: 'Galaxy A17 5G',  memory: '256 GB', W10: null,    W11: null,    W12: null,    W13: 1599, W14: 1599 , W15:1599, W16:1599, W17:1599, W18:1599},
+  { tier: 'R$1.5k-2k',   brand: 'Samsung',  model: 'Galaxy A17 4G',  memory: '256 GB', W10: null,    W11: null,    W12: null,    W13: 1399, W14: 1399 , W15:1399, W16:1399, W17:1299, W18:1299},
   // W13 new Motorola
-  { tier: 'R$1k-1.5k',   brand: 'Motorola', model: 'Moto G05',       memory: '256 GB', W10: null,    W11: null,    W12: 899,     W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$1k-1.5k',   brand: 'Motorola', model: 'Moto G54',       memory: '256 GB', W10: null,    W11: null,    W12: 1049,    W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$1.5k-2k',   brand: 'Motorola', model: 'Edge 50 Fusion', memory: '256 GB', W10: null,    W11: null,    W12: 1799,    W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$3k-6k',     brand: 'Apple',    model: 'iPhone 16',      memory: '256 GB', W10: null,    W11: null,    W12: 5699,    W13: null, W14: null , W15:null, W16:null, W17:null},
-  { tier: 'R$2.5k–6k', brand: 'Motorola', model: 'Edge 70',          memory: '256 GB', W10: null,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:4499, W17:3999},
-  { tier: 'R$2.5k–6k', brand: 'Motorola', model: 'Edge 70', memory: '512 GB', W10: null,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:4999, W17:4999},
+  { tier: 'R$1k-1.5k',   brand: 'Motorola', model: 'Moto G05',       memory: '256 GB', W10: null,    W11: null,    W12: 899,     W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
+  { tier: 'R$1k-1.5k',   brand: 'Motorola', model: 'Moto G54',       memory: '256 GB', W10: null,    W11: null,    W12: 1049,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
+  { tier: 'R$1.5k-2k',   brand: 'Motorola', model: 'Edge 50 Fusion', memory: '256 GB', W10: null,    W11: null,    W12: 1799,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
+  { tier: 'R$3k-6k',     brand: 'Apple',    model: 'iPhone 16',      memory: '256 GB', W10: null,    W11: null,    W12: 5699,    W13: null, W14: null , W15:null, W16:null, W17:null, W18:null},
+  { tier: 'R$2.5k–6k', brand: 'Motorola', model: 'Edge 70',          memory: '256 GB', W10: null,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:4499, W17:3999, W18:3999},
+  { tier: 'R$2.5k–6k', brand: 'Motorola', model: 'Edge 70', memory: '512 GB', W10: null,    W11: null,    W12: null,    W13: null, W14: null , W15:null, W16:4999, W17:4999, W18:4999},
 ];
 // Add price field = W13 if available, else W12, else W11, else W10 (for price list view)
-offData.forEach(d => { d.price = d.W17 ?? d.W16 ?? d.W15 ?? d.W14; });
+offData.forEach(d => { d.price = d.W18 ?? d.W17 ?? d.W16 ?? d.W15; });
 const offBrandColors={Apple:'#e8a020',Samsung:'#7c3aed',Motorola:'#444444',OPPO:'#1aaa55',JOVI:'#1a3a6b'};
 const offBrands=[...new Set(offData.map(d=>d.brand))];
 // Recompute tiers from actual prices using new ranges
@@ -1414,7 +1417,7 @@ function getOffTier(p){
   if(p>=1000) return 'R$1k-1.5k';
   return 'Under R$1k';
 }
-offData.forEach(d=>{ const p=d.W17!=null?d.W17:d.W16!=null?d.W16:d.W15!=null?d.W15:d.W14!=null?d.W14:0; d.tier=getOffTier(p); });
+offData.forEach(d=>{ const p=d.W18!=null?d.W18:d.W17!=null?d.W17:d.W16!=null?d.W16:d.W15!=null?d.W15:0; d.tier=getOffTier(p); });
 const offTiers=[...new Set(offData.map(d=>d.tier))];
 const offTierLabels={'R$8k+':'🔴 Above R$8,000','R$6k-8k':'🟠 R$6.000 – R$8.000','R$3k-6k':'🟡 R$3.000 – R$6.000','R$2k-3k':'🟢 R$2.000 – R$3.000','R$1.5k-2k':'🔵 R$1.500 – R$2.000','R$1k-1.5k':'🟣 R$1.000 – R$1.500','Under R$1k':'⚪ Under R$1,000'};
 let offActiveBrands=new Set(offBrands);let offActiveTiers=new Set(offTiers);let offSortMode='brand';let offSortDir='asc';
@@ -1543,12 +1546,12 @@ function offSetSort(mode){
 
 function offMakeRow(item){
   const c=offBrandColors[item.brand]||'#888';
-  const w10cell = item.W16 ? `<span style="font-family:'JetBrains Mono',monospace">${offFmt(item.W17)}</span>` : `<span style="color:var(--muted)">—</span>`;
-  const w11cell = item.W17 ? `<span style="font-family:'JetBrains Mono',monospace;font-weight:700">${offFmt(item.W17)}</span>` : `<span style="color:var(--muted)">—</span>`;
+  const w10cell = item.W17 ? `<span style="font-family:'JetBrains Mono',monospace">${offFmt(item.W18)}</span>` : `<span style="color:var(--muted)">—</span>`;
+  const w11cell = item.W18 ? `<span style="font-family:'JetBrains Mono',monospace;font-weight:700">${offFmt(item.W18)}</span>` : `<span style="color:var(--muted)">—</span>`;
   let changeCell='<span style="color:var(--muted)">—</span>';
   let pctCell='<span style="color:var(--muted)">—</span>';
-  if(item.W16&&item.W17){
-    const diff=item.W17-item.W16, pct=(diff/item.W16*100);
+  if(item.W17&&item.W18){
+    const diff=item.W18-item.W17, pct=(diff/item.W17*100);
     const isPos=diff>0, isFlat=diff===0;
     const col=isFlat?'#9ca3af':isPos?'#ef4444':'#22c55e';
     const arrow=isFlat?'→':isPos?'▲':'▼';
@@ -1566,12 +1569,12 @@ function offRenderList(filtered){
   if(offSortMode==='price'){
     const sorted=[...filtered].sort((a,b)=>offSortDir==='asc'?a.price-b.price:b.price-a.price);
     const table=document.createElement('table');table.className='off-product-table';
-    table.innerHTML=`<thead><tr><th></th><th>Model</th><th>Memory</th><th>Price range</th><th style="text-align:right">W16</th><th style="text-align:right">W17</th><th style="text-align:right">CHANGE</th><th style="text-align:right">%</th></tr></thead>`;
+    table.innerHTML=`<thead><tr><th></th><th>Model</th><th>Memory</th><th>Price range</th><th style="text-align:right">W17</th><th style="text-align:right">W18</th><th style="text-align:right">CHANGE</th><th style="text-align:right">%</th></tr></thead>`;
     const tbody=document.createElement('tbody');sorted.forEach(item=>tbody.appendChild(offMakeRow(item)));table.appendChild(tbody);container.appendChild(table);
   }else if(offSortMode==='model'){
     const sorted=[...filtered].sort((a,b)=>a.model.localeCompare(b.model)||a.price-b.price);
     const table=document.createElement('table');table.className='off-product-table';
-    table.innerHTML=`<thead><tr><th></th><th>Model</th><th>Memory</th><th>Price range</th><th style="text-align:right">W16</th><th style="text-align:right">W17</th><th style="text-align:right">CHANGE</th><th style="text-align:right">%</th></tr></thead>`;
+    table.innerHTML=`<thead><tr><th></th><th>Model</th><th>Memory</th><th>Price range</th><th style="text-align:right">W17</th><th style="text-align:right">W18</th><th style="text-align:right">CHANGE</th><th style="text-align:right">%</th></tr></thead>`;
     const tbody=document.createElement('tbody');sorted.forEach(item=>tbody.appendChild(offMakeRow(item)));table.appendChild(tbody);container.appendChild(table);
   }else{
     offBrands.filter(b=>offActiveBrands.has(b)&&filtered.some(d=>d.brand===b)).forEach(brand=>{
@@ -1579,7 +1582,7 @@ function offRenderList(filtered){
       const c=offBrandColors[brand];const hdr=document.createElement('div');hdr.className='off-brand-group-header';hdr.style.color=c;
       hdr.innerHTML=`${brand} <span class="bgh-count">${bd.length} model${bd.length>1?'s':''}</span>`;container.appendChild(hdr);
       const table=document.createElement('table');table.className='off-product-table';
-      table.innerHTML=`<thead><tr><th></th><th>Model</th><th>Memory</th><th>Price range</th><th style="text-align:right">W16</th><th style="text-align:right">W17</th><th style="text-align:right">CHANGE</th><th style="text-align:right">%</th></tr></thead>`;
+      table.innerHTML=`<thead><tr><th></th><th>Model</th><th>Memory</th><th>Price range</th><th style="text-align:right">W17</th><th style="text-align:right">W18</th><th style="text-align:right">CHANGE</th><th style="text-align:right">%</th></tr></thead>`;
       const tbody=document.createElement('tbody');bd.forEach(item=>tbody.appendChild(offMakeRow(item)));table.appendChild(tbody);container.appendChild(table);
     });
   }
@@ -1601,7 +1604,7 @@ function offRender(){
   $('off-stat-total').textContent=filtered.length;
   $('off-stat-brands').textContent=new Set(filtered.map(d=>d.brand)).size;
   // Stats always based on W11 prices only
-  const w12prices=filtered.filter(d=>d.W17!=null).map(d=>d.W17);
+  const w12prices=filtered.filter(d=>d.W18!=null).map(d=>d.W18);
   if(w12prices.length){
     $('off-stat-min').textContent=offFmt(Math.min(...w12prices));
     $('off-stat-max').textContent=offFmt(Math.max(...w12prices));
@@ -1701,7 +1704,7 @@ function offGoTo(tab){
 }
 
 function offRenderWeekly(){
-  const WW=['W14','W15','W16','W17'];
+  const WW=['W15','W16','W17','W18'];
   const filtered=offData.filter(d=>offActiveBrands.has(d.brand)&&offActiveTiers.has(d.tier)&&offActiveSizes.has(d.memory)&&offActiveModels.has(d.model));
   const svg=$('off-weekly-svg'), leg=$('off-weekly-legend'), tbl=$('off-weekly-table');
   if(!filtered.length){if(svg)svg.innerHTML='';if(leg)leg.innerHTML='';if(tbl)tbl.innerHTML='<div class="on-empty">No data.</div>';return;}
@@ -1746,18 +1749,18 @@ function offRenderWeekly(){
 }
 function offRenderEvolution(){
   const filtered = offData.filter(d=>offActiveBrands.has(d.brand)&&offActiveTiers.has(d.tier));
-  const comparable = filtered.filter(d=>d.W17!=null);
-  const withBoth   = filtered.filter(d=>d.W16!=null&&d.W17!=null);
-  const allW12 = filtered.filter(d=>d.W17!=null);
-  const w12Only = filtered.filter(d=>d.W17!=null&&d.W16==null);
-  const w11Only = filtered.filter(d=>d.W16!=null&&d.W17==null);
+  const comparable = filtered.filter(d=>d.W18!=null);
+  const withBoth   = filtered.filter(d=>d.W17!=null&&d.W18!=null);
+  const allW12 = filtered.filter(d=>d.W18!=null);
+  const w12Only = filtered.filter(d=>d.W18!=null&&d.W17==null);
+  const w11Only = filtered.filter(d=>d.W17!=null&&d.W18==null);
 
   // KPI biggest rise/drop: always use FULL dataset regardless of filters
-  const allComparable = offData.filter(d=>d.W16!=null&&d.W17!=null);
-  const allMoves = allComparable.map(d=>({d, pct:(d.W17-d.W16)/d.W16*100, abs:d.W17-d.W16}));
+  const allComparable = offData.filter(d=>d.W17!=null&&d.W18!=null);
+  const allMoves = allComparable.map(d=>({d, pct:(d.W18-d.W17)/d.W17*100, abs:d.W18-d.W17}));
 
   // ── KPI cards ────────────────────────────────────────
-  const moves = withBoth.map(d=>({d, pct:(d.W17-d.W16)/d.W16*100, abs:d.W17-d.W16}));
+  const moves = withBoth.map(d=>({d, pct:(d.W18-d.W17)/d.W17*100, abs:d.W18-d.W17}));
   let insHtml='';
   if(allMoves.length){
     const rise=allMoves.reduce((a,b)=>b.pct>a.pct?b:a);
@@ -1768,14 +1771,14 @@ function offRenderEvolution(){
     insHtml+=`<div class="on-insight-card insight-rising"><div class="on-insight-lbl">🔺 Biggest Increase</div><div class="on-insight-model">${rise.d.model}</div><div class="on-insight-meta">${rise.d.brand} · ${rise.d.memory}</div><div class="on-insight-val red">+${rise.pct.toFixed(1)}% (${offFmt(rise.abs)})</div></div>`;
     insHtml+=`<div class="on-insight-card insight-falling"><div class="on-insight-lbl">🔻 Biggest Drop</div><div class="on-insight-model">${drop.d.model}</div><div class="on-insight-meta">${drop.d.brand} · ${drop.d.memory}</div><div class="on-insight-val green">${drop.pct.toFixed(1)}% (${offFmt(drop.abs)})</div></div>`;
     insHtml+=`<div class="on-insight-card"><div class="on-insight-lbl">📊 Movement</div><div style="display:flex;gap:16px;margin-top:10px;align-items:baseline"><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#ef4444">${nUp}</div><div style="font-size:10px;color:var(--muted);margin-top:2px">increased</div></div><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#22c55e">${nDn}</div><div style="font-size:10px;color:var(--muted);margin-top:2px">decreased</div></div><div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#9ca3af">${nFl}</div><div style="font-size:10px;color:var(--muted);margin-top:2px">stable</div></div></div></div>`;
-    insHtml+=`<div class="on-insight-card insight-leader"><div class="on-insight-lbl">📋 Coverage</div><div class="on-insight-model">${comparable.length} compared</div><div class="on-insight-meta">${w12Only.length} new W16 · ${w11Only.length} W15 only</div><div class="on-insight-val blue">${allW12.length} total W17</div></div>`;
+    insHtml+=`<div class="on-insight-card insight-leader"><div class="on-insight-lbl">📋 Coverage</div><div class="on-insight-model">${comparable.length} compared</div><div class="on-insight-meta">${w12Only.length} new W18 · ${w11Only.length} W17 only</div><div class="on-insight-val blue">${allW12.length} total W18</div></div>`;
   } else {
     insHtml='<div style="grid-column:1/-1;color:var(--muted);font-size:13px;padding:12px 0">No comparable SKUs for selected filters.</div>';
   }
   $('off-evo-insights').innerHTML=insHtml;
 
   // ── % variation bar chart ─────────────────────────────
-  $('off-evo-chart-title').textContent=`Price Variation W16 → W17 · ${comparable.length} SKUs`;
+  $('off-evo-chart-title').textContent=`Price Variation W17 → W18 · ${comparable.length} SKUs`;
   const sorted=[...moves].filter(m=>Math.abs(m.pct)>0.2).sort((a,b)=>b.pct-a.pct);
   const maxAbs=Math.max(...sorted.map(m=>Math.abs(m.pct)),1);
   let chartHtml='<div style="display:flex;flex-direction:column;gap:7px;margin-top:8px">';
@@ -1795,7 +1798,7 @@ function offRenderEvolution(){
       </div>
       <div style="font-size:12px;font-weight:700;color:${barColor};font-family:'JetBrains Mono',monospace;white-space:nowrap">
         ${sign}${pct.toFixed(1)}%
-        <span style="color:#6b7280;font-weight:500;font-size:11px">${offFmt(d.W16)} → ${offFmt(d.W17)}</span>
+        <span style="color:#6b7280;font-weight:500;font-size:11px">${offFmt(d.W17)} → ${offFmt(d.W18)}</span>
         <span style="color:#9ca3af;font-size:11px;font-weight:400">(${sign}${offFmt(abs)})</span>
       </div>
     </div>`;
@@ -1857,7 +1860,7 @@ function offRenderEvolution(){
 function specPriceCell(items){
   let html = '<div class="spec-prices">';
   items.forEach(({cfg, W10, W11}) => {
-    // W10 = W16 price (previous), W11 = W17 price (current)
+    // W10 = W17 price (previous), W11 = W18 price (current)
     const fmt = v => v ? `R$\u202f${Number(v).toLocaleString('pt-BR')}` : null;
     const w13s = fmt(W10), w14s = fmt(W11);
 
@@ -1907,20 +1910,20 @@ const SPECS = {
       { label:'iPhone 17 Pro',    cls:'col-apple' },
     ],
     priceRaw: [
-      {col:'Galaxy S26 Ultra',  W10:null,  W11:null},
-      {col:'Galaxy S25 Ultra',  W10:null,  W11:null},
-      {col:'iPhone 17 Pro Max', W10:null,  W11:null},
-      {col:'iPhone 16 Pro Max', W10:null,  W11:null},
-      {col:'iPhone 17 Pro',     W10:null, W11:null},
+      {col:'Galaxy S26 Ultra',  W10:10997.67,  W11:10997.67},
+      {col:'Galaxy S25 Ultra',  W10:7413.5,  W11:7413.5},
+      {col:'iPhone 17 Pro Max', W10:12371.25, W11:12371.25},
+      {col:'iPhone 16 Pro Max', W10:12499, W11:12499},
+      {col:'iPhone 17 Pro', W10:11132.33, W11:11132.33},
     ],
     rows: {
       '📅 Launch':   ['Feb\'26','Jan\'25','Sep\'25','Sep\'24','Sep\'25'],
       '💰 Price': [
-        specPriceCell([{cfg:'256GB',W10:null,W11:null}]),
-        specPriceCell([{cfg:'256GB',W10:null,W11:null}]),
-        specPriceCell([{cfg:'256GB',W10:null,W11:null}]),
-        specPriceCell([{cfg:'256GB',W10:null,W11:null}]),
-        specPriceCell([{cfg:'256GB',W10:null,W11:null},{cfg:'512GB',W10:null,W11:null}]),
+        specPriceCell([{cfg:'256GB',W10:10998,W11:10998}]),
+        specPriceCell([{cfg:'256GB',W10:7414,W11:7414}]),
+        specPriceCell([{cfg:'256GB',W10:12371,W11:12371}]),
+        specPriceCell([{cfg:'256GB',W10:12499,W11:12499}]),
+        specPriceCell([{cfg:'256GB',W10:11132,W11:11132},{cfg:'512GB',W10:null,W11:null}]),
       ],
       '🤳 Selfie':   ['12 MP','12 MP','18 MP','12 MP','18 MP'],
       '📷 Camera':   ['200 OIS(W)/50(UW)/10(3X) MP','200 OIS(W)/50(UW)/10(3X) MP','48 OIS(W)+48(UW)/48(4x) MP','48 OIS(W)+48(UW)/12(5x) MP','48 OIS(W)+48(UW)/48(4x) MP'],
@@ -1942,21 +1945,21 @@ const SPECS = {
       { label:'iPhone Air',      cls:'col-apple'   },
     ],
     priceRaw: [
-      {col:'Galaxy S26 Plus', W10:null, W11:null},
-      {col:'Galaxy S25 Plus', W10:null, W11:null},
-      {col:'Galaxy S26',      W10:null, W11:null},
-      {col:'Galaxy S25',      W10:null, W11:null},
-      {col:'iPhone 17',       W10:null, W11:null},
-      {col:'iPhone Air',      W10:null, W11:null},
+      {col:'Galaxy S26 Plus', W10:9146.5, W11:9146.5},
+      {col:'Galaxy S25 Plus', W10:4849, W11:4849},
+      {col:'Galaxy S26', W10:7086.5, W11:7086.5},
+      {col:'Galaxy S25', W10:4332.25, W11:4332.25},
+      {col:'iPhone 17', W10:7370.5, W11:7370.5},
+      {col:'iPhone Air', W10:8017.5, W11:8017.5},
     ],
     rows: {
       '📅 Launch':   ['Feb\'26','Feb\'26','Feb\'26','Jan\'25','Sep\'25','Sep\'25'],
       '💰 Price': [
-        specPriceCell([{cfg:'256GB',W10:null,W11:null}]),
-        specPriceCell([{cfg:'256GB',W10:null,W11:null}]),
-        specPriceCell([{cfg:'256GB',W10:null,W11:null}]),
-        specPriceCell([{cfg:'256GB',W10:null,W11:null}]),
-        specPriceCell([{cfg:'256GB',W10:null,W11:null},{cfg:'512GB',W10:null,W11:null}]),
+        specPriceCell([{cfg:'256GB',W10:10998,W11:10998}]),
+        specPriceCell([{cfg:'256GB',W10:7414,W11:7414}]),
+        specPriceCell([{cfg:'256GB',W10:12371,W11:12371}]),
+        specPriceCell([{cfg:'256GB',W10:12499,W11:12499}]),
+        specPriceCell([{cfg:'256GB',W10:11132,W11:11132},{cfg:'512GB',W10:null,W11:null}]),
         specPriceCell([{cfg:'256GB',W10:null,W11:null}]),
       ],
       '🤳 Selfie':   ['12 MP','12 MP','12 MP','12 MP','18 MP','18 MP'],
@@ -1976,18 +1979,18 @@ const SPECS = {
       { label:'Moto Edge 70',   cls:'col-moto'    },
     ],
     priceRaw: [
-      {col:'JOVI V70',      W10:3299, W11:3299},
-      {col:'Galaxy S25 FE', W10:null, W11:3332},
-      {col:'Oppo Reno 14F', W10:3699, W11:3299},
-      {col:'Moto Edge 70',  W10:4499, W11:3999},
+      {col:'JOVI V70', W10:3299, W11:3299},
+      {col:'Galaxy S25 FE', W10:3332, W11:3332},
+      {col:'Oppo Reno 14F', W10:3299, W11:3699},
+      {col:'Moto Edge 70', W10:3999, W11:3999},
     ],
     rows: {
       '📅 Launch':   ['Mar\'26','Sep\'25','Sep\'25','Mar\'26'],
       '💰 Price': [
         specPriceCell([{cfg:'8GB+256GB',W10:3299,W11:3299},{cfg:'8GB+512GB',W10:3799,W11:3799}]),
-        specPriceCell([{cfg:'8GB+128GB',W10:null,W11:3332}]),
-        specPriceCell([{cfg:'12GB+256GB',W10:3699,W11:3299}]),
-        specPriceCell([{cfg:'8GB+256GB',W10:4499,W11:3999},{cfg:'12GB+512GB',W10:4999,W11:4999}]),
+        specPriceCell([{cfg:'8GB+128GB',W10:3332,W11:3332}]),
+        specPriceCell([{cfg:'12GB+256GB',W10:3299,W11:3699}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:3999,W11:3999},{cfg:'12GB+512GB',W10:4999,W11:4999}]),
       ],
       '🧠 Memory':   ['8+256GB / 8+512GB','8+256GB','12+256GB','8+256GB / 12+512GB'],
       '🤳 Selfie':   ['32MP – Aura Light','12 MP','32 MP','50 MP'],
@@ -2012,21 +2015,21 @@ const SPECS = {
     ],
     priceRaw: [
       {col:'JOVI Y31 256GB', W10:1999, W11:1999},
-      {col:'JOVI Y31 512GB', W10:2799,  W11:null},
-      {col:'Galaxy A36',  W10:2099, W11:1899},
+      {col:'JOVI Y31 512GB', W10:null, W11:null},
+      {col:'Galaxy A36', W10:1899, W11:1888},
       {col:'Galaxy A27',  W10:null,  W11:null},
-      {col:'Oppo A5 5G',  W10:1999, W11:1899},
-      {col:'Oppo A6s',    W10:null,  W11:null},
+      {col:'Oppo A5 5G', W10:1899, W11:1899},
+      {col:'Oppo A6s', W10:null, W11:null},
       {col:'Moto G77 5G', W10:2299, W11:2299},
-      {col:'Moto G86',    W10:2499, W11:2599},
+      {col:'Moto G86', W10:2599, W11:2599},
     ],
     rows: {
       '📅 Launch':   ['Feb\'26','Mar\'25','Mar\'26 (TBC)','May\'25','Apr\'26 (TBC)','Mar\'26','Sep\'25'],
       '💰 Price': [
-        specPriceCell([{cfg:'8GB+256GB',W10:2099,W11:1999},{cfg:'8GB+512GB',W10:2799,W11:2799}]),
-        specPriceCell([{cfg:'8GB+256GB',W10:2099,W11:2099}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:1999,W11:1999},{cfg:'8GB+512GB',W10:null,W11:null}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:1899,W11:1888}]),
         specPriceCell([{cfg:'TBC',W10:null,W11:null}]),
-        specPriceCell([{cfg:'8GB+256GB',W10:1999,W11:1899}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:1899,W11:1899}]),
         specPriceCell([{cfg:'8GB+256GB',W10:null,W11:null}]),
         specPriceCell([{cfg:'8GB+256GB',W10:2299,W11:2299}]),
         specPriceCell([{cfg:'8GB+512GB',W10:2499,W11:2599}]),
@@ -2050,18 +2053,18 @@ const SPECS = {
       { label:'Moto G67 5G', cls:'col-moto'    },
     ],
     priceRaw: [
-      {col:'JOVI Y29s',    W10:1699, W11:1699},
-      {col:'Galaxy A36',  W10:2099, W11:1899},
-      {col:'Oppo A5 5G',  W10:1999, W11:1899},
+      {col:'JOVI Y29s', W10:1699, W11:1699},
+      {col:'Galaxy A36', W10:1899, W11:1888},
+      {col:'Oppo A5 5G', W10:1899, W11:1899},
       {col:'Moto G67 5G', W10:1899, W11:1899},
     ],
     rows: {
       '📅 Launch':   ['Aug\'25','Mar\'25','May\'25','Mar\'26'],
       '💰 Price': [
         specPriceCell([{cfg:'8GB+256GB',W10:1699,W11:1699}]),
-        specPriceCell([{cfg:'8GB+256GB',W10:2099,W11:1899}]),
-        specPriceCell([{cfg:'8GB+256GB',W10:1999,W11:1899}]),
-        specPriceCell([{cfg:'4GB+256GB',W10:1899,W11:1899}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:1899,W11:1888}]),
+        specPriceCell([{cfg:'8GB+256GB',W10:1899,W11:1899}]),
+        specPriceCell([{cfg:'4GB+256GB',W10:1899,W11:null}]),
       ],
       '🧠 Memory':   ['8+256GB','8+256GB','8+256GB','4+256GB'],
       '🤳 Selfie':   ['8 MP','13 MP','8 MP','32 MP'],
@@ -2082,10 +2085,10 @@ const SPECS = {
       { label:'MOTO G56 5G', cls:'col-moto'    },
     ],
     priceRaw: [
-      {col:'JOVI Y29',      W10:1599, W11:1599},
+      {col:'JOVI Y29', W10:1599, W11:1599},
       {col:'Galaxy A26', W10:1999, W11:1999},
-      {col:'OPPO A60',      W10:1699, W11:1699},
-      {col:'MOTO G56 5G',   W10:1899, W11:1899},
+      {col:'OPPO A60', W10:1699, W11:1699},
+      {col:'MOTO G56 5G', W10:1899, W11:1899},
     ],
     rows: {
       '📅 Launch':   ['Jun\'25','Mar\'25','Mar\'25','Aug\'25'],
@@ -2115,20 +2118,20 @@ const SPECS = {
       { label:'Moto G67 5G',   cls:'col-moto'    },
     ],
     priceRaw: [
-      {col:'JOVI Y21 5G',   W10:1899, W11:1899},
-      {col:'Galaxy A17 5G 128GB', W10:1299, W11:1332},
+      {col:'JOVI Y21 5G', W10:1899, W11:null},
+      {col:'Galaxy A17 5G 128GB', W10:1332, W11:1332},
       {col:'Galaxy A17 5G 256GB', W10:1599, W11:1599},
-      {col:'Oppo A6x 5G',   W10:null, W11:null},
+      {col:'Oppo A6x 5G', W10:null, W11:null},
       {col:'Moto G67 5G',   W10:1899, W11:1899},
     ],
     rows: {
       '📅 Launch':   ['Apr\'26','Oct\'25','Oct\'25','Mar\'26','Mar\'26'],
       '💰 Price': [
-        specPriceCell([{cfg:'4GB+256GB',W10:1899,W11:1899}]),
+        specPriceCell([{cfg:'4GB+256GB',W10:1899,W11:null}]),
         specPriceCell([{cfg:'8GB+128GB',W10:1299,W11:1332}]),
         specPriceCell([{cfg:'8GB+256GB',W10:1599,W11:1599}]),
         specPriceCell([{cfg:'4GB+256GB',W10:null,W11:null}]),
-        specPriceCell([{cfg:'4GB+256GB',W10:1899,W11:1899}]),
+        specPriceCell([{cfg:'4GB+256GB',W10:1899,W11:null}]),
       ],
       '🧠 Memory':   ['4+256GB','8+128GB','8+256GB','4+256GB','4+256GB'],
       '🤳 Selfie':   ['5 MP','13 MP','13 MP','5 MP','32 MP'],
@@ -2150,17 +2153,17 @@ const SPECS = {
     ],
     priceRaw: [
       {col:'JOVI Y21 4G', W10:1499, W11:1499},
-      {col:'Galaxy A17 4G',  W10:1399, W11:1299},
-      {col:'OPPO A5 4G',  W10:1499, W11:1499},
-      {col:'Moto G17 4G', W10:1499, W11:1099},
+      {col:'Galaxy A17 4G', W10:1299, W11:1299},
+      {col:'OPPO A5 4G', W10:1499, W11:1499},
+      {col:'Moto G17 4G', W10:1099, W11:1199},
     ],
     rows: {
       '📅 Launch':   ['Mar\'26','Sep\'25','Apr\'26','Feb\'26'],
       '💰 Price': [
         specPriceCell([{cfg:'4GB+128GB',W10:null,W11:null},{cfg:'4GB+256GB',W10:1499,W11:1499}]),
-        specPriceCell([{cfg:'4GB+128GB',W10:1399,W11:1299}]),
+        specPriceCell([{cfg:'4GB+128GB',W10:1299,W11:1299}]),
         specPriceCell([{cfg:'6GB+256GB',W10:1499,W11:1499}]),
-        specPriceCell([{cfg:'4GB+128GB',W10:1099,W11:1099},{cfg:'4GB+256GB',W10:1499,W11:1499}]),
+        specPriceCell([{cfg:'4GB+128GB',W10:1099,W11:1099},{cfg:'4GB+256GB',W10:1099,W11:1199}]),
       ],
       '🧠 Memory':   ['4+128GB / 4+256GB','8+256GB','6+256GB','4+128GB / 4+256GB'],
       '🤳 Selfie':   ['5 MP','13 MP','8 MP','32 MP'],
@@ -2183,22 +2186,22 @@ const SPECS = {
       { label:'MOTO G35 5G',  cls:'col-moto'    },
     ],
     priceRaw: [
-      {col:'JOVI Y19s',    W10:1299, W11:1299},
-      {col:'Galaxy A17 4G', W10:1399, W11:1299},
-      {col:'A6x 4G',       W10:1199, W11:1199},
+      {col:'JOVI Y19s', W10:1299, W11:1299},
+      {col:'Galaxy A17 4G', W10:1299, W11:1299},
+      {col:'A6x 4G', W10:1199, W11:1199},
       {col:'OPPO A5 4G',   W10:1499, W11:1499},
-      {col:'Moto G17 4G',  W10:1099, W11:1099},
+      {col:'Moto G17 4G', W10:1099, W11:1099},
       {col:'MOTO G35 5G',  W10:1499, W11:1499},
     ],
     rows: {
       '📅 Launch':   ['Jul\'25','Oct\'25','Apr\'26','May\'25','Feb\'26','Oct\'24'],
       '💰 Price': [
         specPriceCell([{cfg:'4GB+256GB',W10:1299,W11:1299}]),
-        specPriceCell([{cfg:'4GB+128GB',W10:1399,W11:1299}]),
+        specPriceCell([{cfg:'4GB+128GB',W10:1299,W11:1299}]),
         specPriceCell([{cfg:'4GB+128GB',W10:1199,W11:1199}]),
         specPriceCell([{cfg:'6GB+256GB',W10:1499,W11:1499}]),
         specPriceCell([{cfg:'4GB+128GB',W10:1099,W11:1099}]),
-        specPriceCell([{cfg:'4GB+256GB',W10:1499,W11:1099}]),
+        specPriceCell([{cfg:'4GB+256GB',W10:1499,W11:1499}]),
       ],
       '🧠 Memory':   ['4+256GB','8+256GB','4+128GB / 4+256GB','6+256GB','4+128GB / 4+256GB','4+256GB'],
       '🤳 Selfie':   ['5 MP','13 MP','5 MP','5 MP','32 MP','16 MP'],
@@ -2277,7 +2280,7 @@ function specsRender(){
   let chartHtml = '';
   if(items.length){
     const mx = Math.max(...items.map(m=>Math.abs(m.pct)),1);
-    chartHtml = `<div class="off-specs-group-title" style="margin-top:20px">📈 Price Variation W16 → W17</div><div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">`;
+    chartHtml = `<div class="off-specs-group-title" style="margin-top:20px">📈 Price Variation W17 → W18</div><div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">`;
     items.forEach(({col,W10,W11,pct})=>{
       const pos=pct>0.1,neg=pct<-0.1,bc=pos?'#ef4444':neg?'#22c55e':'#9ca3af',sg=pos?'+':'';
       const bw=Math.abs(pct)/mx*45;
@@ -2409,10 +2412,10 @@ function sheetOfflinePrices() {
 
   let r = 1;
   xlRowH(ws, r, 6); r++;
-  xlSet(ws, r, 2, xlT('Offline Price Monitoring · Casas Bahia · W16 (04/20/2026) & W17 (04/27/2026)'));
+  xlSet(ws, r, 2, xlT('Offline Price Monitoring · Casas Bahia · W17 (04/27/2026) & W18 (05/04/2026)'));
   xlMerge(ws, r, 2, r, 8); xlRowH(ws, r, 22); r++;
   xlRowH(ws, r, 6); r++;
-  xlRow(ws, r, ['Brand','Model','Memory','W16','W17','Δ (R$)','Δ (%)'].map(xlH), 2);
+  xlRow(ws, r, ['Brand','Model','Memory','W17','W18','Δ (R$)','Δ (%)'].map(xlH), 2);
   xlRowH(ws, r, 28); r++;
 
   TIERS.forEach(tier => {
@@ -2423,7 +2426,7 @@ function sheetOfflinePrices() {
 
     let prevBrand = null;
     rows.forEach(d => {
-      const {brand, model, memory, W16: W10, W17: W11} = d;
+      const {brand, model, memory, W17: W10, W18: W11} = d;
       const diff = (W10!=null && W11!=null) ? W11-W10 : null;
       const pct  = diff!=null && W10 ? diff/W10 : null;
       const {bg, dc} = diffStyle(diff);
@@ -2453,22 +2456,22 @@ function sheetOfflineEvolution() {
   ws['!cols'] = [{wch:2},{wch:14},{wch:30},{wch:12},{wch:16},{wch:13},{wch:13},{wch:14},{wch:12},{wch:14}];
   const BRANDS = ['JOVI','Apple','Samsung','OPPO','Motorola'];
   const filtered = offData.filter(d => offActiveBrands.has(d.brand) && offActiveTiers.has(d.tier));
-  const comparable2 = filtered.filter(d => d.W16!=null && d.W17!=null);
+  const comparable2 = filtered.filter(d => d.W17!=null && d.W18!=null);
 
   let r = 1;
   xlRowH(ws, r, 6); r++;
-  xlSet(ws, r, 2, xlT('Offline Price Evolution · W16 (04/20) → W17 (04/27/2026) · Casas Bahia'));
+  xlSet(ws, r, 2, xlT('Offline Price Evolution · W17 (04/27) → W18 (05/04/2026) · Casas Bahia'));
   xlMerge(ws, r, 2, r, 10); xlRowH(ws, r, 22); r++;
   xlRowH(ws, r, 6); r++;
-  xlRow(ws, r, ['Brand','Model','Memory','Tier','W16','W17','Δ (R$)','Δ (%)','Direction'].map(xlH), 2);
+  xlRow(ws, r, ['Brand','Model','Memory','Tier','W17','W18','Δ (R$)','Δ (%)','Direction'].map(xlH), 2);
   xlRowH(ws, r, 28); r++;
 
   let prevBrand = null;
   BRANDS.forEach(brand => {
-    const rows = comparable2.filter(d => d.brand===brand).sort((a,b) => b.W17 - a.W17);
+    const rows = comparable2.filter(d => d.brand===brand).sort((a,b) => b.W18 - a.W18);
     if (!rows.length) return;
     rows.forEach(d => {
-      const diff = d.W17 - d.W16, pct = diff/d.W16;
+      const diff = d.W18 - d.W17, pct = diff/d.W17;
       const {bg, dc} = diffStyle(diff);
       const dir = diff>0 ? '▲ Increase' : diff<0 ? '▼ Decrease' : '→ Stable';
       xlRow(ws, r, [
@@ -2477,7 +2480,7 @@ function sheetOfflineEvolution() {
         xlC(d.memory, bg),
         xlC(d.tier,   bg, XL_MUTED),
         xlN(d.W16, bg),
-        xlN(d.W17, bg, XL_COL_TEXT, true),
+        xlN(d.W18, bg, XL_COL_TEXT, true),
         xlN(diff, bg, dc, true),
         xlP(pct,  bg, dc),
         xlC(dir,  bg, dc, true),
@@ -2526,7 +2529,7 @@ function sheetOnlineEvolution() {
         xlN(d.W14, bg),
         xlN(d.W15, bg),
         xlN(d.W16, bg),
-        xlN(d.W17, bg, XL_COL_TEXT, true),
+        xlN(d.W18, bg, XL_COL_TEXT, true),
         diff!=null ? xlN(diff, bg, dc, true) : xlC('', bg),
         pct!=null  ? xlP(pct,  bg, dc)       : xlC('', bg),
       ], 2);
@@ -2613,7 +2616,7 @@ function exportOffline() {
     XLSX.utils.book_append_sheet(wb, sheetOfflinePrices(), 'Prices');
     XLSX.writeFile(wb, `offline_prices_${xlToday()}.xlsx`, {bookType:'xlsx',cellStyles:true});
   } else if (activeTab === 'evolution') {
-    XLSX.utils.book_append_sheet(wb, sheetOfflineEvolution(), 'W16→W17 Evolution');
+    XLSX.utils.book_append_sheet(wb, sheetOfflineEvolution(), 'W17→W18 Evolution');
     XLSX.writeFile(wb, `offline_evolution_${xlToday()}.xlsx`, {bookType:'xlsx',cellStyles:true});
   } else if (activeTab === 'specs') {
     const tbl = document.querySelector('#specs-content table');
